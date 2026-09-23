@@ -9,6 +9,7 @@ output.mkdir(exist_ok=True)
 base_url = os.environ.get("BASE_URL", "http://127.0.0.1:4173/")
 test_username = os.environ.get("TEST_USERNAME")
 test_password = os.environ.get("TEST_PASSWORD")
+test_display_name = os.environ.get("TEST_DISPLAY_NAME", "Maria")
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True)
@@ -28,10 +29,14 @@ with sync_playwright() as playwright:
     else:
         raise AssertionError("Provide TEST_USERNAME and TEST_PASSWORD for a Supabase-enabled deployment")
     page.wait_for_url("**/#/app")
-    page.locator("h1", has_text="Maria.").wait_for()
+    page.locator("h1", has_text=f"{test_display_name}.").wait_for()
     page.get_by_role("link", name="Ver jornada").click()
     page.get_by_role("heading", name="Sua jornada").wait_for()
-    page.get_by_role("link", name="Hello!, current").click()
+    page.locator(".path-node a").first.click()
+    page.wait_for_timeout(2500)
+    if not page.locator("h1", has_text="Hello!").count():
+        page.screenshot(path=str(output / "lesson-error.png"), full_page=True)
+        raise AssertionError(f"Lesson did not open. Body: {page.locator('body').inner_text()[:2000]}; console: {console_errors}")
     page.locator("h1", has_text="Hello!").wait_for()
     page.screenshot(path=str(output / "lesson-desktop.png"), full_page=True)
 

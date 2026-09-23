@@ -104,8 +104,12 @@ export async function getLesson(lessonId: number): Promise<LessonDetail> {
     xpReward: Number(row.xp_reward),
     isCheckpoint: Boolean(row.is_checkpoint),
     blocks: rawBlocks.map((block) => {
-      const exercises = block.exercises as Array<Record<string, unknown>>
-      const exercise = exercises[0]
+      const relatedExercise = block.exercises
+      const exercise = Array.isArray(relatedExercise)
+        ? relatedExercise[0] as Record<string, unknown> | undefined
+        : relatedExercise && typeof relatedExercise === 'object'
+          ? relatedExercise as Record<string, unknown>
+          : undefined
       return {
         id: Number(block.id),
         type: String(block.block_type) as LessonDetail['blocks'][number]['type'],
