@@ -14,6 +14,7 @@ test_display_name = os.environ.get("TEST_DISPLAY_NAME", "Maria")
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True)
     page = browser.new_page(viewport={"width": 1440, "height": 1000})
+    page.set_default_timeout(10000)
     console_errors: list[str] = []
     page.on("console", lambda message: console_errors.append(message.text) if message.type == "error" else None)
 
@@ -38,12 +39,41 @@ with sync_playwright() as playwright:
         page.screenshot(path=str(output / "lesson-error.png"), full_page=True)
         raise AssertionError(f"Lesson did not open. Body: {page.locator('body').inner_text()[:2000]}; console: {console_errors}")
     page.locator("h1", has_text="Hello!").wait_for()
+    page.get_by_role("navigation", name="Navegar entre lições").wait_for()
+    page.get_by_role("navigation", name="Navegar pelo conteúdo da lição").wait_for()
+    assert page.get_by_text("1 / 12", exact=True).count() == 1
+    page.get_by_role("button", name="Próximo", exact=True).click()
+    page.get_by_text("2 / 12", exact=True).wait_for()
+    page.get_by_role("button", name="Próxima lição").click()
+    page.get_by_role("heading", name="Me and My Family").wait_for()
+    page.get_by_role("heading", name="Conteúdo em preparação").wait_for()
+    assert page.get_by_role("heading", name="Terminou por hoje?").count() == 0
+    page.get_by_role("button", name="Lição anterior").click()
+    page.locator("h1", has_text="Hello!").wait_for()
     page.screenshot(path=str(output / "lesson-desktop.png"), full_page=True)
+    page.get_by_role("link", name="Admin", exact=True).click()
+    page.get_by_role("heading", name="Áudio das lições").wait_for()
+    page.get_by_role("button", name="Tentar novamente").wait_for()
+    page.screenshot(path=str(output / "admin-audio-desktop.png"), full_page=True)
 
     mobile = browser.new_page(viewport={"width": 390, "height": 844})
+    mobile.set_default_timeout(10000)
     mobile.goto(base_url)
     mobile.wait_for_load_state("networkidle")
     mobile.screenshot(path=str(output / "login-mobile.png"), full_page=True)
+    if mobile.locator(".demo-entry button").count():
+        mobile.locator(".demo-entry button").click()
+    elif test_username and test_password:
+        mobile.locator("#username").fill(test_username)
+        mobile.locator("#password").fill(test_password)
+        mobile.get_by_role("button", name="Entrar", exact=True).click()
+    mobile.wait_for_url("**/#/app")
+    mobile.get_by_role("link", name="Ver jornada").click()
+    mobile.locator(".path-node a").first.click()
+    mobile.locator("h1", has_text="Hello!").wait_for()
+    mobile.get_by_role("navigation", name="Navegar pelo conteúdo da lição").wait_for()
+    assert mobile.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth")
+    mobile.screenshot(path=str(output / "lesson-mobile.png"), full_page=True)
 
     if console_errors:
         raise AssertionError(f"Browser console errors: {console_errors}")

@@ -131,11 +131,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .path-node--current .path-node__icon { background: var(--signal); }
 .path-node--locked { opacity: .62; }
 
-.back-link { display: inline-flex; align-items: center; gap: .4rem; margin-bottom: 1.5rem; color: var(--blue); font-weight: 700; text-decoration: none; }
+.lesson-topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.back-link { display: inline-flex; align-items: center; gap: .4rem; color: var(--blue); font-weight: 700; text-decoration: none; }
 .back-link svg { width: 1rem; }
+.lesson-switcher { display: flex; align-items: center; gap: .65rem; color: var(--navy); font-weight: 700; }
+.lesson-switcher button { display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; color: var(--blue); background: var(--paper); border: 1px solid var(--line); border-radius: .7rem; cursor: pointer; }
+.lesson-switcher button:disabled { color: #a7b4c4; cursor: not-allowed; }
+.lesson-switcher svg { width: 1.1rem; }
 .xp-badge { display: inline-flex; align-items: center; gap: .4rem; padding: .7rem 1rem; color: #7a3a11; background: #ffdfb7; border-radius: 3rem; font-weight: 700; white-space: nowrap; }
 .xp-badge svg { width: 1rem; }
 .lesson-stream { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.lesson-stream--paged { min-height: 19rem; }
+.lesson-stream--paged .lesson-block { align-self: start; }
 .lesson-block { box-shadow: none; }
 .lesson-block h2 { margin: .35rem 0; color: var(--navy); font: 650 1.55rem 'Familjen Grotesk', sans-serif; }
 .lesson-block p { margin: .5rem 0; color: var(--muted); }
@@ -155,6 +162,23 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .feedback--incorrect { color: #9c2f22; background: #ffebe8; }
 .feedback svg { width: 1rem; }
 .lesson-finish { margin-top: 1.5rem; text-align: center; }
+.lesson-finish small { display: block; margin-top: .7rem; color: var(--muted); }
+.lesson-stepper { position: sticky; bottom: 1rem; z-index: 5; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; max-width: 40rem; margin: 1.5rem auto 0; padding: .55rem; background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: .9rem; box-shadow: var(--shadow); }
+.lesson-stepper button { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; min-height: 3rem; padding: .55rem .8rem; color: var(--blue); background: transparent; border: 0; border-radius: .6rem; font-weight: 700; cursor: pointer; }
+.lesson-stepper button:last-child { justify-self: end; }
+.lesson-stepper button:disabled { color: #a7b4c4; cursor: not-allowed; }
+.lesson-stepper svg { width: 1.05rem; }
+.lesson-stepper > span { color: var(--muted); font: 600 .75rem 'IBM Plex Mono', monospace; white-space: nowrap; }
+.lesson-audio { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-top: 1rem; }
+.audio-button { display: inline-flex; align-items: center; gap: .45rem; min-height: 3rem; padding: .55rem .85rem; color: var(--navy); background: var(--paper); border: 1px solid var(--line); border-radius: .65rem; font-weight: 700; cursor: pointer; }
+.audio-button[aria-pressed="true"] { color: #fff; background: var(--blue); border-color: var(--blue); }
+.audio-button:disabled { opacity: .6; cursor: wait; }
+.audio-button svg { width: 1rem; }
+.speaking-card .audio-button { color: var(--navy); }
+.audio-unavailable { margin-top: 1rem !important; font-size: .9rem; font-style: italic; }
+.audio-error { flex-basis: 100%; color: #9c2f22; font-size: .9rem; }
+.audio-error button { padding: 0; color: inherit; background: transparent; border: 0; text-decoration: underline; cursor: pointer; }
+.is-spinning { animation: spin .7s linear infinite; }
 
 .profile-card { display: grid; grid-template-columns: auto 1fr; gap: 1rem 1.4rem; max-width: 40rem; }
 .profile-monogram, .student-row__avatar { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; color: white; background: var(--blue); border-radius: .75rem; font-weight: 700; }
@@ -174,6 +198,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin: 1.5rem 0; }
 .metric-grid span { display: grid; gap: .2rem; padding: .8rem; background: #f5f8fc; border-radius: .6rem; }.metric-grid svg { width: 1rem; color: var(--blue); }
 .admin-note { padding: 1rem; color: var(--muted); background: #fff7ed; border-radius: .65rem; }
+.admin-audio { margin-top: 2rem; padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: .9rem; }
+.admin-audio__heading { display: flex; justify-content: space-between; gap: 1rem; }
+.admin-audio__heading h2 { margin: .35rem 0; color: var(--navy); font: 650 1.6rem 'Familjen Grotesk', sans-serif; }
+.admin-audio__heading p { margin: 0; color: var(--muted); }
+.admin-audio__heading > svg { flex: 0 0 auto; width: 1.5rem; color: var(--blue); }
+.audio-lesson-list { display: grid; margin-top: 1.25rem; }
+.audio-lesson-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 1px solid rgba(19,36,58,.1); }
+.audio-lesson-row > div { min-width: 0; }
+.audio-lesson-row small { display: flex; flex-wrap: wrap; gap: .35rem 1rem; margin-top: .35rem; color: var(--muted); }
+.audio-lesson-row .button { flex: 0 0 auto; }
+.admin-audio__message { margin: .8rem 0 0; color: var(--muted); }
 .empty-selection { display: grid; place-items: center; min-height: 16rem; color: var(--muted); text-align: center; }.empty-selection svg { width: 2.5rem; height: 2.5rem; }
 .state { display: flex; align-items: center; justify-content: center; gap: .7rem; min-height: 12rem; color: var(--muted); }.state--page { min-height: 100vh; }
 .loader { width: 1.2rem; height: 1.2rem; border: 2px solid #c8d5e5; border-top-color: var(--blue); border-radius: 50%; animation: spin .7s linear infinite; }
@@ -193,6 +228,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .bottom-nav a { display: grid; place-items: center; gap: .15rem; padding: .35rem; color: var(--muted); font-size: .7rem; text-decoration: none; }.bottom-nav a.active { color: var(--blue); }.bottom-nav svg { width: 1.2rem; }
   .page { padding: 2rem 1rem; }
   .dashboard-heading, .lesson-hero { align-items: flex-start; }
+  .lesson-topbar { align-items: flex-start; }
+  .lesson-switcher > span { display: none; }
+  .lesson-stream--paged { min-height: 15rem; }
+  .lesson-stepper { bottom: 5.2rem; }
+  .audio-lesson-row { align-items: stretch; flex-direction: column; }
+  .audio-lesson-row .button { width: 100%; }
   .level-poster { min-width: 4.8rem; font-size: 1.8rem; }.level-poster small { margin-top: -.9rem; }
   .journey-card, .dashboard-grid, .admin-layout { grid-template-columns: 1fr; }
   .path-node { width: 100%; margin-left: 0; }

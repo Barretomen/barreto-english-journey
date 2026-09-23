@@ -2,6 +2,10 @@ import { createDemoDashboard, demoLesson, demoStudents, getDemoJourney } from '.
 import { supabase } from '../../lib/supabase/client'
 import type {
   AdminStudent,
+  AdminAudioLesson,
+  AudioGenerationSummary,
+  AudioStatus,
+  AudioVariant,
   DashboardData,
   ExerciseFeedback,
   JsonValue,
@@ -87,7 +91,7 @@ export async function getLesson(lessonId: number): Promise<LessonDetail> {
   }
   const { data, error } = await requireClient()
     .from('lessons')
-    .select(`id, lesson_number, title, summary, xp_reward, is_checkpoint, modules!inner(levels!inner(code)), lesson_blocks(id, block_type, position, title, content, exercises(id, exercise_type, prompt, instruction, content, feedback_correct, feedback_incorrect, exercise_options(id, label, value, position)))`)
+    .select(`id, lesson_number, title, summary, xp_reward, is_checkpoint, modules!inner(levels!inner(code)), lesson_blocks(id, block_type, position, title, content, audio_path, slow_audio_path, audio_status, exercises(id, exercise_type, prompt, instruction, content, feedback_correct, feedback_incorrect, exercise_options(id, label, value, position)))`)
     .eq('id', lessonId)
     .order('position', { referencedTable: 'lesson_blocks', ascending: true })
     .single()
@@ -116,6 +120,13 @@ export async function getLesson(lessonId: number): Promise<LessonDetail> {
         position: Number(block.position),
         title: block.title ? String(block.title) : null,
         content: block.content as Record<string, JsonValue>,
+        audio: {
+          normalPath: block.audio_path ? String(block.audio_path) : null,
+          slowPath: block.slow_audio_path ? String(block.slow_audio_path) : null,
+          status: ['missing', 'generating', 'ready', 'failed'].includes(String(block.audio_status))
+            ? String(block.audio_status) as AudioStatus
+            : 'missing'
+        },
         exercise: exercise
           ? {
               id: Number(exercise.id),
@@ -178,4 +189,39 @@ export async function setLessonUnlock(studentId: string, lessonId: number, unloc
     ? await client.rpc('admin_unlock_lesson', { p_student_id: studentId, p_lesson_id: lessonId })
     : await client.rpc('admin_lock_lesson', { p_student_id: studentId, p_lesson_id: lessonId })
   if (error) throw error
+}
+
+export async function getLessonAudioUrl(blockId: number, variant: AudioVariant): Promise<string> {
+  const { data, error } = await requireClient().functions.invoke('get-lesson-audio-url', {
+    body: { blockId, variant }
+  })
+  if (error) throw new Error('Não foi possível carregar o áudio.')
+  const url = (data as { url?: unknown } | null)?.url
+  if (typeof url !== 'string') throw new Error('Áudio indisponível.')
+  return url
+}
+
+export async function getAdminAudioOverview(): Promise<AdminAudioLesson[]> {
+  if (!supabase) return []
+  const { data, error } = await supabase.rpc('get_admin_audio_overview')
+  if (error) throw error
+  return (data as Array<Record<string, unknown>>).map((row) => ({
+    lessonId: Number(row.lesson_id),
+    lessonNumber: Number(row.lesson_number),
+    title: String(row.title),
+    readyCount: Number(row.ready_count),
+    missingCount: Number(row.missing_count),
+    generatingCount: Number(row.generating_count),
+    failedCount: Number(row.failed_count),
+    totalCount: Number(row.total_count)
+  }))
+}
+
+export async function generateLessonAudio(lessonId: number): Promise<AudioGenerationSummary> {
+  const { data, error } = await requireClient().functions.invoke('generate-lesson-audio', {
+    body: { lessonId }
+  })
+  if (error) throw new Error('Não foi possível gerar o áudio. Verifique a configuração do Azure.')
+  const result = data as { ready?: unknown; failed?: unknown }
+  return { ready: Number(result.ready ?? 0), failed: Number(result.failed ?? 0) }
 }

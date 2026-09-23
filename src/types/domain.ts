@@ -1,6 +1,8 @@
 export type AccountRole = 'student' | 'admin'
 export type LessonState = 'completed' | 'current' | 'available' | 'locked' | 'checkpoint'
 export type ProgressStatus = 'not_started' | 'in_progress' | 'completed'
+export type AudioStatus = 'missing' | 'generating' | 'ready' | 'failed'
+export type AudioVariant = 'normal' | 'slow'
 
 export type BlockType =
   | 'text'
@@ -75,6 +77,11 @@ export interface LessonBlock {
   position: number
   title: string | null
   content: Record<string, JsonValue>
+  audio?: {
+    normalPath: string | null
+    slowPath: string | null
+    status: AudioStatus
+  }
   exercise: Exercise | null
 }
 
@@ -112,4 +119,20 @@ export interface AdminStudent {
   xp: number
   lastActivity: string | null
   completedLessons: number
+}
+
+export interface AdminAudioLesson {
+  lessonId: number
+  lessonNumber: number
+  title: string
+  readyCount: number
+  missingCount: number
+  generatingCount: number
+  failedCount: number
+  totalCount: number
+}
+
+export interface AudioGenerationSummary {
+  ready: number
+  failed: number
 }
