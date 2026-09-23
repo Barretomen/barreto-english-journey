@@ -13,3 +13,4 @@ test-results/
 artifacts/
 .agents/
 .codex/
+supabase/.temp/
