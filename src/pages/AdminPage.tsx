@@ -56,7 +56,7 @@ export default function AdminPage() {
       <div className="audio-lesson-list">{audio.data?.filter((lesson) => lesson.totalCount > 0).map((lesson) => {
         const busy = generatingScope === `lesson-${lesson.lessonId}`
         return <article className="audio-lesson-row" key={lesson.lessonId}>
-          <div><strong>Lição {lesson.lessonNumber} — {lesson.title}</strong><small><span>✓ {lesson.readyCount} prontos</span><span>○ {lesson.missingCount} ausentes</span>{lesson.failedCount > 0 ? <span>✕ {lesson.failedCount} falharam</span> : null}{lesson.generatingCount > 0 ? <span>… {lesson.generatingCount} gerando</span> : null}</small></div>
+          <div><strong>{lesson.levelCode} · Aula {lesson.levelLessonNumber} — {lesson.title}</strong><small><span>✓ {lesson.readyCount} prontos</span><span>○ {lesson.missingCount} ausentes</span>{lesson.failedCount > 0 ? <span>✕ {lesson.failedCount} falharam</span> : null}{lesson.generatingCount > 0 ? <span>… {lesson.generatingCount} gerando</span> : null}</small></div>
           <Button variant="secondary" disabled={Boolean(generatingScope) || (lesson.readyCount === lesson.totalCount && lesson.failedCount === 0)} onClick={() => void generate({ lessonId: lesson.lessonId }, `lesson-${lesson.lessonId}`)}>{busy ? <LoaderCircle className="is-spinning" aria-hidden="true" /> : <Volume2 aria-hidden="true" />}{busy ? 'Gerando…' : lesson.failedCount > 0 ? 'Tentar novamente' : 'Gerar ausentes'}</Button>
         </article>
       })}</div>

@@ -22,6 +22,35 @@ function requireClient() {
   return supabase
 }
 
+function finiteInteger(value: unknown, field: string): number {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed) || !Number.isInteger(parsed)) {
+    throw new Error(`Dados do curso incompatíveis: ${field}.`)
+  }
+  return parsed
+}
+
+function mapCatalogRow(row: Record<string, unknown>): LessonCatalogItem {
+  return {
+    id: finiteInteger(row.id, 'id'),
+    externalId: String(row.external_id),
+    levelCode: String(row.level_code) as LessonCatalogItem['levelCode'],
+    levelPosition: finiteInteger(row.level_position, 'level_position'),
+    moduleId: finiteInteger(row.module_id, 'module_id'),
+    moduleExternalId: String(row.module_external_id),
+    moduleTitle: String(row.module_title),
+    moduleNumber: finiteInteger(row.module_number, 'module_number'),
+    levelLessonNumber: finiteInteger(row.level_lesson_number, 'level_lesson_number'),
+    moduleLessonNumber: finiteInteger(row.module_lesson_number, 'module_lesson_number'),
+    globalOrder: finiteInteger(row.global_order, 'global_order'),
+    title: String(row.title),
+    summary: String(row.summary ?? ''),
+    state: String(row.state) as LessonCatalogItem['state'],
+    isCheckpoint: Boolean(row.is_checkpoint),
+    progressPercent: finiteInteger(row.progress_percent ?? 0, 'progress_percent'),
+  }
+}
+
 function mapProfile(row: Record<string, unknown>): Profile {
   return {
     id: String(row.id),
@@ -43,25 +72,7 @@ export async function getJourney(): Promise<LessonCatalogItem[]> {
   if (!supabase) return getDemoJourney()
   const { data, error } = await supabase.rpc('get_lesson_catalog')
   if (error) throw error
-  return (data as Array<Record<string, unknown>>).map((row) => ({
-    id: Number(row.id),
-    externalId: String(row.external_id),
-    levelCode: String(row.level_code) as LessonCatalogItem['levelCode'],
-    levelPosition: Number(row.level_position),
-    moduleId: Number(row.module_id),
-    moduleExternalId: String(row.module_external_id),
-    moduleTitle: String(row.module_title),
-    modulePosition: Number(row.module_position),
-    weekNumber: row.lesson_number === null ? null : Number(row.lesson_number),
-    moduleLessonNumber: Number(row.module_lesson_number),
-    globalOrder: Number(row.global_order),
-    title: String(row.title),
-    summary: String(row.summary ?? ''),
-    state: String(row.state) as LessonCatalogItem['state'],
-    isCheckpoint: Boolean(row.is_checkpoint),
-    savedPosition: Number(row.saved_position ?? 0),
-    progressPercent: Number(row.progress_percent ?? 0)
-  }))
+  return (data as Array<Record<string, unknown>>).map(mapCatalogRow)
 }
 
 export async function getDashboard(userId: string): Promise<DashboardData> {
@@ -74,14 +85,7 @@ export async function getDashboard(userId: string): Promise<DashboardData> {
   ])
   if (catalogResult.error) throw catalogResult.error
   if (metricsResult.error) throw metricsResult.error
-  const journey = (catalogResult.data as Array<Record<string, unknown>>).map((row) => ({
-    id: Number(row.id), externalId: String(row.external_id), levelCode: String(row.level_code) as LessonCatalogItem['levelCode'],
-    levelPosition: Number(row.level_position), moduleId: Number(row.module_id), moduleExternalId: String(row.module_external_id),
-    moduleTitle: String(row.module_title), modulePosition: Number(row.module_position),
-    weekNumber: Number(row.lesson_number), moduleLessonNumber: Number(row.module_lesson_number), globalOrder: Number(row.global_order),
-    title: String(row.title), summary: String(row.summary ?? ''), state: String(row.state) as LessonCatalogItem['state'],
-    isCheckpoint: Boolean(row.is_checkpoint), progressPercent: Number(row.progress_percent ?? 0)
-  }))
+  const journey = (catalogResult.data as Array<Record<string, unknown>>).map(mapCatalogRow)
   const metrics = metricsResult.data as Record<string, unknown>
   const completedLessons = Number(metrics.completed_lessons ?? 0)
   const xp = Number(metrics.xp ?? 0)
@@ -110,9 +114,16 @@ export async function getLesson(lessonId: number): Promise<LessonDetail> {
   const row = data as unknown as Record<string, unknown>
   const rawBlocks = row.blocks as Array<Record<string, unknown>>
   return {
-    id: Number(row.id),
-    levelCode: String(row.level_code),
-    lessonNumber: Number(row.lesson_number),
+    id: finiteInteger(row.id, 'lesson.id'),
+    externalId: String(row.external_id),
+    levelCode: String(row.level_code) as LessonDetail['levelCode'],
+    levelLessonNumber: finiteInteger(row.level_lesson_number, 'lesson.level_lesson_number'),
+    moduleId: finiteInteger(row.module_id, 'lesson.module_id'),
+    moduleExternalId: String(row.module_external_id),
+    moduleTitle: String(row.module_title),
+    moduleNumber: finiteInteger(row.module_number, 'lesson.module_number'),
+    moduleLessonNumber: finiteInteger(row.module_lesson_number, 'lesson.module_lesson_number'),
+    globalOrder: finiteInteger(row.global_order, 'lesson.global_order'),
     title: String(row.title),
     summary: String(row.summary),
     xpReward: Number(row.xp_reward),
@@ -225,7 +236,8 @@ export async function getAdminAudioOverview(): Promise<AdminAudioLesson[]> {
     levelCode: String(row.level_code),
     moduleId: Number(row.module_id),
     moduleTitle: String(row.module_title),
-    lessonNumber: Number(row.lesson_number),
+    levelLessonNumber: finiteInteger(row.level_lesson_number, 'audio.level_lesson_number'),
+    moduleLessonNumber: finiteInteger(row.module_lesson_number, 'audio.module_lesson_number'),
     title: String(row.title),
     readyCount: Number(row.ready_count),
     missingCount: Number(row.missing_count),

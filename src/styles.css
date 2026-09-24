@@ -119,17 +119,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .journey-legend span { display: flex; align-items: center; gap: .4rem; }
 .journey-legend i, .journey-legend svg { width: .8rem; height: .8rem; border-radius: 50%; }
 .legend-completed { background: var(--blue); }.legend-current { background: var(--signal); }.legend-available { border: 2px solid var(--blue); }
-.learning-path { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
-.path-node { width: min(100%, 38rem); margin-left: calc((var(--path-shift) + 1) * 8%); }
-.path-node > a, .path-node > div { position: relative; display: grid; grid-template-columns: auto 1fr auto; gap: .2rem .9rem; padding: 1.15rem 1.3rem; background: white; border: 1px solid var(--line); border-radius: .85rem; text-decoration: none; }
-.path-node__icon { grid-row: 1 / 4; display: grid; place-items: center; width: 2.8rem; height: 2.8rem; color: white; background: var(--blue); border-radius: 50%; }
-.path-node__icon svg { width: 1.1rem; }
-.path-node__week { color: var(--blue); font: 600 .67rem 'IBM Plex Mono', monospace; }
-.path-node small { color: var(--muted); }
-.path-node__progress { grid-row: 1 / 4; grid-column: 3; align-self: center; font-weight: 700; }
-.path-node--current > a { border-color: var(--signal); box-shadow: 0 10px 30px rgba(255,107,53,.12); }
-.path-node--current .path-node__icon { background: var(--signal); }
-.path-node--locked { opacity: .62; }
 
 .lesson-topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
 .back-link { display: inline-flex; align-items: center; gap: .4rem; color: var(--blue); font-weight: 700; text-decoration: none; }
@@ -323,7 +312,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .audio-batch-controls .button { width: 100%; }
   .level-poster { min-width: 4.8rem; font-size: 1.8rem; }.level-poster small { margin-top: -.9rem; }
   .journey-card, .dashboard-grid, .admin-layout { grid-template-columns: 1fr; }
-  .path-node { width: 100%; margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

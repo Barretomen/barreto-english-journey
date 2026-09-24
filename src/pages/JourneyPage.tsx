@@ -26,14 +26,14 @@ export default function JourneyPage() {
   useEffect(() => {
     if (!activeLesson) return
     setSelectedLevel(activeLesson.levelCode)
-    setOpenModules({ [activeLesson.moduleExternalId ?? activeLesson.moduleTitle]: true })
+    setOpenModules({ [activeLesson.moduleExternalId]: true })
   }, [activeLesson])
 
   const levelLessons = useMemo(() => data?.filter((lesson) => lesson.levelCode === selectedLevel) ?? [], [data, selectedLevel])
   const modules = useMemo(() => {
     const grouped = new Map<string, LessonCatalogItem[]>()
     for (const lesson of levelLessons) {
-      const key = lesson.moduleExternalId ?? lesson.moduleTitle
+      const key = lesson.moduleExternalId
       grouped.set(key, [...(grouped.get(key) ?? []), lesson])
     }
     return [...grouped.entries()]
@@ -52,14 +52,15 @@ export default function JourneyPage() {
     <section className="level-summary"><div><span className="section-kicker">NÍVEL {selectedLevel}</span><h2>{levelLessons.length} lições em {modules.length} módulos</h2></div><p>{levelLessons.filter((lesson) => lesson.state === 'completed').length} concluídas</p></section>
     <div className="module-list">{modules.map(([moduleKey, lessons], moduleIndex) => {
       const completed = lessons.filter((lesson) => lesson.state === 'completed').length
-      const activeModuleKey = activeLesson?.moduleExternalId ?? activeLesson?.moduleTitle
+      const activeModuleKey = activeLesson?.moduleExternalId
       const isOpen = openModules[moduleKey] ?? (moduleKey === activeModuleKey || (!activeModuleKey && moduleIndex === 0))
       return <section className="journey-module" key={moduleKey}>
         <button className="module-toggle" type="button" aria-expanded={isOpen} onClick={() => setOpenModules((current) => ({ ...current, [moduleKey]: !isOpen }))}>
-          <span><small>MÓDULO {moduleIndex + 1}</small><strong>{lessons[0]?.moduleTitle}</strong></span><span>{completed}/{lessons.length}<ChevronDown aria-hidden="true" /></span>
+          <span><small>MÓDULO {lessons[0]?.moduleNumber}</small><strong>{lessons[0]?.moduleTitle}</strong></span><span>{completed}/{lessons.length}<ChevronDown aria-hidden="true" /></span>
         </button>
         {isOpen ? <ol className="module-lessons">{lessons.map((lesson) => {
-          const content = <><span className="lesson-row__icon"><NodeIcon lesson={lesson} /></span><span className="lesson-row__number">{lesson.moduleLessonNumber ?? lesson.weekNumber}</span><span className="lesson-row__copy"><strong>{lesson.title}</strong><small>{lesson.state === 'locked' ? 'Conclua a lição anterior para liberar' : lesson.summary}</small></span>{lesson.progressPercent > 0 ? <span className="lesson-row__progress">{lesson.progressPercent}%</span> : null}</>
+          const progressLabel = lesson.state === 'completed' ? 'Concluída' : lesson.progressPercent >= 95 ? 'Pronta para concluir' : lesson.progressPercent > 0 ? 'Em andamento' : ''
+          const content = <><span className="lesson-row__icon"><NodeIcon lesson={lesson} /></span><span className="lesson-row__number">{lesson.moduleLessonNumber}</span><span className="lesson-row__copy"><strong>{lesson.title}</strong><small>{lesson.state === 'locked' ? 'Conclua a aula anterior para liberar' : lesson.summary}</small></span>{progressLabel ? <span className="lesson-row__progress">{progressLabel}</span> : null}</>
           return <li key={lesson.id} className={`lesson-row lesson-row--${lesson.state}`}>{canOpenLesson(lesson) ? <Link to={`/lesson/${lesson.id}`} aria-label={`${lesson.title}, ${lesson.state}`}>{content}</Link> : <div aria-label={`${lesson.title}, bloqueada`}>{content}</div>}</li>
         })}</ol> : null}
       </section>

@@ -284,7 +284,8 @@ async function main() {
   for (const code of LEVELS) {
     const level = levelMap.get(code)!
     let levelLessonNumber = 0
-    for (const module of level.modules) {
+    for (let moduleIndex = 0; moduleIndex < level.modules.length; moduleIndex += 1) {
+      const module = level.modules[moduleIndex]
       moduleOrder += 1
       const { data: savedModule, error: moduleError } = await client.from('modules').upsert({
         external_id: module.id,
@@ -293,6 +294,7 @@ async function main() {
         theme: text(module.theme) || null,
         description: text(module.practice_prompt) || null,
         position: 100 + moduleOrder,
+        level_module_number: moduleIndex + 1,
         metadata: Object.fromEntries(Object.entries(module).filter(([key]) => !['lessons', 'id', 'title', 'theme'].includes(key))),
       }, { onConflict: 'external_id' }).select('id').single()
       if (moduleError) throw moduleError

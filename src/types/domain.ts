@@ -51,16 +51,16 @@ export interface Profile {
 
 export interface LessonCatalogItem {
   id: number
-  externalId?: string
+  externalId: string
   levelCode: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
-  levelPosition?: number
-  moduleId?: number
-  moduleExternalId?: string
+  levelPosition: number
+  moduleId: number
+  moduleExternalId: string
   moduleTitle: string
-  modulePosition?: number
-  weekNumber: number | null
-  moduleLessonNumber?: number
-  globalOrder?: number
+  moduleNumber: number
+  levelLessonNumber: number
+  moduleLessonNumber: number
+  globalOrder: number
   title: string
   summary: string
   state: LessonState
@@ -118,8 +118,15 @@ export interface LessonBlock {
 
 export interface LessonDetail {
   id: number
-  levelCode: string
-  lessonNumber: number
+  externalId: string
+  levelCode: LessonCatalogItem['levelCode']
+  levelLessonNumber: number
+  moduleId: number
+  moduleExternalId: string
+  moduleTitle: string
+  moduleNumber: number
+  moduleLessonNumber: number
+  globalOrder: number
   title: string
   summary: string
   xpReward: number
@@ -163,7 +170,8 @@ export interface AdminAudioLesson {
   levelCode: string
   moduleId: number
   moduleTitle: string
-  lessonNumber: number
+  levelLessonNumber: number
+  moduleLessonNumber: number
   title: string
   readyCount: number
   missingCount: number

@@ -29,6 +29,9 @@ export default defineConfig(({ mode }) => {
           ]
         },
         workbox: {
+          cleanupOutdatedCaches: true,
+          skipWaiting: true,
+          clientsClaim: true,
           navigateFallbackDenylist: [/^\/rest\/v1\//, /^\/auth\/v1\//],
           runtimeCaching: [
             {

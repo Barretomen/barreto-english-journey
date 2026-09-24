@@ -166,11 +166,11 @@ export default function LessonPage() {
       <Link className="back-link" to="/journey"><ArrowLeft aria-hidden="true" />Voltar à jornada</Link>
       <nav className="lesson-switcher" aria-label="Navegar entre lições">
         <button type="button" disabled={!previousLesson} aria-label="Lição anterior" onClick={() => { if (previousLesson) void navigate(`/lesson/${previousLesson.id}`) }}><ChevronLeft aria-hidden="true" /></button>
-        <span>Lição {lesson.lessonNumber}</span>
+        <span>{lesson.levelCode} · M{lesson.moduleNumber} · Aula {lesson.moduleLessonNumber}</span>
         <button type="button" disabled={!nextLesson} aria-label="Próxima lição" onClick={() => { if (nextLesson) void navigate(`/lesson/${nextLesson.id}`) }}><ChevronRight aria-hidden="true" /></button>
       </nav>
     </div>
-    <header className="lesson-hero"><div><span className="field-label"><i />{lesson.levelCode} · LIÇÃO {String(lesson.lessonNumber).padStart(2, '0')}</span><h1>{lesson.title}</h1><p>{lesson.summary}</p></div><span className="xp-badge"><Sparkles aria-hidden="true" />+{lesson.xpReward} XP</span></header>
+    <header className="lesson-hero"><div><span className="field-label"><i />{lesson.levelCode} · MÓDULO {lesson.moduleNumber} · AULA {lesson.moduleLessonNumber}</span><h1>{lesson.title}</h1><p>{lesson.summary}</p></div><span className="xp-badge"><Sparkles aria-hidden="true" />+{lesson.xpReward} XP</span></header>
     {lesson.blocks.length > 0 ? <ProgressBar value={Math.round((step / lesson.blocks.length) * 100)} label={atFinish ? 'Pronta para concluir' : `Etapa ${step + 1} de ${lesson.blocks.length}`} /> : null}
     {lesson.blocks.length === 0 ? <StatePanel title="Conteúdo indisponível">Esta lição ainda não possui etapas publicadas.</StatePanel> : null}
     {currentBlock ? <section className="lesson-stream lesson-stream--paged" aria-live="polite">{currentBlock.exercise ? <ExerciseBlock key={currentBlock.id} block={currentBlock} demo={isDemo} onAnswered={(result) => setAnswered((current) => ({ ...current, [currentBlock.exercise!.id]: result }))} /> : <ContentBlock key={currentBlock.id} block={currentBlock} />}</section> : null}
