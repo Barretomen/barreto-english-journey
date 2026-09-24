@@ -68,8 +68,8 @@ async function countRows(client: SupabaseClient, table: string, filters?: (query
   return count ?? 0
 }
 
-function addBlock(blocks: BlockInput[], lessonId: string, block: Omit<BlockInput, 'external_id' | 'position'>, key: string) {
-  blocks.push({ ...block, external_id: `${lessonId}-B-${slug(key)}`, position: blocks.length + 1 })
+function addBlock(blocks: BlockInput[], lessonId: string, block: Omit<BlockInput, 'external_id' | 'position'>, key: string, position?: number) {
+  blocks.push({ ...block, external_id: `${lessonId}-B-${slug(key)}`, position: position ?? blocks.length + 1 })
 }
 
 function exerciseBlock(lessonId: string, exercise: JsonRecord): Omit<BlockInput, 'external_id' | 'position'> {
@@ -113,41 +113,43 @@ function blocksForA1(lesson: CurriculumLesson, visualExternalId: string): BlockI
     block_type: 'overview', title: 'Objetivo da lição',
     content: { body: lesson.goal, can_do: lesson.can_do },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
-  }, 'overview')
+  }, 'overview', 1)
   addBlock(blocks, lesson.id, {
     block_type: 'visual', title: 'Apoio visual',
     content: { visual_external_id: visualExternalId, source_visuals: lesson.visuals },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
-  }, 'visual')
+  }, 'visual', 2)
   addBlock(blocks, lesson.id, {
     block_type: 'grammar', title: 'Gramática', content: { items: lesson.grammar },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
-  }, 'grammar')
-  addBlock(blocks, lesson.id, {
+  }, 'grammar', 3)
+  if (asArray(lesson.vocabulary).length) addBlock(blocks, lesson.id, {
     block_type: 'vocabulary', title: 'Vocabulário', content: { items: lesson.vocabulary },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
-  }, 'vocabulary')
+  }, 'vocabulary', 4)
   const pronunciation = asArray<string>(lesson.pronunciation)
   addBlock(blocks, lesson.id, {
     block_type: 'pronunciation', title: 'Pronúncia', content: { items: pronunciation },
     audio_required: true, audio_role: 'pronunciation', transcript: pronunciation.join(' '), metadata: {},
-  }, 'pronunciation')
+  }, 'pronunciation', 5)
   const listening = asRecord(lesson.listening)
   addBlock(blocks, lesson.id, {
     block_type: 'listening', title: 'Listening', content: listening,
     audio_required: true, audio_role: 'listening', transcript: text(listening.script), metadata: {},
-  }, 'listening')
-  for (const exercise of asArray<JsonRecord>(lesson.exercises)) {
-    addBlock(blocks, lesson.id, exerciseBlock(lesson.id, exercise), `exercise-${text(exercise.id)}`)
+  }, 'listening', 6)
+  const exercises = asArray<JsonRecord>(lesson.exercises)
+  for (let exerciseIndex = 0; exerciseIndex < exercises.length; exerciseIndex += 1) {
+    const exercise = exercises[exerciseIndex]
+    addBlock(blocks, lesson.id, exerciseBlock(lesson.id, exercise), `exercise-${text(exercise.id)}`, 7 + exerciseIndex)
   }
   addBlock(blocks, lesson.id, {
     block_type: 'speaking', title: 'Speaking', content: { prompt: lesson.speaking },
     audio_required: true, audio_role: 'speaking_prompt', transcript: text(lesson.speaking), metadata: {},
-  }, 'speaking')
+  }, 'speaking', 7 + exercises.length)
   addBlock(blocks, lesson.id, {
     block_type: 'assessment', title: 'Eu consigo', content: { can_do: lesson.can_do },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
-  }, 'assessment')
+  }, 'assessment', 8 + exercises.length)
   return blocks
 }
 
@@ -201,7 +203,7 @@ function blocksForAdvanced(lesson: CurriculumLesson, visualExternalId: string): 
   return blocks
 }
 
-async function upsertLessonContent(client: SupabaseClient, lessonDbId: number, blocks: BlockInput[]) {
+async function upsertLessonContent(client: SupabaseClient, lessonDbId: number, lessonExternalId: string, blocks: BlockInput[]) {
   const blockRows = blocks.map((block) => ({
     external_id: block.external_id, block_type: block.block_type, position: block.position,
     title: block.title, content: block.content, audio_required: block.audio_required,
@@ -212,6 +214,25 @@ async function upsertLessonContent(client: SupabaseClient, lessonDbId: number, b
     .from('lesson_blocks').upsert(blockRows, { onConflict: 'external_id' }).select('id, external_id')
   if (blockError) throw blockError
   const blockIds = new Map((savedBlocks ?? []).map((row) => [row.external_id as string, Number(row.id)]))
+
+  const desiredBlockIds = new Set(blocks.map((block) => block.external_id))
+  const { data: existingBlocks, error: existingBlocksError } = await client
+    .from('lesson_blocks')
+    .select('id, external_id, exercises(id)')
+    .eq('lesson_id', lessonDbId)
+  if (existingBlocksError) throw existingBlocksError
+  const staleBlocks = (existingBlocks ?? []).filter((block) =>
+    String(block.external_id ?? '').startsWith(`${lessonExternalId}-B-`)
+    && !desiredBlockIds.has(String(block.external_id)),
+  )
+  const unsafeStaleBlock = staleBlocks.find((block) => asArray(block.exercises).length > 0)
+  if (unsafeStaleBlock) {
+    throw new Error(`Refusing to delete stale exercise block with history: ${unsafeStaleBlock.external_id}`)
+  }
+  if (staleBlocks.length) {
+    const { error: staleDeleteError } = await client.from('lesson_blocks').delete().in('id', staleBlocks.map((block) => block.id))
+    if (staleDeleteError) throw staleDeleteError
+  }
 
   for (const block of blocks) {
     if (!block.exercise) continue
@@ -337,7 +358,7 @@ async function main() {
         const blocks = code === 'A1'
           ? blocksForA1(lesson, visualExternalId)
           : blocksForAdvanced(lesson, visualExternalId)
-        await upsertLessonContent(client, Number(savedLesson.id), blocks)
+        await upsertLessonContent(client, Number(savedLesson.id), lesson.id, blocks)
       }
     }
     console.log(`Imported ${code}: ${levelLessonNumber} lessons.`)

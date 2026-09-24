@@ -16,6 +16,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "curriculum:import": "tsx scripts/import-curriculum.ts",
+    "curriculum:audit": "tsx scripts/audit-curriculum-content.ts",
     "curriculum:verify": "tsx scripts/verify-curriculum.ts"
   },
   "dependencies": {
