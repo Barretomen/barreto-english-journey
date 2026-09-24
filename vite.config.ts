@@ -38,16 +38,6 @@ export default defineConfig(({ mode }) => {
                 cacheName: 'barreto-fonts',
                 expiration: { maxEntries: 12, maxAgeSeconds: 60 * 60 * 24 * 365 }
               }
-            },
-            {
-              urlPattern: /\/rest\/v1\/(lesson_blocks|exercises|exercise_options)/,
-              handler: 'NetworkFirst',
-              options: {
-                cacheName: 'visited-lessons',
-                networkTimeoutSeconds: 4,
-                expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 7 },
-                cacheableResponse: { statuses: [0, 200] }
-              }
             }
           ]
         }

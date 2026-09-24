@@ -14,7 +14,9 @@
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "curriculum:import": "tsx scripts/import-curriculum.ts",
+    "curriculum:verify": "tsx scripts/verify-curriculum.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
@@ -37,6 +39,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.4.0",
     "jsdom": "^27.0.0",
+    "tsx": "^4.20.5",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.44.1",
     "vite": "^7.1.7",

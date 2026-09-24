@@ -387,6 +387,9 @@ verify_jwt = true
 [functions.get-lesson-audio-url]
 verify_jwt = true
 
+[functions.get-lesson-visual-url]
+verify_jwt = true
+
 # [edge_runtime.secrets]
 # secret_key = "env(SECRET_VALUE)"
 

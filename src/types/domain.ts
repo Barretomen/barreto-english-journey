@@ -18,6 +18,26 @@ export type BlockType =
   | 'reading'
   | 'writing'
   | 'checkpoint'
+  | 'overview'
+  | 'can_do'
+  | 'language_focus'
+  | 'examples'
+  | 'pronunciation'
+  | 'practice'
+  | 'production'
+  | 'assessment'
+  | 'visual'
+  | 'language_analysis'
+  | 'input_response'
+  | 'guided_production'
+  | 'contrast_explanation'
+  | 'matching'
+  | 'notice'
+  | 'controlled_gap'
+  | 'guided_output'
+  | 'register_edit'
+  | 'cross_text'
+  | 'synthesis_microtask'
 
 export type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue }
 
@@ -31,9 +51,16 @@ export interface Profile {
 
 export interface LessonCatalogItem {
   id: number
-  levelCode: 'A1' | 'A2'
+  externalId?: string
+  levelCode: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
+  levelPosition?: number
+  moduleId?: number
+  moduleExternalId?: string
   moduleTitle: string
+  modulePosition?: number
   weekNumber: number | null
+  moduleLessonNumber?: number
+  globalOrder?: number
   title: string
   summary: string
   state: LessonState
@@ -68,6 +95,7 @@ export interface Exercise {
   options: ExerciseOption[]
   feedbackCorrect: string
   feedbackIncorrect: string
+  gradingMode?: 'automatic' | 'subjective'
   demoAnswer?: JsonValue
 }
 
@@ -81,6 +109,9 @@ export interface LessonBlock {
     normalPath: string | null
     slowPath: string | null
     status: AudioStatus
+    required?: boolean
+    role?: string | null
+    transcript?: string | null
   }
   exercise: Exercise | null
 }
@@ -93,11 +124,15 @@ export interface LessonDetail {
   summary: string
   xpReward: number
   isCheckpoint: boolean
+  savedPosition?: number
+  canDo?: JsonValue[]
+  metadata?: Record<string, JsonValue>
   blocks: LessonBlock[]
 }
 
 export interface ExerciseFeedback {
-  correct: boolean
+  correct: boolean | null
+  submitted: boolean
   message: string
   explanation: string
 }
@@ -107,6 +142,8 @@ export interface LessonCompletion {
   totalExercises: number
   scorePercent: number
   xpAwarded: number
+  nextLessonId?: number | null
+  courseCompleted?: boolean
 }
 
 export interface AdminStudent {
@@ -123,6 +160,9 @@ export interface AdminStudent {
 
 export interface AdminAudioLesson {
   lessonId: number
+  levelCode: string
+  moduleId: number
+  moduleTitle: string
   lessonNumber: number
   title: string
   readyCount: number
@@ -135,4 +175,49 @@ export interface AdminAudioLesson {
 export interface AudioGenerationSummary {
   ready: number
   failed: number
+  skipped: number
+}
+
+export type AudioGenerationScope =
+  | { blockId: number }
+  | { lessonId: number }
+  | { moduleId: number }
+  | { levelCode: string }
+
+export interface ReviewExercise {
+  id: number
+  externalId: string
+  type: string
+  position: number
+  prompt: string
+  instruction: string | null
+  content: Record<string, JsonValue>
+  gradingMode: 'automatic' | 'subjective'
+}
+
+export interface GrammarClinic {
+  id: number
+  externalId: string
+  levelCode: string
+  title: string
+  focus: JsonValue
+  why: string
+  examples: JsonValue
+  recycleIn: JsonValue
+  visualExternalId: string | null
+  exercises: ReviewExercise[]
+}
+
+export interface DueReview {
+  id: number
+  lessonId: number
+  lessonTitle: string
+  levelCode: string
+  dueAt: string
+  offsetDays: number
+}
+
+export interface ReviewResources {
+  dueReviews: DueReview[]
+  clinics: GrammarClinic[]
 }

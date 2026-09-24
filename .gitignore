@@ -4,6 +4,12 @@ coverage/
 .env
 .env.*
 !.env.example
+private_answers/
+barreto_english_full_curriculum*/
+*.curriculum.local/
+.local-docs/
+supabase/functions/.env
+supabase/.env
 *.local
 *.log
 .DS_Store

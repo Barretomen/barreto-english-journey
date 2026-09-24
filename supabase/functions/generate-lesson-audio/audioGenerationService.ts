@@ -11,6 +11,9 @@ export interface AudioBlockRow {
   lesson_id: number
   block_type: string
   content: Record<string, unknown>
+  transcript: string | null
+  audio_required: boolean
+  audio_role: string | null
   tts_config: Record<string, unknown>
   audio_path: string | null
   slow_audio_path: string | null
@@ -31,6 +34,8 @@ function stringValue(value: unknown): string | null {
 }
 
 export function extractSpeechText(block: AudioBlockRow): string | null {
+  const transcript = stringValue(block.transcript)
+  if (transcript) return transcript
   const exercise = Array.isArray(block.exercises) ? block.exercises[0] : block.exercises
   const exerciseContent = exercise?.content ?? {}
   if (block.block_type === 'listening') return stringValue(exerciseContent.speech) ?? stringValue(block.content.speech)

@@ -14,6 +14,8 @@ export default function DashboardPage() {
   if (loading) return <LoadingState label="Organizando sua próxima aula…" />
   if (error || !data) return <StatePanel title="Não foi possível abrir seu painel">{error ?? 'Tente novamente.'} <button className="text-button" onClick={() => void reload()}>Tentar novamente</button></StatePanel>
   const firstStart = data.completedLessons === 0
+  const currentIndex = data.currentLesson ? data.journey.findIndex((lesson) => lesson.id === data.currentLesson?.id) : 0
+  const routeWindow = data.journey.slice(Math.max(0, currentIndex - 3), Math.max(8, currentIndex + 5))
   return (
     <div className="page dashboard-page">
       <header className="page-heading dashboard-heading"><div><span className="field-label"><i />{data.level} · sua jornada atual</span><h1>{greetingFor()}, {data.profile.displayName}.</h1><p>{firstStart ? 'Você está começando do início. É exatamente daqui que devemos partir.' : 'Um passo claro por vez. Sua próxima aula está pronta.'}</p></div><span className="level-poster" aria-label={`Nível atual ${data.level}`}>{data.level}<small>CEFR</small></span></header>
@@ -25,7 +27,7 @@ export default function DashboardPage() {
 
       <div className="dashboard-grid">
         <section className="current-module"><div className="section-title"><div><span className="section-kicker">MÓDULO ATUAL</span><h2>{data.currentLesson?.moduleTitle ?? 'Primeiros passos'}</h2></div><BookOpen aria-hidden="true" /></div>{data.currentLesson ? <Link to={`/lesson/${data.currentLesson.id}`} className="module-lesson"><span>{data.currentLesson.weekNumber ? `SEMANA ${data.currentLesson.weekNumber}` : 'CHECKPOINT'}</span><strong>{data.currentLesson.title}</strong><small>{data.currentLesson.progressPercent}% concluído</small><ArrowRight aria-hidden="true" /></Link> : <p>Nenhuma aula liberada no momento.</p>}</section>
-        <section className="route-preview"><div className="section-title"><div><span className="section-kicker">SUA ROTA</span><h2>A1 para A2</h2></div><Link to="/journey">Ver jornada</Link></div><div className="route-line" aria-label="Resumo da jornada">{data.journey.slice(0, 8).map((lesson, index) => <span key={lesson.id} className={`route-dot route-dot--${lesson.state}`} aria-label={`${lesson.title}: ${lesson.state}`}><b>{index + 1}</b></span>)}</div><p>{data.completedLessons} de {data.totalPublishedLessons} aulas concluídas</p></section>
+        <section className="route-preview"><div className="section-title"><div><span className="section-kicker">SUA ROTA</span><h2>A1 ao C2</h2></div><Link to="/journey">Ver jornada</Link></div><div className="route-line" aria-label="Trecho atual da jornada">{routeWindow.map((lesson) => <span key={lesson.id} className={`route-dot route-dot--${lesson.state}`} aria-label={`${lesson.title}: ${lesson.state}`}><b>{lesson.globalOrder ?? lesson.weekNumber}</b></span>)}</div><p>{data.completedLessons} de {data.totalPublishedLessons} aulas concluídas</p></section>
       </div>
     </div>
   )
