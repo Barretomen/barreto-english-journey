@@ -1,0 +1,2641 @@
+{
+  "version": "1.0-curriculum-master.pt-A1-v1",
+  "locale": "pt",
+  "lessons": {
+    "A1-01": {
+      "can_do": [
+        "Posso cumprimentar alguém.",
+        "Posso escolher uma saudação para a hora do dia.",
+        "Posso dizer adeus educadamente."
+      ],
+      "grammar": [
+        "Expressões fixas: Olá / Olá / Bom dia / Boa tarde / Boa noite / Adeus / Boa noite."
+      ],
+      "vocabulary_examples": [
+        "Olá! Prazer em conhecê-lo.",
+        "Olá, Ana!",
+        "Bom dia, Sr. Brown.",
+        "Boa tarde a todos.",
+        "Boa noite. Bem-vindos!",
+        "Adeus! Até amanhã.",
+        "Boa noite. Dorme bem.",
+        "Obrigado pela ajuda."
+      ],
+      "pronunciation": [
+        "Observe o estresse em BOM MORning e bom EVEning.",
+        "Repita breves saudações sem adicionar uma vogal extra no final."
+      ],
+      "listening": {
+        "script": "Bom dia! Sou a Sarah. Prazer em conhecê - lo. — Olá, Sarah! Sou o Daniel. Prazer em conhecer-te também. Adeus, Daniel. — Adeus!",
+        "task": "Quem diz \"Bom dia\" primeiro?"
+      },
+      "speaking": "Diga três saudações em voz alta: uma pela manhã, uma pela tarde e outra pela noite.",
+      "exercises": {
+        "A1-01-E01": {
+          "prompt": "São 9:00 da manhã. O que me dizes?",
+          "hint": "",
+          "option_translations": {
+            "morning": "Bom dia.",
+            "evening": "Boa noite.",
+            "night": "Boa noite."
+          }
+        },
+        "A1-01-E02": {
+          "prompt": "Vais-te embora no fim da noite. O que é natural?",
+          "hint": "",
+          "option_translations": {
+            "good_night": "Boa noite.",
+            "afternoon": "Boa tarde.",
+            "hello": "Olá."
+          }
+        },
+        "A1-01-E03": {
+          "prompt": "_____ Prazer em conhecê-lo.",
+          "hint": "Uma saudação básica.",
+          "option_translations": {}
+        },
+        "A1-01-E04": {
+          "prompt": "\"Boa noite\" é usado quando você encontra alguém à noite.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-02": {
+      "can_do": [
+        "Posso dizer o meu nome.",
+        "Posso perguntar o nome de alguém.",
+        "Eu posso usar eu sou / você está em uma introdução curta."
+      ],
+      "grammar": [
+        "Eu sou",
+        "Você é",
+        "Como te chamas?",
+        "O meu nome é..."
+      ],
+      "vocabulary_examples": [
+        "O meu nome é Maria.",
+        "O meu primeiro nome é Maria.",
+        "O meu apelido é Silva.",
+        "Prazer em conhecer-te, Alex.",
+        "Olá! Como te chamas?",
+        "Sou a Maria.",
+        "Você é o Daniel, certo?"
+      ],
+      "pronunciation": [
+        "Eu sou uma batida:",
+        "Qual é o teu... muitas vezes conecta naturalmente na fala."
+      ],
+      "listening": {
+        "script": "Olá! Como te chamas? - Sou a Maria. Como te chamas? Meu nome é Alex. — Prazer em conhecê - lo, Alex. — Prazer em conhecê - lo também.",
+        "task": "Quais são os dois nomes?"
+      },
+      "speaking": "Grava ou diz: 'Olá. Eu sou... ____ Prazer em conhecê-lo.",
+      "exercises": {
+        "A1-02-E01": {
+          "prompt": "Meu _____ é Maria.",
+          "hint": "A palavra para \"nome\".",
+          "option_translations": {}
+        },
+        "A1-02-E02": {
+          "prompt": "Que pergunta pergunta o nome de uma pessoa?",
+          "hint": "",
+          "option_translations": {
+            "name": "Como te chamas?",
+            "age": "Quantos anos tens?",
+            "country": "De onde és?"
+          }
+        },
+        "A1-02-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-02-E04": {
+          "prompt": "\"Sou o Alex\" e \"O meu nome é Alex\" podem apresentar o vosso nome.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-03": {
+      "can_do": [
+        "Posso soletrar o meu nome.",
+        "Posso pedir a alguém que escreva uma palavra.",
+        "Consigo entender nomes comuns."
+      ],
+      "grammar": [
+        "Como se escreve...?",
+        "Pode soletrar, por favor?"
+      ],
+      "vocabulary_examples": [
+        "Como se escreve o seu nome?",
+        "A primeira letra é M.",
+        "O alfabeto inglês tem 26 letras.",
+        "Pode repetir isso?",
+        "Soletra outra vez, por favor.",
+        "Escreva uma carta aqui."
+      ],
+      "pronunciation": [
+        "Foco em letras facilmente confusas: A/E/I, G/J, M/N, B/V.",
+        "Pratique seu próprio nome lentamente, em seguida, em velocidade natural."
+      ],
+      "listening": {
+        "script": "Chamo-me Mia. Isso é M-I-A. O meu apelido é Costa, C-O-S-T-A.",
+        "task": "Soletre o primeiro nome e sobrenome."
+      },
+      "speaking": "Soletre seu primeiro nome, sobrenome e sua cidade em voz alta.",
+      "exercises": {
+        "A1-03-E01": {
+          "prompt": "Que ortografia combina com \"Mia\"?",
+          "hint": "",
+          "option_translations": {
+            "mia": "M-I... A",
+            "nia": "N-I... A",
+            "mea": "M-E-A"
+          }
+        },
+        "A1-03-E02": {
+          "prompt": "Como está? _____ O seu nome?",
+          "hint": "Use o verbo para dizer letras uma por uma.",
+          "option_translations": {}
+        },
+        "A1-03-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-03-E04": {
+          "prompt": "O alfabeto inglês tem 26 letras.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-04": {
+      "can_do": [
+        "Posso dizer a minha idade.",
+        "Consigo entender os números 0 a 100.",
+        "Posso dar um número de telefone devagar."
+      ],
+      "grammar": [
+        "Quantos anos você tem? — Tenho 25 anos.",
+        "Qual é o teu número de telefone?"
+      ],
+      "vocabulary_examples": [
+        "Zero.",
+        "Dez alunos.",
+        "Tenho vinte anos.",
+        "Trinta euros.",
+        "Quarto 50.",
+        "Cem.",
+        "Tenho 26 anos.",
+        "Qual é o teu número de telefone?"
+      ],
+      "pronunciation": [
+        "Contraste três / três e quatro / quarenta.",
+        "Diga números de telefone em pequenos grupos com pausas curtas."
+      ],
+      "listening": {
+        "script": "Tenho 24 anos. Meu número de telefone é zero nove um, cinco cinco dois, oito quatro seis.",
+        "task": "Qual é a idade? Que dígitos ouves?"
+      },
+      "speaking": "Diz a tua idade e um número de telefone fictício devagar e claramente.",
+      "exercises": {
+        "A1-04-E01": {
+          "prompt": "Qual é o número 30?",
+          "hint": "",
+          "option_translations": {
+            "13": "treze",
+            "30": "trinta",
+            "3": "três"
+          }
+        },
+        "A1-04-E02": {
+          "prompt": "Tenho 26 anos. _____ .",
+          "hint": "Usado depois de uma idade.",
+          "option_translations": {}
+        },
+        "A1-04-E03": {
+          "prompt": "Que pergunta faz a idade?",
+          "hint": "",
+          "option_translations": {
+            "age": "Quantos anos tens?",
+            "name": "Como te chamas?",
+            "place": "Onde vives?"
+          }
+        },
+        "A1-04-E04": {
+          "prompt": "\"Trinta\" e \"trinta\" soam exactamente iguais.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-05": {
+      "can_do": [
+        "Posso dizer de onde sou.",
+        "Posso dizer a minha nacionalidade.",
+        "Posso perguntar de onde vem alguém."
+      ],
+      "grammar": [
+        "De onde você é? — Eu sou do Brasil.",
+        "Sou brasileiro.",
+        "Ele é de Portugal. Ele é português."
+      ],
+      "vocabulary_examples": [
+        "Sou do Brasil.",
+        "Sou brasileiro.",
+        "Ela é de Portugal.",
+        "Ela é portuguesa.",
+        "Ele é de Espanha.",
+        "Ele é espanhol.",
+        "São de França.",
+        "São franceses.",
+        "De que país és?",
+        "Falo português."
+      ],
+      "pronunciation": [
+        "Brasil: estresse no ZIL: bra-ZIL-ian.",
+        "Português: estresse em GUESE: Portu-GUESE."
+      ],
+      "listening": {
+        "script": "Sou a Clara. Sou de Portugal, mas vivo em França. Sou português. O meu amigo Leo é do Brasil. Ele é brasileiro.",
+        "task": "De onde é a Clara? De onde é o Leo?"
+      },
+      "speaking": "Apresente-se com seu nome, idade, país, nacionalidade e idioma.",
+      "exercises": {
+        "A1-05-E01": {
+          "prompt": "Alguém é do Brasil. A nacionalidade deles é...",
+          "hint": "",
+          "option_translations": {
+            "brazilian": "Brasileiro",
+            "brazil": "Brasil",
+            "portuguese": "Português"
+          }
+        },
+        "A1-05-E02": {
+          "prompt": "Onde _____ És de cá?",
+          "hint": "Use o verbo \"ser\".",
+          "option_translations": {}
+        },
+        "A1-05-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-05-E04": {
+          "prompt": "O português pode referir-se a uma nacionalidade e a uma língua.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-06": {
+      "can_do": [
+        "Posso ter uma primeira conversa entre 60 e 90 segundos.",
+        "Posso fazer e responder a perguntas pessoais básicas."
+      ],
+      "grammar": [
+        "Revisão: ser, contrações e wh-questões básicas."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "Use ritmo limpo; não tente falar muito rápido."
+      ],
+      "listening": {
+        "script": "Boa tarde! Sou a Emma. Como te chamas? - Sou o Rafael. Como se escreve isso? - Muito prazer. De onde você é? — Eu sou do Brasil. - Prazer em conhecer-te, Rafael.",
+        "task": "Responde a cinco perguntas sobre o Rafael."
+      },
+      "speaking": "Missão final: ter uma primeira conversa completa usando saudação, nome, ortografia, idade e origem.",
+      "exercises": {
+        "A1-06-E01": {
+          "prompt": "Qual é a melhor primeira pergunta depois de \"Olá\"?",
+          "hint": "",
+          "option_translations": {
+            "name": "Como te chamas?",
+            "why": "Porque estás aqui?",
+            "price": "Quanto é?"
+          }
+        },
+        "A1-06-E02": {
+          "prompt": "Eu sou... _____ Portugal.",
+          "hint": "Usado antes de um país de origem.",
+          "option_translations": {}
+        },
+        "A1-06-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-06-E04": {
+          "prompt": "\"Boa noite\" geralmente é a primeira saudação quando você encontra alguém às 20h.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-07": {
+      "can_do": [
+        "Posso identificar familiares próximos.",
+        "Posso dizer quem é alguém."
+      ],
+      "grammar": [
+        "Esta é a minha...",
+        "Ele é meu...",
+        "Quem é?"
+      ],
+      "vocabulary_examples": [
+        "Esta é a minha mãe.",
+        "O meu pai está aqui.",
+        "Os meus pais vivem no Porto.",
+        "Ela é minha irmã.",
+        "Ele é meu irmão.",
+        "Este é o marido dela.",
+        "A mulher dele é Ana.",
+        "Eles têm um filho.",
+        "A filha deles tem dez anos.",
+        "A minha família é pequena."
+      ],
+      "pronunciation": [
+        "Mãe / pai: note a voz TH /ð/.",
+        "A família muitas vezes soa como três sílabas: FAM-i-ly."
+      ],
+      "listening": {
+        "script": "Esta é a minha família. Maria é minha mãe e Carlos é meu pai. Tenho um irmão, Lucas, e uma irmã, Sofia.",
+        "task": "Quem são o Lucas e a Sofia?"
+      },
+      "speaking": "Descreva quatro pessoas na sua família ou uma família imaginária.",
+      "exercises": {
+        "A1-07-E01": {
+          "prompt": "O filho da tua mãe pode ser o teu...",
+          "hint": "",
+          "option_translations": {
+            "brother": "irmão",
+            "father": "pai",
+            "wife": "esposa"
+          }
+        },
+        "A1-07-E02": {
+          "prompt": "Isto é... _____ Irmã.",
+          "hint": "Possível antes de um substantivo.",
+          "option_translations": {}
+        },
+        "A1-07-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-07-E04": {
+          "prompt": "\"Pais\" significa mãe e pai.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-08": {
+      "can_do": [
+        "Posso dizer o meu trabalho.",
+        "Posso nomear trabalhos comuns.",
+        "Posso perguntar 'O que você faz?' como uma frase fixa."
+      ],
+      "grammar": [
+        "Sou um...",
+        "Ele é um...",
+        "O que fazes?"
+      ],
+      "vocabulary_examples": [
+        "Ela é professora.",
+        "Sou estudante.",
+        "Ele é médico.",
+        "Ela é enfermeira.",
+        "O meu irmão é motorista.",
+        "Ele é segurança.",
+        "Ela é uma engenheira.",
+        "É assistente de loja."
+      ],
+      "pronunciation": [
+        "Use um som de vogal antes: um engenheiro.",
+        "Stress a primeira sílaba em TEAcher, DOCtor, DRIver."
+      ],
+      "listening": {
+        "script": "Sou a Nina. Sou enfermeira. O meu marido, Tom, é engenheiro. A minha irmã é professora e o meu irmão é estudante.",
+        "task": "Coincidir cada pessoa com um trabalho."
+      },
+      "speaking": "Diz o que fazes e nomeia o trabalho de duas pessoas que conheces.",
+      "exercises": {
+        "A1-08-E01": {
+          "prompt": "O que está correcto?",
+          "hint": "",
+          "option_translations": {
+            "engineer": "Ela é uma engenheira.",
+            "wrong1": "Ela é uma engenheira.",
+            "wrong2": "Ela é engenheira."
+          }
+        },
+        "A1-08-E02": {
+          "prompt": "Eu sou... _____ Professor.",
+          "hint": "Use um som de consoante antes.",
+          "option_translations": {}
+        },
+        "A1-08-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-08-E04": {
+          "prompt": "\"Estudante\" é uma palavra de trabalho usada para alguém que estuda.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-09": {
+      "can_do": [
+        "Eu posso usar ter / tem em frases simples.",
+        "Eu posso fazer declarações negativas básicas com não / não tem."
+      ],
+      "grammar": [
+        "Eles têm...",
+        "Ela tem...",
+        "Não tenho...",
+        "Ela não tem..."
+      ],
+      "vocabulary_examples": [
+        "Eu tenho um carro.",
+        "Ela tem uma bicicleta.",
+        "Ele tem um telemóvel novo.",
+        "Temos um animal de estimação.",
+        "Eles têm um cão.",
+        "Ela tem um gato.",
+        "Eles têm dois filhos.",
+        "Tenho um problema."
+      ],
+      "pronunciation": [
+        "tem termina com /z/: /hæz/.",
+        "Não e não é normalmente sem stress em frases naturais."
+      ],
+      "listening": {
+        "script": "Tenho um carro pequeno e uma bicicleta. A minha irmã tem um cão, mas não tem carro. Os meus pais têm dois gatos.",
+        "task": "Quem tem um cão? Quem tem dois gatos?"
+      },
+      "speaking": "Faça cinco frases verdadeiras ou fictícias com tem/tem.",
+      "exercises": {
+        "A1-09-E01": {
+          "prompt": "Ela. _____ Uma bicicleta.",
+          "hint": "Use tem com ela.",
+          "option_translations": {}
+        },
+        "A1-09-E02": {
+          "prompt": "Qual é a sentença correcta?",
+          "hint": "",
+          "option_translations": {
+            "have": "Eles têm um cão.",
+            "has": "Eles têm um cão.",
+            "ing": "Eles têm um cão."
+          }
+        },
+        "A1-09-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-09-E04": {
+          "prompt": "Depois de 'não ', use 'tem', não 'tem'.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-10": {
+      "can_do": [
+        "Posso identificar um ou mais objectos.",
+        "Consigo distinguir perto e longe."
+      ],
+      "grammar": [
+        "este = um, próximo",
+        "que = um, longe",
+        "estes = plural, próximo",
+        "aqueles = plural, longe"
+      ],
+      "vocabulary_examples": [
+        "Este é o meu telemóvel.",
+        "Essa é a tua mala.",
+        "Estas são as minhas chaves.",
+        "São os teus sapatos.",
+        "Estas são as minhas chaves.",
+        "Essa é a mala dela.",
+        "São os meus óculos.",
+        "Estes sapatos são novos."
+      ],
+      "pronunciation": [
+        "Isto começa com /ð/.",
+        "Ouça o contraste vocálico: este / estes."
+      ],
+      "listening": {
+        "script": "Este é o meu telefone. Aquela é a tua mala. Estas são as minhas chaves, e esses são os teus óculos.",
+        "task": "Que objectos estão perto do alto-falante?"
+      },
+      "speaking": "Aponte para quatro objetos e faça uma frase com isto, aquilo, estes e aqueles.",
+      "exercises": {
+        "A1-10-E01": {
+          "prompt": "Um objeto perto de você:",
+          "hint": "",
+          "option_translations": {
+            "this": "isto",
+            "those": "aqueles",
+            "these": "destes"
+          }
+        },
+        "A1-10-E02": {
+          "prompt": "_____ Aqui estão os meus sapatos.",
+          "hint": "Plural e próximo.",
+          "option_translations": {}
+        },
+        "A1-10-E03": {
+          "prompt": "Vários objetos longe:",
+          "hint": "",
+          "option_translations": {
+            "those": "aqueles",
+            "that": "que",
+            "this": "isto"
+          }
+        },
+        "A1-10-E04": {
+          "prompt": "'Isso' é usado para uma coisa mais distante.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-11": {
+      "can_do": [
+        "Posso dizer a quem pertence algo.",
+        "Posso usar o meu, o seu, o nosso, o deles.",
+        "Posso descrever alguém com adjetivos simples."
+      ],
+      "grammar": [
+        "o nosso, o seu, o nosso, o seu",
+        "De quem?",
+        "É da Maria."
+      ],
+      "vocabulary_examples": [
+        "O meu telemóvel é preto.",
+        "Esta mala é tua?",
+        "O nome dele é Ben.",
+        "A irmã dela é médica.",
+        "A nossa casa é pequena.",
+        "O carro deles é azul.",
+        "Ele é alto.",
+        "Ela é baixinha.",
+        "São jovens.",
+        "Ela é muito amigável."
+      ],
+      "pronunciation": [
+        "normalmente começa com um /h/ claro na fala cuidadosa.",
+        "Que soa como \"quem\" mas tem um significado diferente."
+      ],
+      "listening": {
+        "script": "Esta é a Anna. O cabelo dela é escuro e ela é alta. Este é o irmão dela, Ben. O cabelo dele é curto. O cão deles é muito amigável.",
+        "task": "Quem é alto? De quem é o cão amigável?"
+      },
+      "speaking": "Descreva duas pessoas e duas coisas que possuem.",
+      "exercises": {
+        "A1-11-E01": {
+          "prompt": "A Anna está aqui. _____ O saco é azul.",
+          "hint": "Possível para ela.",
+          "option_translations": {}
+        },
+        "A1-11-E02": {
+          "prompt": "O Ben tem um telefone. É...",
+          "hint": "",
+          "option_translations": {
+            "his": "seu telefone",
+            "her": "seu telefone",
+            "their": "seu telefone"
+          }
+        },
+        "A1-11-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-11-E04": {
+          "prompt": "\"Eles\" significa que algo lhes pertence.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-12": {
+      "can_do": [
+        "Posso apresentar pessoas à minha volta.",
+        "Posso responder a perguntas simples sobre eles."
+      ],
+      "grammar": [
+        "Revisão: ser, ter/has, possessivos, demonstrativos."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "Revisão /ð/ na mãe, isto, estes.",
+        "Mantenha as frases curtas e claras."
+      ],
+      "listening": {
+        "script": "Esta é a minha irmã Julia. Ela é professora. Ela tem um carro pequeno e um cão. O cão dela chama-se Max. São os óculos dela na mesa.",
+        "task": "Resposta: Quem é Julia? O que é que ela tem? Qual é o nome do cão?"
+      },
+      "speaking": "Missão final: apresentar uma família imaginária de pelo menos quatro pessoas, com empregos, uma posse e um adjetivo cada.",
+      "exercises": {
+        "A1-12-E01": {
+          "prompt": "Julia é a oradora...",
+          "hint": "",
+          "option_translations": {
+            "sister": "irmã",
+            "mother": "Mãe",
+            "daughter": "filha"
+          }
+        },
+        "A1-12-E02": {
+          "prompt": "Ela. _____ Um carro pequeno.",
+          "hint": "O uso tem com ela.",
+          "option_translations": {}
+        },
+        "A1-12-E03": {
+          "prompt": "\"São os óculos dela\" significa que os óculos são...",
+          "hint": "",
+          "option_translations": {
+            "far_plural": "mais longe e plural",
+            "near_single": "perto e singular",
+            "his": "sua"
+          }
+        },
+        "A1-12-E04": {
+          "prompt": "\"O cão dela\" significa que o cão pertence à Julia.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-13": {
+      "can_do": [
+        "Posso descrever as acções básicas diárias.",
+        "Posso pôr os eventos de rotina em ordem."
+      ],
+      "grammar": [
+        "Simple Present afirmativa com I/você/nós/eles."
+      ],
+      "vocabulary_examples": [
+        "Acordo às sete.",
+        "Eu levanto-me às sete e dez.",
+        "Tenho o pequeno-almoço em casa.",
+        "Vou trabalhar às oito.",
+        "Estudo inglês à noite.",
+        "Almoçamos à uma.",
+        "Vou para casa às seis.",
+        "Vou para a cama às onze."
+      ],
+      "pronunciation": [
+        "Pratique linking em 'go to work' e 'go to bed'.",
+        "Continua a acordar e levanta-te como pedaços de duas palavras."
+      ],
+      "listening": {
+        "script": "Acordo às sete, tomo o pequeno-almoço e vou trabalhar às oito. Almoço à uma. À noite, estudo inglês e vou para a cama às onze.",
+        "task": "Põe a rotina em ordem."
+      },
+      "speaking": "Diga a sua rotina matinal usando pelo menos quatro ações.",
+      "exercises": {
+        "A1-13-E01": {
+          "prompt": "O que costuma vir primeiro?",
+          "hint": "",
+          "option_translations": {
+            "wake": "Acordar",
+            "bed": "Vai para a cama.",
+            "lunch": "almoçar"
+          }
+        },
+        "A1-13-E02": {
+          "prompt": "I _____ para trabalhar às oito.",
+          "hint": "Presente Simples com I.",
+          "option_translations": {}
+        },
+        "A1-13-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-13-E04": {
+          "prompt": "\"Vá para a cama\" significa começar a dormir / descansar para a noite.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-14": {
+      "can_do": [
+        "Posso dizer os tempos básicos do relógio.",
+        "Posso dizer em que dia acontece uma atividade.",
+        "Posso perguntar a que horas começa alguma coisa."
+      ],
+      "grammar": [
+        "na hora +",
+        "no dia +",
+        "A que horas...?"
+      ],
+      "vocabulary_examples": [
+        "Trabalho na segunda-feira.",
+        "A aula é na terça-feira.",
+        "Vemo-nos na quarta-feira.",
+        "Estudo na quinta-feira.",
+        "Sexta-feira está ocupada.",
+        "Eu descanso no sábado.",
+        "Domingo é sossegado.",
+        "São oito horas.",
+        "São seis e meia.",
+        "São nove e quinze."
+      ],
+      "pronunciation": [
+        "Quarta-feira tem menos sons do que a sua ortografia sugere.",
+        "Estresse sábado e domingo."
+      ],
+      "listening": {
+        "script": "A minha aula de inglês é na terça-feira, às sete e meia. Na quinta-feira começa às oito.",
+        "task": "Que dia começa às 7:30?"
+      },
+      "speaking": "Diga o seu horário para três dias da semana com horários.",
+      "exercises": {
+        "A1-14-E01": {
+          "prompt": "7:30 é...",
+          "hint": "",
+          "option_translations": {
+            "730": "sete e meia",
+            "715": "sete e quinze",
+            "700": "sete horas"
+          }
+        },
+        "A1-14-E02": {
+          "prompt": "Eu trabalho. _____ Segunda-feira.",
+          "hint": "Use com dias.",
+          "option_translations": {}
+        },
+        "A1-14-E03": {
+          "prompt": "Início da aula _____ Às oito horas.",
+          "hint": "Usar com horas de relógio.",
+          "option_translations": {}
+        },
+        "A1-14-E04": {
+          "prompt": "Normalmente dizemos \"na sexta-feira\" e \"nos seis\".",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-15": {
+      "can_do": [
+        "Posso fazer frases afirmativas Simple Present.",
+        "Posso usar -s com ele."
+      ],
+      "grammar": [
+        "Eles trabalham.",
+        "Funciona.",
+        "go→ vai, estude→ estuda, tem→ tem."
+      ],
+      "vocabulary_examples": [
+        "Ela trabalha num hospital.",
+        "Ele vive em Viseu.",
+        "Ela estuda inglês.",
+        "O trabalho começa às nove.",
+        "Ele termina às cinco.",
+        "Ela vê televisão.",
+        "Ele lê todas as noites.",
+        "Ela faz o jantar."
+      ],
+      "pronunciation": [
+        "Final -s pode soar /s/, /z/ ou / oz/.",
+        "funciona /s/, vive /z/, termina /z/."
+      ],
+      "listening": {
+        "script": "O Leo vive no Porto. Ele trabalha num hotel. Começa às nove e termina às cinco. À noite, ele cozinha e assiste TV.",
+        "task": "Onde vive o Leo e trabalha?"
+      },
+      "speaking": "Descreva a rotina de uma pessoa usando cinco frases.",
+      "exercises": {
+        "A1-15-E01": {
+          "prompt": "Ela. _____ num hotel.",
+          "hint": "Está com ela.",
+          "option_translations": {}
+        },
+        "A1-15-E02": {
+          "prompt": "O que está correcto?",
+          "hint": "",
+          "option_translations": {
+            "studies": "Ele estuda inglês.",
+            "study": "Ele estuda inglês.",
+            "studying": "Ele estuda inglês."
+          }
+        },
+        "A1-15-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-15-E04": {
+          "prompt": "Com 'eles', geralmente usamos o verbo base: 'Eles funcionam'.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-16": {
+      "can_do": [
+        "Posso fazer perguntas.",
+        "Eu posso responder Sim, eu sei / Não, eu não sei.",
+        "Posso fazer não/não faz negativos."
+      ],
+      "grammar": [
+        "Trabalhas?",
+        "Ela trabalha?",
+        "Não trabalho no domingo.",
+        "Ele não conduz."
+      ],
+      "vocabulary_examples": [
+        "Costumas cozinhar?",
+        "Estudo todos os dias.",
+        "Trabalhas aos fins-de-semana?",
+        "Ele conduz?",
+        "Faz exercício?",
+        "Ela fala inglês?"
+      ],
+      "pronunciation": [
+        "Muitas vezes tem uma vogal fraca na fala natural.",
+        "Depois de fazer/não fazer, use o verbo base: trabalho, não funciona."
+      ],
+      "listening": {
+        "script": "- Trabalhas aos fins-de-semana? Trabalho de segunda a sexta. Sua irmã trabalha? — Sim, ela tem. Ela trabalha numa loja.",
+        "task": "Quem trabalha numa loja?"
+      },
+      "speaking": "Faça a si mesmo cinco perguntas de rotina e responda em voz alta.",
+      "exercises": {
+        "A1-16-E01": {
+          "prompt": "Escolha a pergunta correta.",
+          "hint": "",
+          "option_translations": {
+            "correct": "Ela trabalha aqui?",
+            "wrong": "Ela trabalha aqui?",
+            "wrong2": "Ela trabalha aqui?"
+          }
+        },
+        "A1-16-E02": {
+          "prompt": "I _____ Trabalho no domingo.",
+          "hint": "Negativo para nós.",
+          "option_translations": {}
+        },
+        "A1-16-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-16-E04": {
+          "prompt": "'Ele dirige?' pode ser respondido 'Sim, ele faz.'",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-17": {
+      "can_do": [
+        "Posso usar advérbios básicos de frequência.",
+        "Posso descrever com que frequência faço atividades de rotina."
+      ],
+      "grammar": [
+        "Eu trabalho sempre...",
+        "Ela costuma levantar-se...",
+        "Às vezes comem...",
+        "Ele nunca conduz..."
+      ],
+      "vocabulary_examples": [
+        "Bebo sempre água.",
+        "Costumo levantar-me às sete.",
+        "Costumamos cozinhar em casa.",
+        "Às vezes ando para o trabalho.",
+        "Ela raramente vê televisão.",
+        "Ele nunca bebe café."
+      ],
+      "pronunciation": [
+        "Geralmente reduz a cerca de três sílabas na fala rápida.",
+        "Stress a palavra frequência quando contrastando hábitos."
+      ],
+      "listening": {
+        "script": "Costumo levantar-me às sete. Tenho sempre café. Às vezes ando para o trabalho, mas nunca ando quando chove.",
+        "task": "Que atividade nunca é feita na chuva?"
+      },
+      "speaking": "Faça seis frases verdadeiras sobre sua rotina usando palavras de frequência.",
+      "exercises": {
+        "A1-17-E01": {
+          "prompt": "0% de frequência é...",
+          "hint": "",
+          "option_translations": {
+            "never": "nunca",
+            "always": "sempre",
+            "usually": "geralmente"
+          }
+        },
+        "A1-17-E02": {
+          "prompt": "I _____ escovar os dentes antes de dormir. (100%)",
+          "hint": "100% = sempre.",
+          "option_translations": {}
+        },
+        "A1-17-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-17-E04": {
+          "prompt": "Os advérbios de frequência geralmente vêm antes do verbo principal.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-18": {
+      "can_do": [
+        "Posso falar por 1-2 minutos sobre o meu dia.",
+        "Posso responder a perguntas de rotina."
+      ],
+      "grammar": [
+        "Revisão: Simple Present, do/does, expressões de tempo, frequência."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "Reveja terceira pessoa -s e ligando.",
+        "Apontar para pedaços limpos, não velocidade."
+      ],
+      "listening": {
+        "script": "A Maya levanta-se às 6:30. Ela costuma tomar o pequeno-almoço às sete. Ela trabalha das oito às quatro. Ela nunca trabalha no domingo. À noite, ela muitas vezes lê ou assiste a um filme.",
+        "task": "Criar a linha do tempo diária da Maya."
+      },
+      "speaking": "Missão final: descreva seu dia de manhã à noite e responda a cinco perguntas.",
+      "exercises": {
+        "A1-18-E01": {
+          "prompt": "A Maya levanta-se...",
+          "hint": "",
+          "option_translations": {
+            "630": "6:30",
+            "700": "7:00",
+            "800": "8:00"
+          }
+        },
+        "A1-18-E02": {
+          "prompt": "Ela. _____ Trabalha no domingo.",
+          "hint": "A escuta diz 0%.",
+          "option_translations": {}
+        },
+        "A1-18-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-18-E04": {
+          "prompt": "Maya trabalha das 8 às 4.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-19": {
+      "can_do": [
+        "Posso nomear quartos comuns.",
+        "Posso nomear a mobília básica."
+      ],
+      "grammar": [
+        "É um...",
+        "A minha casa tem..."
+      ],
+      "vocabulary_examples": [
+        "A cozinha é pequena.",
+        "O meu quarto é lá em cima.",
+        "A casa de banho é ao lado do quarto.",
+        "Vemos televisão na sala de estar.",
+        "A cama é nova.",
+        "As chaves estão na mesa.",
+        "Senta-te na cadeira.",
+        "O sofá é azul.",
+        "O leite está no frigorífico.",
+        "Fecha a porta, por favor."
+      ],
+      "pronunciation": [
+        "Cozinha: / ok ot on/.",
+        "Quarto: Cama de stress."
+      ],
+      "listening": {
+        "script": "O meu apartamento tem uma sala de estar, uma cozinha, um quarto e uma casa de banho. O sofá está na sala. A mesa está na cozinha.",
+        "task": "Onde estão o sofá e a mesa?"
+      },
+      "speaking": "Nomeie os quartos em sua casa e um objeto em cada quarto.",
+      "exercises": {
+        "A1-19-E01": {
+          "prompt": "Onde costumas dormir?",
+          "hint": "",
+          "option_translations": {
+            "bedroom": "quarto",
+            "kitchen": "cozinha",
+            "bathroom": "banheiro"
+          }
+        },
+        "A1-19-E02": {
+          "prompt": "O leite está no _____ .",
+          "hint": "A comida é mantida fria lá.",
+          "option_translations": {}
+        },
+        "A1-19-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-19-E04": {
+          "prompt": "Uma mesa pode ser mobília.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-20": {
+      "can_do": [
+        "Posso dizer que há uma coisa.",
+        "Posso dizer que há várias coisas.",
+        "Posso fazer perguntas simples."
+      ],
+      "grammar": [
+        "Há um sofá.",
+        "Há duas cadeiras.",
+        "Há...? Há...?"
+      ],
+      "vocabulary_examples": [
+        "Há uma janela.",
+        "Há duas lâmpadas.",
+        "Há uma foto na parede.",
+        "Há livros na prateleira.",
+        "Há uma planta perto da janela."
+      ],
+      "pronunciation": [
+        "Há uma contração comum.",
+        "Evite dizer \"há\" muito lentamente; pratique-o como um pedaço."
+      ],
+      "listening": {
+        "script": "Há um sofá na sala de estar. Há duas cadeiras e uma pequena mesa. Há uma lâmpada ao lado do sofá. Há três fotos na parede.",
+        "task": "Quantas cadeiras e fotografias há?"
+      },
+      "speaking": "Descreva uma sala com pelo menos três frases \"Há/Há\".",
+      "exercises": {
+        "A1-20-E01": {
+          "prompt": "Ali. _____ Uma lâmpada ao lado do sofá.",
+          "hint": "Uma lâmpada.",
+          "option_translations": {}
+        },
+        "A1-20-E02": {
+          "prompt": "Ali. _____ Três fotos.",
+          "hint": "Plural.",
+          "option_translations": {}
+        },
+        "A1-20-E03": {
+          "prompt": "Que pergunta sobre uma casa de banho?",
+          "hint": "",
+          "option_translations": {
+            "one": "Há uma casa de banho?",
+            "wrong": "Há uma casa de banho?",
+            "wrong2": "Há casa de banho?"
+          }
+        },
+        "A1-20-E04": {
+          "prompt": "\"Há duas cadeiras\" é plural.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-21": {
+      "can_do": [
+        "Posso dizer onde está um objecto.",
+        "Compreendo as instruções de localização."
+      ],
+      "grammar": [
+        "em, em, sob, ao lado de, atrás, em frente, entre"
+      ],
+      "vocabulary_examples": [
+        "As chaves estão no saco.",
+        "O telefone está na mesa.",
+        "Os sapatos estão debaixo da cama.",
+        "A lâmpada está ao lado do sofá.",
+        "A cadeira está atrás da mesa.",
+        "O carro está em frente à casa.",
+        "A mesa está entre as cadeiras."
+      ],
+      "pronunciation": [
+        "Link next to naturalmente.",
+        "Frente de muitas vezes se conecta na fala: front of."
+      ],
+      "listening": {
+        "script": "O telefone está na mesa. As chaves estão no saco debaixo da cadeira. A lâmpada está ao lado do sofá.",
+        "task": "Encontre o telefone, chaves e lâmpada na foto."
+      },
+      "speaking": "Use uma sala à sua volta e descreva cinco posições de objetos.",
+      "exercises": {
+        "A1-21-E01": {
+          "prompt": "O gato está abaixo da mesa. É...",
+          "hint": "",
+          "option_translations": {
+            "under": "debaixo da tabela",
+            "on": "na mesa",
+            "behind": "atrás da mesa"
+          }
+        },
+        "A1-21-E02": {
+          "prompt": "O telefone é... _____ A mesa.",
+          "hint": "Em cima da superfície.",
+          "option_translations": {}
+        },
+        "A1-21-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-21-E04": {
+          "prompt": "\"Entre\" normalmente descreve algo com coisas em dois lados.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-22": {
+      "can_do": [
+        "Posso identificar lugares comuns na cidade.",
+        "Posso dizer para onde preciso de ir."
+      ],
+      "grammar": [
+        "Preciso de ir para...",
+        "A ___ está perto..."
+      ],
+      "vocabulary_examples": [
+        "Preciso de ir ao supermercado.",
+        "A farmácia está aberta.",
+        "O hospital fica perto do parque.",
+        "O banco fica na King Street.",
+        "A estação fica no centro.",
+        "O nosso hotel fica perto da estação.",
+        "Aquele restaurante é bom.",
+        "O parque fica atrás do museu.",
+        "O museu está aberto hoje."
+      ],
+      "pronunciation": [
+        "Estresse hospitalar: HOS-pi-tal.",
+        "Restaurante pode ter menos sílabas do que falantes de português."
+      ],
+      "listening": {
+        "script": "A estação fica no centro. O hotel fica ao lado da estação. A farmácia fica em frente ao supermercado. O parque fica atrás do museu.",
+        "task": "Coincidir com lugares no mini-mapa."
+      },
+      "speaking": "Diz onde vais buscar comida, medicamentos, transporte e dinheiro.",
+      "exercises": {
+        "A1-22-E01": {
+          "prompt": "Onde se pode comprar medicamentos?",
+          "hint": "",
+          "option_translations": {
+            "pharmacy": "farmácia",
+            "station": "estação",
+            "museum": "museu"
+          }
+        },
+        "A1-22-E02": {
+          "prompt": "Tenho de ir. _____ O banco.",
+          "hint": "Ir para + lugar.",
+          "option_translations": {}
+        },
+        "A1-22-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-22-E04": {
+          "prompt": "Uma estação está ligada ao transporte.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-23": {
+      "can_do": [
+        "Consigo entender esquerda/direita/direita.",
+        "Posso dar uma rota curta."
+      ],
+      "grammar": [
+        "Vai em frente.",
+        "Vire à esquerda/direita.",
+        "Está à tua esquerda/direita.",
+        "Passar..."
+      ],
+      "vocabulary_examples": [
+        "Vira à esquerda.",
+        "Vira à direita.",
+        "Vai em frente.",
+        "Vire à esquerda na esquina.",
+        "Vira à direita nos semáforos.",
+        "Atravesse a rua.",
+        "Passa pelo banco.",
+        "É perto da estação."
+      ],
+      "pronunciation": [
+        "termina à direita em / t/.",
+        "Pratique turn right e go straight como pedaços."
+      ],
+      "listening": {
+        "script": "Vai em frente por um quarteirão. Vire à esquerda no banco. Passa pelo supermercado. A farmácia está à tua direita.",
+        "task": "Para onde se vira? O que está à tua direita?"
+      },
+      "speaking": "Dê direções de uma estação imaginária para uma farmácia usando três passos.",
+      "exercises": {
+        "A1-23-E01": {
+          "prompt": "Em frente à esquerda:",
+          "hint": "",
+          "option_translations": {
+            "right": "direita",
+            "straight": "reta",
+            "near": "perto"
+          }
+        },
+        "A1-23-E02": {
+          "prompt": "Vai. _____ por um quarteirão.",
+          "hint": "Continue em frente.",
+          "option_translations": {}
+        },
+        "A1-23-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-23-E04": {
+          "prompt": "\"Passar pelo banco\" significa entrar no banco.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-24": {
+      "can_do": [
+        "Posso descrever um quarto.",
+        "Posso descrever o meu bairro.",
+        "Posso dar indicações em três passos."
+      ],
+      "grammar": [
+        "Revisão: existem/são, preposições, imperativos."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "Reveja blocos conectados: next to, go straight, turn left."
+      ],
+      "listening": {
+        "script": "Há um pequeno parque perto da minha casa. O supermercado fica ao lado do parque. Para chegar à farmácia, vá em frente, vire à direita no banco, e a farmácia é à esquerda.",
+        "task": "Desenhar ou seguir a rota."
+      },
+      "speaking": "Missão final: descreva um quarto e depois guie alguém da sua casa para um lugar no seu bairro.",
+      "exercises": {
+        "A1-24-E01": {
+          "prompt": "O que há ao lado do parque?",
+          "hint": "",
+          "option_translations": {
+            "supermarket": "supermercado",
+            "pharmacy": "farmácia",
+            "bank": "banco"
+          }
+        },
+        "A1-24-E02": {
+          "prompt": "Ali. _____ Um pequeno parque perto da minha casa.",
+          "hint": "Singular.",
+          "option_translations": {}
+        },
+        "A1-24-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-24-E04": {
+          "prompt": "A farmácia é à esquerda.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-25": {
+      "can_do": [
+        "Posso nomear comida e bebidas comuns.",
+        "Posso dizer o que quiser/não gostar."
+      ],
+      "grammar": [
+        "Eu gosto...",
+        "Gostas...?"
+      ],
+      "vocabulary_examples": [
+        "Eu bebo água.",
+        "Gosto de café.",
+        "Gostas de chá?",
+        "Eu como pão ao pequeno-almoço.",
+        "Temos arroz para o almoço.",
+        "Eu gosto de frango.",
+        "Ela come uma maçã.",
+        "Ele gosta de bananas.",
+        "Não gosto de queijo.",
+        "Temos salada."
+      ],
+      "pronunciation": [
+        "a água difere pelo sotaque; mantenha a primeira sílaba forte.",
+        "stress de café: COF-fee."
+      ],
+      "listening": {
+        "script": "Para o pequeno-almoço tenho café, pão e queijo. Gosto de bananas, mas não gosto muito de maçãs. Para o almoço costumo comer frango, arroz e salada.",
+        "task": "O que tem o orador ao pequeno-almoço e ao almoço?"
+      },
+      "speaking": "Diz cinco comidas/bebidas de que gostas e duas que não gostas.",
+      "exercises": {
+        "A1-25-E01": {
+          "prompt": "O que é uma bebida?",
+          "hint": "",
+          "option_translations": {
+            "coffee": "café",
+            "bread": "pão",
+            "rice": "arroz"
+          }
+        },
+        "A1-25-E02": {
+          "prompt": "I _____ bananas.",
+          "hint": "Use como para preferência.",
+          "option_translations": {}
+        },
+        "A1-25-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-25-E04": {
+          "prompt": "'Você gosta de chá?' perguntas sobre preferência.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-26": {
+      "can_do": [
+        "Eu posso usar um / um com substantivos contáveis singulares.",
+        "Reconheço palavras básicas e incontáveis."
+      ],
+      "grammar": [
+        "uma maçã / duas maçãs",
+        "um pouco de arroz / água",
+        "não: um arroz / duas águas (uso básico)"
+      ],
+      "vocabulary_examples": [
+        "Quero uma maçã.",
+        "Precisamos de dois ovos.",
+        "Quero uma sandes.",
+        "Precisamos de arroz.",
+        "Posso beber água?",
+        "Temos pão."
+      ],
+      "pronunciation": [
+        "um link para um som vocálico a seguir: an apple.",
+        "Plural -s: ovos /z/, maçãs /z/."
+      ],
+      "listening": {
+        "script": "Precisamos de duas maçãs, três ovos, pão, arroz e água.",
+        "task": "Que itens têm números e que usam \"alguns\"?"
+      },
+      "speaking": "Olhe para uma lista de cozinha e diga quantidades de seis itens.",
+      "exercises": {
+        "A1-26-E01": {
+          "prompt": "O que é natural?",
+          "hint": "",
+          "option_translations": {
+            "apple": "uma maçã",
+            "rice": "um arroz",
+            "water": "duas águas"
+          }
+        },
+        "A1-26-E02": {
+          "prompt": "Precisamos _____ água.",
+          "hint": "Quantidade incontável básica.",
+          "option_translations": {}
+        },
+        "A1-26-E03": {
+          "prompt": "Escolha o substantivo contável.",
+          "hint": "",
+          "option_translations": {
+            "egg": "ovo",
+            "rice": "arroz",
+            "water": "água"
+          }
+        },
+        "A1-26-E04": {
+          "prompt": "Neste nível, normalmente tratamos 'pão' como incontável.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-27": {
+      "can_do": [
+        "Posso usar algumas em declarações afirmativas.",
+        "Posso usar qualquer coisa em perguntas/negativos comuns.",
+        "Eu posso usar muito / muitos em perguntas de quantidade básica."
+      ],
+      "grammar": [
+        "Há leite.",
+        "Tem leite?",
+        "Não há leite.",
+        "Quantas maçãs?"
+      ],
+      "vocabulary_examples": [
+        "Temos leite.",
+        "Temos pão?",
+        "Quantas maçãs?",
+        "Quanta água?",
+        "Uma garrafa de água.",
+        "É canja."
+      ],
+      "pronunciation": [
+        "any: / oeni/.",
+        "Muitos e muito são enfatizados quando se contrastam quantidades."
+      ],
+      "listening": {
+        "script": "Temos leite? — Sim, temos. Quantos ovos temos? — Seis. De quanta água precisamos? — Duas garrafas.",
+        "task": "Responda às três perguntas de quantidade."
+      },
+      "speaking": "Pergunte e responda quatro perguntas de quantidade de cozinha.",
+      "exercises": {
+        "A1-27-E01": {
+          "prompt": "Temos... _____ Pão?",
+          "hint": "Forma comum de perguntas.",
+          "option_translations": {}
+        },
+        "A1-27-E02": {
+          "prompt": "Que pergunta sobre maçãs?",
+          "hint": "",
+          "option_translations": {
+            "many": "Quantas maçãs?",
+            "much": "Quantas maçãs?",
+            "any": "Como são as maçãs?"
+          }
+        },
+        "A1-27-E03": {
+          "prompt": "Nós temos _____ Leite.",
+          "hint": "Utilização básica afirmativa.",
+          "option_translations": {}
+        },
+        "A1-27-E04": {
+          "prompt": "Use 'muito' com água em 'Quanta água?'",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-28": {
+      "can_do": [
+        "Posso perguntar quanto custa alguma coisa.",
+        "Compreendo preços simples.",
+        "Posso pedir um tamanho/cor."
+      ],
+      "grammar": [
+        "Quanto é isto?",
+        "Quanto é isto?",
+        "Gostava desta.",
+        "Você tem isso em médio/azul?"
+      ],
+      "vocabulary_examples": [
+        "Qual é o preço?",
+        "É barato.",
+        "É caro.",
+        "De que tamanho precisas?",
+        "Uma t-shirt pequena.",
+        "Você tem média?",
+        "Preciso de um grande.",
+        "Posso pagar em dinheiro?",
+        "Pago de cartão."
+      ],
+      "pronunciation": [
+        "trinta contra treze é importante para os preços.",
+        "euro/euros: manter o som inicial 'y' em inglês cuidadoso."
+      ],
+      "listening": {
+        "script": "Quanto custa esta T-shirt? — São 25 euros. — Tem - a em meio? — Sim, em azul e preto. - Óptimo. Eu fico com o azul.",
+        "task": "Qual é o preço, tamanho e cor?"
+      },
+      "speaking": "Role-play comprar uma camiseta: pedir preço, tamanho e cor, em seguida, comprar ou recusar.",
+      "exercises": {
+        "A1-28-E01": {
+          "prompt": "Pergunte o preço de uma camisa:",
+          "hint": "",
+          "option_translations": {
+            "one": "Quanto é isto?",
+            "wrong": "Quantos são?",
+            "wrong2": "Quanto custa isto?"
+          }
+        },
+        "A1-28-E02": {
+          "prompt": "Tens-na dentro? _____ ?",
+          "hint": "Um tamanho de roupa.",
+          "option_translations": {}
+        },
+        "A1-28-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-28-E04": {
+          "prompt": "\"Eu aceito\" pode significar que você decide comprá-lo.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-29": {
+      "can_do": [
+        "Posso pedir comida/bebidas.",
+        "Posso pedir a conta/cheque.",
+        "Eu posso usar eu gostaria / Posso ter ...?"
+      ],
+      "grammar": [
+        "Gostava de...",
+        "Posso ter...?",
+        "Mais alguma coisa?",
+        "É tudo, obrigado."
+      ],
+      "vocabulary_examples": [
+        "Posso ver o menu?",
+        "Quero um café.",
+        "Posso comer uma sandes?",
+        "A sopa, por favor.",
+        "Pode dar-me a conta, por favor?",
+        "Uma mesa para dois, por favor.",
+        "Água, por favor.",
+        "Mais alguma coisa?",
+        "É tudo, obrigado."
+      ],
+      "pronunciation": [
+        "Eu gostaria de...",
+        "Posso ter...? muitas vezes links: can I have."
+      ],
+      "listening": {
+        "script": "Olá. Quero um café e uma sanduíche de queijo, por favor. — Mais alguma coisa? — Sim, água, por favor. — Claro. — É tudo, obrigado.",
+        "task": "Que três coisas são encomendadas?"
+      },
+      "speaking": "Role-play um pedido de café com pelo menos dois itens e pedir a conta.",
+      "exercises": {
+        "A1-29-E01": {
+          "prompt": "Eu gostaria. _____ Um café, por favor.",
+          "hint": "Frase de ordem educada.",
+          "option_translations": {}
+        },
+        "A1-29-E02": {
+          "prompt": "Como se pede a conta?",
+          "hint": "",
+          "option_translations": {
+            "bill": "Pode dar-me a conta, por favor?",
+            "wrong": "Onde está o Bill?",
+            "wrong2": "Dá o Bill."
+          }
+        },
+        "A1-29-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-29-E04": {
+          "prompt": "'Mais alguma coisa?' pergunta se você quer mais coisas.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-30": {
+      "can_do": [
+        "Posso comprar um produto simples.",
+        "Posso pedir num café.",
+        "Consigo lidar com preços e quantidades."
+      ],
+      "grammar": [
+        "Revisão: Eu gostaria, Posso ter, algum/qualquer, muito/muito, este/estes."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "Reveja números/preços e ritmo de sentença educado."
+      ],
+      "listening": {
+        "script": "Cliente: Duas garrafas de água e uma sandes, por favor. Assistente: São oito euros e cinquenta. Cliente: Posso pagar por cartão? Assistente: Sim, claro.",
+        "task": "Quantas garrafas? Quanto é o total? Como é que o cliente paga?"
+      },
+      "speaking": "Última missão: comprar um item de roupa, depois pedir comida e uma bebida em um café.",
+      "exercises": {
+        "A1-30-E01": {
+          "prompt": "Quantas garrafas?",
+          "hint": "",
+          "option_translations": {
+            "2": "dois",
+            "8": "oito",
+            "1": "um"
+          }
+        },
+        "A1-30-E02": {
+          "prompt": "Posso pagar? _____ Cartão?",
+          "hint": "Frase comum: pagar por cartão.",
+          "option_translations": {}
+        },
+        "A1-30-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-30-E04": {
+          "prompt": "O cliente paga oito euros e cinquenta.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-31": {
+      "can_do": [
+        "Posso identificar acções comuns em imagens.",
+        "Posso dizer o que estou a fazer agora."
+      ],
+      "grammar": [
+        "ser + verbo-ing como uma introdução de bloco."
+      ],
+      "vocabulary_examples": [
+        "Ela está a andar.",
+        "Ele está a fugir.",
+        "Estão a comer.",
+        "Ela está a beber água.",
+        "Ele está a ler.",
+        "Ela está a escrever.",
+        "Eles estão a falar.",
+        "Ele está à espera.",
+        "Ela está a trabalhar.",
+        "O bebé está a dormir."
+      ],
+      "pronunciation": [
+        "- e termina normalmente / o/, não / o/.",
+        "Pratique andar, falar, trabalhar como palavras inteiras."
+      ],
+      "listening": {
+        "script": "Olha para o parque. Um homem está a fugir. Duas mulheres estão a falar. Uma criança está a comer um gelado, e um cão está a dormir debaixo de uma árvore.",
+        "task": "Combine cada pessoa/animal com uma ação."
+      },
+      "speaking": "Olhe em volta e diga três coisas que as pessoas estão fazendo agora.",
+      "exercises": {
+        "A1-31-E01": {
+          "prompt": "Uma pessoa com um livro é...",
+          "hint": "",
+          "option_translations": {
+            "reading": "leitura",
+            "running": "em execução",
+            "sleeping": "dormindo"
+          }
+        },
+        "A1-31-E02": {
+          "prompt": "Ela é. _____ água.",
+          "hint": "Acção com água.",
+          "option_translations": {}
+        },
+        "A1-31-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-31-E04": {
+          "prompt": "\"Dormindo\" descreve uma ação acontecendo agora em \"O bebê está dormindo\".",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-32": {
+      "can_do": [
+        "Eu posso usar am/is/are + -ing.",
+        "Posso descrever uma imagem com ações atuais."
+      ],
+      "grammar": [
+        "Estou a trabalhar.",
+        "Está a trabalhar.",
+        "Estamos a trabalhar."
+      ],
+      "vocabulary_examples": [
+        "Estou a trabalhar agora.",
+        "Ela está a estudar.",
+        "Ele está a fazer o jantar.",
+        "Estão a ver televisão.",
+        "Estamos a ouvir música.",
+        "Ela está a limpar a cozinha."
+      ],
+      "pronunciation": [
+        "Use contrações naturalmente: Eu, ele, ela, nós, eles são.",
+        "Não deixes cair o verbo."
+      ],
+      "listening": {
+        "script": "Estou a estudar inglês. A minha irmã está a cozinhar. Os meus pais estão a ver televisão. O nosso cão está a dormir.",
+        "task": "Complete quatro frases contínuas."
+      },
+      "speaking": "Descreva o que quatro pessoas numa casa imaginária estão a fazer neste momento.",
+      "exercises": {
+        "A1-32-E01": {
+          "prompt": "I _____ estudar.",
+          "hint": "O uso está comigo.",
+          "option_translations": {}
+        },
+        "A1-32-E02": {
+          "prompt": "Eles _____ A ver televisão.",
+          "hint": "O uso está com eles.",
+          "option_translations": {}
+        },
+        "A1-32-E03": {
+          "prompt": "O que está correcto?",
+          "hint": "",
+          "option_translations": {
+            "correct": "Ela está a cozinhar.",
+            "wrong": "Ela está a cozinhar.",
+            "wrong2": "Ela está a cozinhar."
+          }
+        },
+        "A1-32-E04": {
+          "prompt": "'Ele está trabalhando' = 'Ele está trabalhando'.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-33": {
+      "can_do": [
+        "Posso perguntar o que está alguém a fazer.",
+        "Posso responder às perguntas da acção actual.",
+        "Posso dizer que algo não está a acontecer."
+      ],
+      "grammar": [
+        "O que estás a fazer?",
+        "Ela está a trabalhar?",
+        "Estão a dormir?",
+        "Não estou a trabalhar.",
+        "Ela não está a dormir."
+      ],
+      "vocabulary_examples": [
+        "Estou a trabalhar agora.",
+        "Ela está a dormir.",
+        "Vais trabalhar hoje?",
+        "Estou ocupado neste momento."
+      ],
+      "pronunciation": [
+        "Muitas vezes, conecta-se naturalmente.",
+        "Não é e não são contrações negativas úteis."
+      ],
+      "listening": {
+        "script": "- Estou à espera do autocarro. Sara está com você? — Não, não é. Ela trabalha hoje.",
+        "task": "Onde está o alto-falante? O que está a Sara a fazer?"
+      },
+      "speaking": "Pergunte e responda cinco perguntas usando uma imagem ou imaginação.",
+      "exercises": {
+        "A1-33-E01": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-33-E02": {
+          "prompt": "Escolha a pergunta correta.",
+          "hint": "",
+          "option_translations": {
+            "correct": "Ela está a trabalhar?",
+            "wrong": "Ela trabalha?",
+            "less": "Ela está a trabalhar?"
+          }
+        },
+        "A1-33-E03": {
+          "prompt": "Eles _____ A dormir. Estão acordados.",
+          "hint": "Negativo com eles.",
+          "option_translations": {}
+        },
+        "A1-33-E04": {
+          "prompt": "'Você está trabalhando hoje?' pergunta sobre uma situação temporária/atual.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-34": {
+      "can_do": [
+        "Posso identificar roupas comuns.",
+        "Posso dizer o que alguém está a vestir."
+      ],
+      "grammar": [
+        "Está a usar...",
+        "Estou a usar..."
+      ],
+      "vocabulary_examples": [
+        "Ela está a usar uma t-shirt.",
+        "Está a usar uma camisa branca.",
+        "Estou a usar calças pretas.",
+        "Ela está a usar calças de ganga.",
+        "Ela está a usar um vestido vermelho.",
+        "Está a usar um casaco.",
+        "Estão a usar sapatos brancos.",
+        "Está a usar um chapéu."
+      ],
+      "pronunciation": [
+        "roupas: o final é compacto; não exagere.",
+        "Camisa vs T-shirt: stress T em T-shirt."
+      ],
+      "listening": {
+        "script": "Anna está usando um vestido vermelho e sapatos pretos. O Ben está a usar jeans, uma t-shirt branca e um casaco azul.",
+        "task": "Escolha a roupa correta para cada pessoa."
+      },
+      "speaking": "Descreva o que está usando agora, depois descreva outra pessoa numa foto.",
+      "exercises": {
+        "A1-34-E01": {
+          "prompt": "O que costuma ser usado nos teus pés?",
+          "hint": "",
+          "option_translations": {
+            "shoes": "calçados",
+            "hat": "chapéu",
+            "jacket": "casaco"
+          }
+        },
+        "A1-34-E02": {
+          "prompt": "Ela é. _____ Um vestido vermelho.",
+          "hint": "Usa roupa agora.",
+          "option_translations": {}
+        },
+        "A1-34-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-34-E04": {
+          "prompt": "'Trousers' é normalmente plural em inglês.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-35": {
+      "can_do": [
+        "Posso descrever o tempo básico.",
+        "Posso dizer o que as pessoas estão a fazer por causa do tempo."
+      ],
+      "grammar": [
+        "É ensolarado/raining/frio/quente.",
+        "As pessoas estão..."
+      ],
+      "vocabulary_examples": [
+        "Está ensolarado hoje.",
+        "Está chovendo.",
+        "Está a chover.",
+        "Está nublado.",
+        "Está ventando.",
+        "Está quente hoje.",
+        "Está frio lá fora.",
+        "Está quente esta tarde."
+      ],
+      "pronunciation": [
+        "O tempo começa com /ð/.",
+        "Estresse ventilante: WIN-dy."
+      ],
+      "listening": {
+        "script": "Está frio e chuvoso hoje. As pessoas usam casacos. Uma mulher está à espera de um autocarro debaixo de um guarda-chuva. Duas crianças estão a correr para um café.",
+        "task": "Descreva o tempo e duas ações."
+      },
+      "speaking": "Descreva o tempo de hoje e diga o que você está vestindo / fazendo por causa disso.",
+      "exercises": {
+        "A1-35-E01": {
+          "prompt": "Você vê nuvens escuras e água caindo:",
+          "hint": "",
+          "option_translations": {
+            "rain": "Está a chover.",
+            "sun": "Está ensolarado.",
+            "hot": "Está quente."
+          }
+        },
+        "A1-35-E02": {
+          "prompt": "É... _____ Hoje. Leva um casaco.",
+          "hint": "Um casaco encaixa no tempo frio.",
+          "option_translations": {}
+        },
+        "A1-35-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-35-E04": {
+          "prompt": "\"Está ventando\" significa que há muito vento.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-36": {
+      "can_do": [
+        "Eu posso descrever uma imagem usando Presente Contínuo.",
+        "Posso perguntar e responder a perguntas de acção actual."
+      ],
+      "grammar": [
+        "Revisão: am/is/are + -ing, perguntas e negativos."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "Reveja contracções e..."
+      ],
+      "listening": {
+        "script": "Está ensolarado no parque. Um homem está a ler num banco. Duas crianças estão a brincar. Uma mulher está usando um vestido amarelo e tirando uma foto. Um cão corre perto das árvores.",
+        "task": "Encontra cinco detalhes no local."
+      },
+      "speaking": "Missão final: falar por 60-90 segundos descrevendo uma imagem ocupada sem ler.",
+      "exercises": {
+        "A1-36-E01": {
+          "prompt": "O que está o homem a fazer?",
+          "hint": "",
+          "option_translations": {
+            "reading": "leitura",
+            "running": "em execução",
+            "cooking": "cozinhar"
+          }
+        },
+        "A1-36-E02": {
+          "prompt": "O cão é... _____ perto das árvores.",
+          "hint": "Acção da escuta.",
+          "option_translations": {}
+        },
+        "A1-36-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-36-E04": {
+          "prompt": "O tempo está ensolarado.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-37": {
+      "can_do": [
+        "Posso dizer o que não posso fazer.",
+        "Posso perguntar sobre habilidades."
+      ],
+      "grammar": [
+        "Eu sei nadar.",
+        "Ela não sabe conduzir.",
+        "Sabe cozinhar? — Sim, eu sei. Não, não posso."
+      ],
+      "vocabulary_examples": [
+        "Eu sei nadar.",
+        "Ela sabe conduzir.",
+        "Sabes cozinhar?",
+        "Ele sabe dançar.",
+        "Não sei cantar.",
+        "Ela pode usar um computador.",
+        "Sabes falar inglês?",
+        "Ele sabe andar de bicicleta."
+      ],
+      "pronunciation": [
+        "pode é muitas vezes fraco em frases afirmativas.",
+        "Não posso ficar mais stressado."
+      ],
+      "listening": {
+        "script": "Sei nadar e andar de bicicleta, mas não sei conduzir. A minha amiga Zoe sabe conduzir e cozinhar muito bem, mas não sabe nadar.",
+        "task": "Faça um gráfico de lata/não pode para duas pessoas."
+      },
+      "speaking": "Diz cinco coisas que podes fazer e duas coisas que ainda não podes fazer.",
+      "exercises": {
+        "A1-37-E01": {
+          "prompt": "I _____ Nada, mas não sei conduzir.",
+          "hint": "Capacidade positiva.",
+          "option_translations": {}
+        },
+        "A1-37-E02": {
+          "prompt": "Que pergunta faz a habilidade?",
+          "hint": "",
+          "option_translations": {
+            "ability": "Sabes cozinhar?",
+            "wrong": "Estás a cozinhar?",
+            "wrong2": "És cozinheiro?"
+          }
+        },
+        "A1-37-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-37-E04": {
+          "prompt": "Após a lata, use o verbo base: 'pode conduzir'.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-38": {
+      "can_do": [
+        "Posso pedir permissão.",
+        "Posso pedir ajuda a alguém.",
+        "Posso responder educadamente."
+      ],
+      "grammar": [
+        "Posso...?",
+        "Podes...?",
+        "Sim, claro.",
+        "Desculpa, não posso."
+      ],
+      "vocabulary_examples": [
+        "Podes ajudar-me?",
+        "Podes abrir a porta?",
+        "Podes fechar a janela?",
+        "Posso usar o teu telefone?",
+        "Posso sentar-me aqui?",
+        "Pode esperar um minuto?",
+        "Sim, claro.",
+        "Desculpa, não posso."
+      ],
+      "pronunciation": [
+        "Posso fazer links naturalmente: can I.",
+        "Você pode muitas vezes soa como um pedaço suave."
+      ],
+      "listening": {
+        "script": "Desculpe, pode ajudar-me? — Naturalmente. — Posso usar esta cadeira? — Sim, sem problemas. — Obrigado.",
+        "task": "Que pedido é de ajuda e qual é de permissão?"
+      },
+      "speaking": "Faça quatro pedidos educados: dois com Can I e dois com Can I.",
+      "exercises": {
+        "A1-38-E01": {
+          "prompt": "Pedir permissão para usar um telefone:",
+          "hint": "",
+          "option_translations": {
+            "permission": "Posso usar o teu telefone?",
+            "other": "Podes usar o meu telefone?",
+            "wrong": "Eu uso o telefone?"
+          }
+        },
+        "A1-38-E02": {
+          "prompt": "Podes... _____ Eu?",
+          "hint": "Pedido de assistência.",
+          "option_translations": {}
+        },
+        "A1-38-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-38-E04": {
+          "prompt": "\"Pode abrir a porta?\" é um pedido.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-39": {
+      "can_do": [
+        "Compreendo os imperativos comuns.",
+        "Posso seguir sinais públicos básicos."
+      ],
+      "grammar": [
+        "Abre a porta.",
+        "Não entres.",
+        "Por favor, espere aqui."
+      ],
+      "vocabulary_examples": [
+        "Pára aqui.",
+        "Por favor, espere aqui.",
+        "Abre a porta.",
+        "Fecha a janela.",
+        "Desliga o telemóvel.",
+        "Não entres.",
+        "Fica à esquerda.",
+        "Tem cuidado."
+      ],
+      "pronunciation": [
+        "Os imperativos muitas vezes têm fortes primeiras palavras: PARE, ESPERE, VOLTA.",
+        "Não digite: conecte as duas palavras naturalmente."
+      ],
+      "listening": {
+        "script": "Por favor, espere aqui. Não entres nesta sala. Desliga o telemóvel e fica à esquerda no corredor.",
+        "task": "Escolha os quatro sinais correctos."
+      },
+      "speaking": "Leia cinco sinais comuns em voz alta e explique-os em português ou inglês simples.",
+      "exercises": {
+        "A1-39-E01": {
+          "prompt": "Um sinal vermelho diz que as pessoas não podem entrar.",
+          "hint": "",
+          "option_translations": {
+            "enter": "Não entre",
+            "sit": "Por favor, sente-se.",
+            "right": "Virar à direita"
+          }
+        },
+        "A1-39-E02": {
+          "prompt": "_____ Cuidado.",
+          "hint": "Aviso comum.",
+          "option_translations": {}
+        },
+        "A1-39-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-39-E04": {
+          "prompt": "Um imperativo pode dar uma instrução.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-40": {
+      "can_do": [
+        "Posso nomear o transporte.",
+        "Posso dizer como viajo.",
+        "Posso perguntar onde arranjar um autocarro/comboio."
+      ],
+      "grammar": [
+        "Vou de autocarro/comboio/carro.",
+        "Ando até...",
+        "Onde é a paragem de autocarro?"
+      ],
+      "vocabulary_examples": [
+        "Vou de autocarro.",
+        "Viajamos de comboio.",
+        "Ela vai de carro.",
+        "Ele anda de bicicleta.",
+        "Vou a pé para o trabalho.",
+        "Onde é a paragem de autocarro?",
+        "Preciso de um bilhete.",
+        "A estação de comboios é aqui perto."
+      ],
+      "pronunciation": [
+        "de ônibus / de trem: manter 'by' curto.",
+        "stress de ticket: Tick-et."
+      ],
+      "listening": {
+        "script": "Costumo ir trabalhar de autocarro. A paragem de autocarro fica perto da minha casa. Aos sábados ando até ao centro. O meu amigo vai a todo o lado de bicicleta.",
+        "task": "Como viajam o orador e o amigo?"
+      },
+      "speaking": "Explique como normalmente viaja para trabalhar/estudar e como viaja nos fins de semana.",
+      "exercises": {
+        "A1-40-E01": {
+          "prompt": "Vou trabalhar. _____ Autocarro.",
+          "hint": "Utilização por + transporte.",
+          "option_translations": {}
+        },
+        "A1-40-E02": {
+          "prompt": "Se viajas a pé, tu...",
+          "hint": "",
+          "option_translations": {
+            "walk": "andar",
+            "train": "comboio",
+            "ticket": "ticket"
+          }
+        },
+        "A1-40-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-40-E04": {
+          "prompt": "\"De carro\" é uma expressão comum de transporte.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-41": {
+      "can_do": [
+        "Posso perguntar como chegar a algum lado.",
+        "Consigo entender uma rota curta.",
+        "Posso dizer que não entendo."
+      ],
+      "grammar": [
+        "Desculpe, como é que chego...?",
+        "É longe?",
+        "Pode repetir isso?"
+      ],
+      "vocabulary_examples": [
+        "Desculpe, pode ajudar-me?",
+        "Como chego à estação?",
+        "É longe daqui?",
+        "Há algum banco aqui perto?",
+        "Pode repetir isso?",
+        "Desculpe, não entendo."
+      ],
+      "pronunciation": [
+        "Com licença: enfatize um pouco a segunda palavra.",
+        "Como chego a...? praticado como um pedaço."
+      ],
+      "listening": {
+        "script": "Desculpe, como chego à estação? — Vá em frente, vire à esquerda nos semáforos, e fica ao lado do hotel. — É longe? — Não, cerca de cinco minutos.",
+        "task": "Siga a rota e estime a distância."
+      },
+      "speaking": "Role-play pedindo instruções, incluindo um pedido de esclarecimento.",
+      "exercises": {
+        "A1-41-E01": {
+          "prompt": "Melhor abertura para perguntar a um estranho:",
+          "hint": "",
+          "option_translations": {
+            "excuse": "Com licença.",
+            "hey": "Olá.",
+            "wrong": "Estação agora."
+          }
+        },
+        "A1-41-E02": {
+          "prompt": "Como posso _____ Para a estação?",
+          "hint": "Pergunta de rota fixa.",
+          "option_translations": {}
+        },
+        "A1-41-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-41-E04": {
+          "prompt": "'Você pode dizer isso novamente?' é útil quando você não entende.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-42": {
+      "can_do": [
+        "Posso pedir ajuda.",
+        "Posso usar a linguagem de transporte.",
+        "Compreendo sinais e direções curtas."
+      ],
+      "grammar": [
+        "Revisão: não pode/não pode, imperativos, frases de direção."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "A revisão pode/não pode contrastar e rotear pedaços."
+      ],
+      "listening": {
+        "script": "Desculpe, pode ajudar-me? Preciso de ir para o hospital. — Claro. Apanha o autocarro 12 desta paragem. Sai em King Street e vai em frente. O hospital está à sua direita. — Obrigado!",
+        "task": "Que autocarro? Onde é que a pessoa sai? De que lado é o hospital?"
+      },
+      "speaking": "Missão final: pedir ajuda, escolher transporte e repetir uma rota de três passos.",
+      "exercises": {
+        "A1-42-E01": {
+          "prompt": "Que autocarro?",
+          "hint": "",
+          "option_translations": {
+            "12": "12",
+            "20": "20",
+            "2": "2"
+          }
+        },
+        "A1-42-E02": {
+          "prompt": "O hospital é... _____ À tua direita.",
+          "hint": "Frase fixa.",
+          "option_translations": {}
+        },
+        "A1-42-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-42-E04": {
+          "prompt": "A pessoa devia sair em King Street.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-43": {
+      "can_do": [
+        "Posso dizer que tenho uma reserva.",
+        "Posso dar o meu nome.",
+        "Compreendo o número do quarto e a hora do pequeno-almoço."
+      ],
+      "grammar": [
+        "Tenho uma reserva.",
+        "O meu nome é...",
+        "A que horas é o pequeno-almoço?",
+        "Onde é o meu quarto?"
+      ],
+      "vocabulary_examples": [
+        "Tenho uma reserva.",
+        "O teu quarto é 204.",
+        "Aqui está a tua chave.",
+        "Posso ver o teu passaporte?",
+        "O pequeno-almoço é das sete.",
+        "O elevador está à esquerda.",
+        "Pergunta na recepção.",
+        "Qual é a senha do Wi-Fi?"
+      ],
+      "pronunciation": [
+        "stress de reserva: reser-VA-tion.",
+        "quarto tem uma vogal longa em muitos sotaques."
+      ],
+      "listening": {
+        "script": "Olá, tenho uma reserva. O meu nome é Sofia Costa. — Sim, quarto 204. O pequeno-almoço é das sete às dez. O elevador está à sua esquerda. — Obrigado.",
+        "task": "Qual é o número do quarto e hora do pequeno-almoço?"
+      },
+      "speaking": "Check-in no hotel, depois pergunte sobre o pequeno-almoço e Wi-Fi.",
+      "exercises": {
+        "A1-43-E01": {
+          "prompt": "Eu tenho... _____ .",
+          "hint": "Reserva de hotel.",
+          "option_translations": {}
+        },
+        "A1-43-E02": {
+          "prompt": "Quarto 204 é pronunciado...",
+          "hint": "",
+          "option_translations": {
+            "204": "dois oh quatro",
+            "24": "vinte e quatro",
+            "wrong": "dois quatro"
+          }
+        },
+        "A1-43-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-43-E04": {
+          "prompt": "O elevador está à esquerda.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-44": {
+      "can_do": [
+        "Posso pedir uma mesa.",
+        "Posso pedir uma refeição.",
+        "Posso dizer simples preferências."
+      ],
+      "grammar": [
+        "Uma mesa para dois, por favor.",
+        "Gostava de...",
+        "Não, por favor.",
+        "Podemos ficar com a conta?"
+      ],
+      "vocabulary_examples": [
+        "Uma mesa para dois, por favor.",
+        "Vou querer a sopa para começar.",
+        "O frango é o meu prato principal.",
+        "Quero sobremesa.",
+        "Isto é vegetariano?",
+        "Água, por favor.",
+        "Podemos ficar com a conta?"
+      ],
+      "pronunciation": [
+        "Estresse vegetariano: vege-TAIR-ian.",
+        "A sobremesa tem stress na segunda sílaba."
+      ],
+      "listening": {
+        "script": "Uma mesa para dois, por favor. — Claro. — Gostaria de frango e arroz. O meu amigo gostaria da massa vegetariana. Também podemos beber água?",
+        "task": "O que cada pessoa pede?"
+      },
+      "speaking": "Role-play entrar em um restaurante, pedir um prato principal e beber, em seguida, pedir a conta.",
+      "exercises": {
+        "A1-44-E01": {
+          "prompt": "Uma tabela _____ Dois, por favor.",
+          "hint": "Frase fixa.",
+          "option_translations": {}
+        },
+        "A1-44-E02": {
+          "prompt": "Quem pergunta se a comida não tem carne?",
+          "hint": "",
+          "option_translations": {
+            "veg": "Isto é vegetariano?",
+            "price": "Isto é caro?",
+            "wrong": "Este é o quarto dois?"
+          }
+        },
+        "A1-44-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-44-E04": {
+          "prompt": "O amigo pede massa vegetariana.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-45": {
+      "can_do": [
+        "Posso pedir um tamanho.",
+        "Posso pedir para experimentar algo.",
+        "Posso dizer que é muito grande/pequeno."
+      ],
+      "grammar": [
+        "Posso experimentar isto?",
+        "Tens isto em...?",
+        "É muito grande/pequeno."
+      ],
+      "vocabulary_examples": [
+        "Posso experimentar isto?",
+        "O vestiário é ali.",
+        "É muito grande.",
+        "É muito pequeno.",
+        "Encaixa bem.",
+        "Tens outra cor?",
+        "Preciso de um tamanho diferente."
+      ],
+      "pronunciation": [
+        "cabe nas extremidades /ts/.",
+        "links try on naturalmente."
+      ],
+      "listening": {
+        "script": "Posso experimentar este casaco? — Naturalmente. O vestiário é ali. — É muito grande. Você tem tamanho menor? — Sim, aqui está um médium.",
+        "task": "Por que o cliente precisa de outro tamanho?"
+      },
+      "speaking": "Role-play tentando em um casaco e pedindo outro tamanho / cor.",
+      "exercises": {
+        "A1-45-E01": {
+          "prompt": "Posso? _____ Isto?",
+          "hint": "Pedido de vestuário.",
+          "option_translations": {}
+        },
+        "A1-45-E02": {
+          "prompt": "O casaco não é do tamanho certo porque é...",
+          "hint": "",
+          "option_translations": {
+            "big": "muito grande",
+            "cheap": "demasiado barato",
+            "blue": "muito azul"
+          }
+        },
+        "A1-45-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-45-E04": {
+          "prompt": "\"Ajusta-se bem\" significa que o tamanho é bom.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-46": {
+      "can_do": [
+        "Posso dizer que não me sinto bem.",
+        "Eu posso citar alguns sintomas comuns / partes do corpo.",
+        "Posso pedir ajuda urgente."
+      ],
+      "grammar": [
+        "Estou com dor de cabeça.",
+        "Meu ___ Dói.",
+        "Não me sinto bem.",
+        "Preciso de ajuda."
+      ],
+      "vocabulary_examples": [
+        "Estou com dor de cabeça.",
+        "Dói-me o estômago.",
+        "Tenho dores aqui.",
+        "Dói-me a cabeça.",
+        "Dói-me o estômago.",
+        "Preciso de um médico.",
+        "Onde fica a farmácia mais próxima?",
+        "Preciso de ajuda.",
+        "É uma emergência."
+      ],
+      "pronunciation": [
+        "dor de cabeça stress: dor de cabeça.",
+        "Estômago: STUM- ok."
+      ],
+      "listening": {
+        "script": "Não me sinto bem. Tenho uma dor de cabeça forte e meu estômago dói. — Precisa de um médico? — Sim, por favor.",
+        "task": "Que dois problemas tem a pessoa?"
+      },
+      "speaking": "Pratique dizer um sintoma e pergunte onde está a farmácia/médico mais próxima.",
+      "exercises": {
+        "A1-46-E01": {
+          "prompt": "Para uma dor de cabeça, o problema está no seu...",
+          "hint": "",
+          "option_translations": {
+            "head": "cabeça",
+            "foot": "pé",
+            "arm": "braço"
+          }
+        },
+        "A1-46-E02": {
+          "prompt": "Preciso de um... _____ .",
+          "hint": "Profissional médico.",
+          "option_translations": {}
+        },
+        "A1-46-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-46-E04": {
+          "prompt": "\"É uma emergência\" indica uma situação urgente.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-47": {
+      "can_do": [
+        "Posso dar informações básicas de contacto.",
+        "Posso deixar uma mensagem muito curta.",
+        "Posso fazer simples perguntas amigáveis."
+      ],
+      "grammar": [
+        "Podes dizer-lhe...?",
+        "Por favor, liga-me.",
+        "Como estás? Como está o teu dia?"
+      ],
+      "vocabulary_examples": [
+        "Qual é a sua morada?",
+        "Qual é o teu email?",
+        "Posso deixar uma mensagem?",
+        "Por favor, liga-me.",
+        "Liga-me mais tarde.",
+        "Estou ocupado hoje.",
+        "Estou bem, obrigado.",
+        "Estou ocupado hoje."
+      ],
+      "pronunciation": [
+        "E-mail stress: E-mail.",
+        "Como estás? muitas vezes reduz naturalmente, mas mantê-lo claro."
+      ],
+      "listening": {
+        "script": "Olá, posso deixar uma mensagem para a Emma? Por favor, diz-lhe que o Rafael ligou. O meu número é 091 555 204. Pede-lhe para me ligar mais tarde. Obrigado.",
+        "task": "Quem ligou? O que deve Emma fazer?"
+      },
+      "speaking": "Deixe uma mensagem telefónica fictícia de 20 segundos com o seu nome, número e pedido.",
+      "exercises": {
+        "A1-47-E01": {
+          "prompt": "Posso deixar um _____ ?",
+          "hint": "Comunicação telefónica.",
+          "option_translations": {}
+        },
+        "A1-47-E02": {
+          "prompt": "O que deve Emma fazer?",
+          "hint": "",
+          "option_translations": {
+            "call": "Liga ao Rafael mais tarde.",
+            "hotel": "Ir para um hotel",
+            "jacket": "Compre um casaco"
+          }
+        },
+        "A1-47-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-47-E04": {
+          "prompt": "'Estou bem, obrigado' é uma resposta comum para 'Como você está?'",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    },
+    "A1-48": {
+      "can_do": [
+        "Posso apresentar-me e a outra pessoa.",
+        "Posso descrever a minha rotina e casa.",
+        "Posso comprar ou encomendar alguma coisa.",
+        "Posso pedir informações/ajuda.",
+        "Posso entender inglês curto e claro sobre temas familiares."
+      ],
+      "grammar": [
+        "Revisão integrada de A1."
+      ],
+      "vocabulary_examples": [],
+      "pronunciation": [
+        "Priorizar a inteligibilidade, o peso e a confiança sobre a velocidade."
+      ],
+      "listening": {
+        "script": "Bem-vindos à missão final do A1. Primeiro, apresente-se. Então imagine que você está visitando uma nova cidade: faça o check-in em um hotel, pergunte como chegar a um café, peça uma bebida e lanche, e deixe uma mensagem curta para um amigo.",
+        "task": "Complete a missão de cinco partes."
+      },
+      "speaking": "Capstone: simulação guiada de 4-6 minutos cobrindo introdução, rotina, hotel, direções, café e uma mensagem curta.",
+      "exercises": {
+        "A1-48-E01": {
+          "prompt": "Num hotel, que frase é mais útil?",
+          "hint": "",
+          "option_translations": {
+            "hotel": "Tenho uma reserva.",
+            "swim": "Eu sei nadar.",
+            "rain": "Está a chover."
+          }
+        },
+        "A1-48-E02": {
+          "prompt": "Como posso _____ Para a estação?",
+          "hint": "Pergunta de direcção.",
+          "option_translations": {}
+        },
+        "A1-48-E03": {
+          "prompt": "Coloque as palavras na ordem correta.",
+          "hint": "",
+          "option_translations": {}
+        },
+        "A1-48-E04": {
+          "prompt": "O desempenho final A1 deve combinar várias situações familiares.",
+          "hint": "",
+          "option_translations": {}
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { ArrowRight, BarChart3, Clock3, GraduationCap, LoaderCircle, Target, Volume2 } from 'lucide-react'
+import { ArrowRight, BarChart3, CircleAlert, Clock3, Database, GraduationCap, LoaderCircle, Target, Volume2 } from 'lucide-react'
 import { Button } from '../components/Button'
 import { LoadingState } from '../components/LoadingState'
 import { StatePanel } from '../components/StatePanel'
-import { generateLessonAudio, getAdminAudioOverview, getAdminStudents } from '../features/lessons/repository'
+import { generateLessonAudio, getAdminAudioOverview, getAdminCurriculumDiagnostics, getAdminStudents } from '../features/lessons/repository'
 import { useAsyncResource } from '../hooks/useAsyncResource'
 import { formatRelativeActivity } from '../lib/format'
 import type { AdminStudent, AudioGenerationScope } from '../types/domain'
@@ -11,6 +11,7 @@ import type { AdminStudent, AudioGenerationScope } from '../types/domain'
 export default function AdminPage() {
   const students = useAsyncResource(getAdminStudents, [])
   const audio = useAsyncResource(getAdminAudioOverview, [])
+  const diagnostics = useAsyncResource(getAdminCurriculumDiagnostics, [])
   const [selected, setSelected] = useState<AdminStudent | null>(null)
   const [generatingScope, setGeneratingScope] = useState('')
   const [audioMessage, setAudioMessage] = useState('')
@@ -36,6 +37,14 @@ export default function AdminPage() {
 
   if (students.loading || audio.loading) return <LoadingState label="Preparando o painel…" />
   if (students.error || !students.data) return <StatePanel title="O painel administrativo não carregou">{students.error ?? 'Tente novamente.'} <button className="text-button" onClick={() => void students.reload()}>Tentar novamente</button></StatePanel>
+  const diagnosticProblems = diagnostics.data ? [
+    ['Blocos vazios', diagnostics.data.problems.emptyLessonBlocks],
+    ['Traduções ausentes no A1', diagnostics.data.problems.missingTranslations],
+    ['Visuais ausentes', diagnostics.data.problems.missingVisuals],
+    ['Texto TTS inválido', diagnostics.data.problems.dirtyTtsText],
+    ['Áudio obrigatório ausente', diagnostics.data.problems.missingRequiredAudio],
+    ['Versão de conteúdo incompatível', diagnostics.data.problems.schemaMismatch],
+  ] as const : []
 
   return <div className="page admin-page">
     <header className="page-heading"><span className="field-label"><i />VISÃO DO PROFESSOR</span><h1>Alunos</h1><p>Acompanhe o progresso. A sequência normal de lições é liberada automaticamente após cada conclusão.</p></header>
@@ -43,6 +52,24 @@ export default function AdminPage() {
       <section className="student-list" aria-label="Lista de alunos">{students.data.map((student) => <button key={student.id} type="button" className={selected?.id === student.id ? 'student-row is-selected' : 'student-row'} onClick={() => setSelected(student)}><span className="student-row__avatar">{student.displayName[0]}</span><span><strong>{student.displayName}</strong><small>{student.level} · {student.completedLessons} aulas concluídas</small></span><span className="student-row__progress">{student.progressPercent}%</span><ArrowRight aria-hidden="true" /></button>)}</section>
       <aside className="student-detail">{selected ? <><div className="student-detail__head"><span className="student-row__avatar">{selected.displayName[0]}</span><div><h2>{selected.displayName}</h2><p>@{selected.username} · {selected.level}</p></div></div><div className="metric-grid"><span><BarChart3 aria-hidden="true" /><small>Progresso</small><strong>{selected.progressPercent}%</strong></span><span><Target aria-hidden="true" /><small>Precisão</small><strong>{selected.accuracyPercent}%</strong></span><span><GraduationCap aria-hidden="true" /><small>XP</small><strong>{selected.xp}</strong></span><span><Clock3 aria-hidden="true" /><small>Atividade</small><strong>{formatRelativeActivity(selected.lastActivity)}</strong></span></div></> : <div className="empty-selection"><GraduationCap aria-hidden="true" /><p>Selecione uma aluna para ver o acompanhamento.</p></div>}</aside>
     </div>
+
+    <section className="admin-diagnostics" aria-labelledby="admin-diagnostics-title">
+      <div className="admin-audio__heading"><div><span className="field-label"><i />QUALIDADE DO CURSO</span><h2 id="admin-diagnostics-title">Diagnóstico do conteúdo</h2><p>Visão automática dos problemas comuns, sem precisar abrir o Supabase.</p></div><Database aria-hidden="true" /></div>
+      {diagnostics.loading ? <p className="admin-audio__message">Verificando currículo…</p> : null}
+      {diagnostics.error ? <div className="feedback feedback--incorrect">O diagnóstico não carregou: {diagnostics.error} <button className="text-button" type="button" onClick={() => void diagnostics.reload()}>Tentar novamente</button></div> : null}
+      {diagnostics.data ? <>
+        <dl className="diagnostic-grid">
+          <div><dt>Currículo</dt><dd>{diagnostics.data.curriculumVersion}</dd></div>
+          <div><dt>Lições</dt><dd>{diagnostics.data.lessonsActual} / {diagnostics.data.lessonsExpected}</dd></div>
+          <div><dt>Blocos A1-01</dt><dd>{diagnostics.data.goldenBlocks}</dd></div>
+          <div><dt>Visuais</dt><dd>{diagnostics.data.visualAssetsActual} / {diagnostics.data.visualAssetsExpected}</dd></div>
+          <div><dt>Áudio obrigatório</dt><dd>{diagnostics.data.requiredAudio.ready} prontos · {diagnostics.data.requiredAudio.missing} ausentes · {diagnostics.data.requiredAudio.failed} falharam</dd></div>
+          <div><dt>Segmentos de vocabulário</dt><dd>{diagnostics.data.vocabularySegments.ready} prontos · {diagnostics.data.vocabularySegments.missing} ausentes · {diagnostics.data.vocabularySegments.failed} falharam</dd></div>
+          <div><dt>Esquema de conteúdo</dt><dd>{diagnostics.data.contentSchemaVersion}</dd></div>
+        </dl>
+        <div className="diagnostic-problems" aria-label="Problemas encontrados">{diagnosticProblems.map(([label, count]) => <span key={label} className={count > 0 ? 'has-problem' : 'is-clear'}><CircleAlert aria-hidden="true" /><strong>{count}</strong>{label}</span>)}</div>
+      </> : null}
+    </section>
 
     <section className="admin-audio" aria-labelledby="admin-audio-title">
       <div className="admin-audio__heading"><div><span className="field-label"><i />PRONÚNCIA</span><h2 id="admin-audio-title">Áudio das lições</h2><p>Gere somente os arquivos ausentes. Os áudios prontos são reutilizados.</p></div><Volume2 aria-hidden="true" /></div>

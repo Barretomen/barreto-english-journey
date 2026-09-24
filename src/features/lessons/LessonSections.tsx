@@ -42,12 +42,14 @@ function BulletList({ items, className }: { items: string[]; className?: string 
 }
 
 export function LessonOverview({ block }: { block: LessonBlock }) {
-  const goals = strings(block.content.can_do_pt).length ? strings(block.content.can_do_pt) : strings(block.content.can_do)
+  const [showTranslation, setShowTranslation] = useState(false)
+  const goals = strings(block.content.can_do)
+  const translatedGoals = strings(block.content.can_do_pt)
   return <article className="lesson-block overview-card">
     <span className="section-kicker"><Target aria-hidden="true" />OBJETIVO</span>
     <h2>{block.title ?? 'O que você vai aprender'}</h2>
     {text(block.content.body) ? <p className="lesson-copy">{text(block.content.body)}</p> : null}
-    {goals.length ? <div className="can-do-preview"><strong>Ao final, você poderá:</strong><BulletList items={goals} /></div> : null}
+    {goals.length ? <div className="can-do-preview"><strong>Ao final, você poderá:</strong><BulletList items={goals} />{translatedGoals.length ? <><button className="text-toggle" type="button" aria-expanded={showTranslation} onClick={() => setShowTranslation((current) => !current)}>{showTranslation ? 'Ocultar tradução' : 'Ver tradução'}</button>{showTranslation ? <BulletList items={translatedGoals} className="lesson-points lesson-points--translation" /> : null}</> : null}</div> : null}
   </article>
 }
 
@@ -83,7 +85,9 @@ export function VocabularySection({ block }: { block: LessonBlock }) {
 }
 
 export function GrammarSection({ block }: { block: LessonBlock }) {
+  const [showTranslation, setShowTranslation] = useState(false)
   const items = strings(block.content.items)
+  const translatedItems = strings(block.content.items_pt)
   const rule = text(block.content.explanation) || text(block.content.rule) || text(block.content.body)
   const examples = strings(block.content.examples)
   return <article className="lesson-block grammar-card">
@@ -91,15 +95,18 @@ export function GrammarSection({ block }: { block: LessonBlock }) {
     <h2>{block.title ?? 'Como a língua funciona'}</h2>
     {rule ? <p className="lesson-copy">{rule}</p> : null}
     <BulletList items={items} />
+    {translatedItems.length ? <><button className="text-toggle" type="button" aria-expanded={showTranslation} onClick={() => setShowTranslation((current) => !current)}>{showTranslation ? 'Ocultar tradução' : 'Ver tradução'}</button>{showTranslation ? <BulletList items={translatedItems} className="lesson-points lesson-points--translation" /> : null}</> : null}
     {examples.length ? <div className="example-stack">{examples.map((example) => <p key={example}>{example}</p>)}</div> : null}
   </article>
 }
 
 export function PronunciationSection({ block }: { block: LessonBlock }) {
-  const items = strings(block.content.items_pt).length ? strings(block.content.items_pt) : strings(block.content.items)
+  const [showTranslation, setShowTranslation] = useState(false)
+  const items = strings(block.content.items)
+  const translatedItems = strings(block.content.items_pt)
   return <article className="lesson-block speaking-card">
     <Mic2 aria-hidden="true" />
-    <div><span className="section-kicker">PRONÚNCIA</span><h2>{block.title ?? 'Ouça e repita'}</h2><div className="pronunciation-list">{items.map((item, index) => <section key={item}><p>{item}</p>{block.audioSegments?.filter((segment) => segment.itemKey === `pronunciation-${index + 1}`).map((segment) => <LessonAudioPlayer key={segment.id} segmentId={segment.id} status={segment.status} compact />)}</section>)}</div><Audio block={block} /></div>
+    <div><span className="section-kicker">PRONÚNCIA</span><h2>{block.title ?? 'Ouça e repita'}</h2><div className="pronunciation-list">{items.map((item, index) => <section key={item}><p>{item}</p>{showTranslation && translatedItems[index] ? <p lang="pt-BR" className="pronunciation-translation">{translatedItems[index]}</p> : null}{block.audioSegments?.filter((segment) => segment.itemKey === `pronunciation-${index + 1}`).map((segment) => <LessonAudioPlayer key={segment.id} segmentId={segment.id} status={segment.status} compact />)}</section>)}</div>{translatedItems.length ? <button className="text-toggle text-toggle--dark" type="button" aria-expanded={showTranslation} onClick={() => setShowTranslation((current) => !current)}>{showTranslation ? 'Ocultar tradução' : 'Ver tradução'}</button> : null}<Audio block={block} /></div>
   </article>
 }
 

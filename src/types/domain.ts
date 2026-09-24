@@ -199,6 +199,26 @@ export interface AdminAudioLesson {
   totalCount: number
 }
 
+export interface AdminCurriculumDiagnostics {
+  curriculumVersion: string
+  contentSchemaVersion: string
+  lessonsExpected: number
+  lessonsActual: number
+  goldenBlocks: number
+  visualAssetsExpected: number
+  visualAssetsActual: number
+  requiredAudio: Record<AudioStatus, number>
+  vocabularySegments: Record<AudioStatus, number>
+  problems: {
+    emptyLessonBlocks: number
+    missingTranslations: number
+    missingVisuals: number
+    dirtyTtsText: number
+    missingRequiredAudio: number
+    schemaMismatch: number
+  }
+}
+
 export interface AudioGenerationSummary {
   ready: number
   failed: number

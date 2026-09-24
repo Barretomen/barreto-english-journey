@@ -139,6 +139,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .section-kicker { display: inline-flex; align-items: center; gap: .35rem; color: var(--blue); font: 700 .72rem 'IBM Plex Mono', monospace; letter-spacing: .08em; }
 .section-kicker svg { width: 1rem; height: 1rem; }
 .lesson-points { display: grid; gap: .55rem; margin: 1rem 0 0; padding-left: 1.25rem; color: var(--navy); line-height: 1.55; }
+.lesson-points--translation { margin-top: .2rem; padding: .8rem 1rem .8rem 2rem; background: rgba(255,255,255,.75); border-radius: .55rem; }
 .can-do-preview { margin-top: 1.1rem; padding: 1rem; color: var(--navy); background: var(--sky); border-radius: .7rem; }
 .can-do-preview .lesson-points { margin-top: .6rem; }
 .grammar-card { border-left: 4px solid #7759c2; }
@@ -148,6 +149,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .reading-copy { color: var(--navy) !important; font-size: 1.02rem; line-height: 1.75; white-space: pre-line; }
 .reading-translation { padding: 1rem; background: #fff8ea; border-radius: .65rem; line-height: 1.65; }
 .text-toggle { min-height: 2.75rem; padding: .35rem 0; color: var(--blue); background: transparent; border: 0; font-weight: 700; cursor: pointer; }
+.text-toggle--dark { color: #b9d4ff; }
 .listening-task { padding: .75rem 1rem; color: var(--navy) !important; background: #fff8ea; border-radius: .6rem; }
 .mission-card { border-top: 4px solid var(--blue); }
 .checklist-card { border-top: 4px solid #1c8a4c; }
@@ -193,6 +195,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .pronunciation-list { display: grid; gap: .65rem; margin-top: 1rem; }
 .pronunciation-list section { padding: .75rem; background: rgba(255,255,255,.08); border-radius: .6rem; }
 .pronunciation-list section p { color: white; }
+.pronunciation-list .pronunciation-translation { color: #c9d5e5; font-size: .9rem; }
 .speaking-card .audio-button { color: var(--navy); }
 .audio-unavailable { margin-top: 1rem !important; font-size: .9rem; font-style: italic; }
 .audio-error { flex-basis: 100%; color: #9c2f22; font-size: .9rem; }
@@ -218,6 +221,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .metric-grid span { display: grid; gap: .2rem; padding: .8rem; background: #f5f8fc; border-radius: .6rem; }.metric-grid svg { width: 1rem; color: var(--blue); }
 .admin-note { padding: 1rem; color: var(--muted); background: #fff7ed; border-radius: .65rem; }
 .admin-audio { margin-top: 2rem; padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: .9rem; }
+.admin-diagnostics { margin-top: 2rem; padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: .9rem; }
+.diagnostic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; margin: 1.25rem 0; }
+.diagnostic-grid div { min-width: 0; padding: .85rem; background: #f5f8fc; border-radius: .65rem; }
+.diagnostic-grid dt { color: var(--muted); font-size: .78rem; }
+.diagnostic-grid dd { margin: .2rem 0 0; color: var(--navy); font-weight: 700; overflow-wrap: anywhere; }
+.diagnostic-problems { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
+.diagnostic-problems span { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: .4rem; padding: .7rem; border-radius: .6rem; font-size: .78rem; }
+.diagnostic-problems svg { width: 1rem; }
+.diagnostic-problems .is-clear { color: #176b3a; background: #e5f7ec; }
+.diagnostic-problems .has-problem { color: #9c2f22; background: #ffebe8; }
 .admin-audio__heading { display: flex; justify-content: space-between; gap: 1rem; }
 .admin-audio__heading h2 { margin: .35rem 0; color: var(--navy); font: 650 1.6rem 'Familjen Grotesk', sans-serif; }
 .admin-audio__heading p { margin: 0; color: var(--muted); }
@@ -336,6 +349,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .bottom-nav a { display: grid; place-items: center; gap: .15rem; padding: .35rem; color: var(--muted); font-size: .7rem; text-decoration: none; }.bottom-nav a.active { color: var(--blue); }.bottom-nav svg { width: 1.2rem; }
   .page { padding: 2rem 1rem; }
   .dashboard-heading, .lesson-hero { align-items: flex-start; }
+  .lesson-hero { flex-direction: column; gap: 1rem; }
+  .lesson-hero .xp-badge { align-self: flex-start; }
   .lesson-topbar { align-items: flex-start; }
   .lesson-switcher > span { display: none; }
   .lesson-stream--paged { min-height: 15rem; }
@@ -349,6 +364,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .vocabulary-list, .due-review-list { grid-template-columns: 1fr; }
   .clinic-heading { align-items: stretch; flex-direction: column; }
   .audio-batch-controls { grid-template-columns: 1fr; }
+  .diagnostic-grid, .diagnostic-problems { grid-template-columns: 1fr; }
   .audio-batch-controls .button { width: 100%; }
   .level-poster { min-width: 4.8rem; font-size: 1.8rem; }.level-poster small { margin-top: -.9rem; }
   .journey-card, .dashboard-grid, .admin-layout { grid-template-columns: 1fr; }

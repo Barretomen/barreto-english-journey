@@ -17,7 +17,9 @@
     "test:coverage": "vitest run --coverage",
     "curriculum:import": "tsx scripts/import-curriculum.ts",
     "curriculum:audit": "tsx scripts/audit-curriculum-content.ts",
-    "curriculum:verify": "tsx scripts/verify-curriculum.ts"
+    "curriculum:verify": "tsx scripts/verify-curriculum.ts",
+    "curriculum:verify:a1": "tsx scripts/verify-a1-wave.ts",
+    "audio:generate:a1": "tsx scripts/generate-a1-audio.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

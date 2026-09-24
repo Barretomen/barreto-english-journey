@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { access, mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { normalizeTextForTts } from '../supabase/functions/_shared/ttsText'
 
 type JsonRecord = Record<string, unknown>
 type LevelCode = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2'
@@ -72,6 +73,7 @@ const GOLDEN_TITLES: Record<string, string> = {
   'C2-01-01': 'Nearly the Same Is Not the Same',
 }
 const fixturePath = path.resolve('scripts', 'fixtures', 'curriculum-audit-manifest.json')
+const a1TranslationPath = path.resolve('scripts', 'fixtures', 'a1-translations-pt.json')
 
 function record(value: unknown): JsonRecord {
   return value !== null && typeof value === 'object' && !Array.isArray(value) ? value as JsonRecord : {}
@@ -271,6 +273,12 @@ function validateManifest(manifest: CurriculumAuditManifest): void {
     assert(lesson.exerciseCount > 0 && lesson.exercisePromptCount === lesson.exerciseCount, `${lesson.id}: exercises or prompts are empty.`)
     assert(lesson.emptyPlannedBlockCount === 0, `${lesson.id}: importer would create an empty block.`)
     assert(lesson.audioSourceTexts.length > 0 && lesson.audioSourceTexts.every(Boolean), `${lesson.id}: required audio has no usable source text.`)
+    for (const sourceText of lesson.audioSourceTexts) {
+      const normalized = normalizeTextForTts(sourceText)
+      assert(Boolean(normalized), `${lesson.id}: TTS text is empty after normalization.`)
+      assert(!normalized.includes('_'), `${lesson.id}: normalized TTS text still contains an underscore.`)
+      assert(!normalized.includes('[object Object]') && !/\b(null|undefined)\b/i.test(normalized), `${lesson.id}: invalid TTS serialization.`)
+    }
     for (const exerciseId of lesson.exerciseIds) {
       assert(Boolean(exerciseId) && !exerciseIds.has(exerciseId), `${lesson.id}: missing or duplicate stable exercise id ${exerciseId || '(empty)'}.`)
       exerciseIds.add(exerciseId)
@@ -284,6 +292,33 @@ function validateManifest(manifest: CurriculumAuditManifest): void {
   const first = manifest.golden.find((lesson) => lesson.id === 'A1-01')
   assert(first?.title === 'Hello and Goodbye', 'A1-01 golden title changed.')
   assert(first.vocabularyCount === 8 && first.vocabularyTranslationCount === 8, 'A1-01 vocabulary or Portuguese meanings are incomplete.')
+}
+
+function validateA1Translations(manifest: CurriculumAuditManifest, pack: JsonRecord): void {
+  assert(text(pack.version), 'A1 translation pack has no version.')
+  assert(pack.locale === 'pt', 'A1 translation pack locale must be pt.')
+  const translatedLessons = record(pack.lessons)
+  const a1Lessons = manifest.lessons.filter((lesson) => lesson.level === 'A1')
+  assert(Object.keys(translatedLessons).length === a1Lessons.length, `A1 translation pack must contain ${a1Lessons.length} lessons.`)
+  for (const lesson of a1Lessons) {
+    const translated = record(translatedLessons[lesson.id])
+    assert(Object.keys(translated).length > 0, `${lesson.id}: translation entry missing.`)
+    assert(nonEmptyCount(translated.can_do) === lesson.canDoCount, `${lesson.id}: can-do translation coverage incomplete.`)
+    assert(nonEmptyCount(translated.grammar) === lesson.grammarCount, `${lesson.id}: grammar translation coverage incomplete.`)
+    assert(nonEmptyCount(translated.vocabulary_examples) === lesson.vocabularyCount, `${lesson.id}: vocabulary example translation coverage incomplete.`)
+    assert(nonEmptyCount(translated.pronunciation) === lesson.pronunciationCount, `${lesson.id}: pronunciation translation coverage incomplete.`)
+    const listening = record(translated.listening)
+    assert(text(listening.script) && text(listening.task), `${lesson.id}: listening translation coverage incomplete.`)
+    assert(text(translated.speaking), `${lesson.id}: speaking translation missing.`)
+    const exercises = record(translated.exercises)
+    assert(Object.keys(exercises).length === lesson.exerciseCount, `${lesson.id}: exercise translation count mismatch.`)
+    for (const exerciseId of lesson.exerciseIds) {
+      const exercise = record(exercises[exerciseId])
+      assert(text(exercise.prompt), `${exerciseId}: translated prompt missing.`)
+      const values = Object.values(exercise)
+      assert(!values.some((value) => typeof value === 'string' && /\b(null|undefined|\[object Object\])\b/i.test(value)), `${exerciseId}: invalid translated value.`)
+    }
+  }
 }
 
 async function exists(target: string): Promise<boolean> {
@@ -301,6 +336,8 @@ async function main() {
     : JSON.parse(await readFile(fixturePath, 'utf8')) as CurriculumAuditManifest
 
   validateManifest(manifest)
+  const a1Translations = JSON.parse(await readFile(a1TranslationPath, 'utf8')) as JsonRecord
+  validateA1Translations(manifest, a1Translations)
   if (writeFixture) {
     assert(hasSource, '--write-fixture requires an extracted curriculum package path.')
     await mkdir(path.dirname(fixturePath), { recursive: true })
@@ -314,6 +351,8 @@ async function main() {
     visuals: manifest.visuals,
     exercises: manifest.lessons.reduce((total, lesson) => total + lesson.exerciseCount, 0),
     goldenFixtures: manifest.golden.map((lesson) => lesson.id),
+    a1TranslationVersion: text(a1Translations.version),
+    a1TranslationLessons: Object.keys(record(a1Translations.lessons)).length,
     source: hasSource ? 'extracted package' : 'committed sanitized fixture',
   })
 }

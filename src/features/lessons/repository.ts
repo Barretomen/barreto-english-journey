@@ -1,6 +1,7 @@
 import { createDemoDashboard, demoLesson, demoStudents, getDemoJourney } from '../../lib/demo'
 import { supabase } from '../../lib/supabase/client'
 import type {
+  AdminCurriculumDiagnostics,
   AdminStudent,
   AdminAudioLesson,
   AudioGenerationScope,
@@ -278,6 +279,44 @@ export async function getAdminAudioOverview(): Promise<AdminAudioLesson[]> {
     failedCount: Number(row.failed_count),
     totalCount: Number(row.total_count)
   }))
+}
+
+const EXPECTED_CONTENT_SCHEMA_VERSION = '2.0-specialized-sections'
+
+export async function getAdminCurriculumDiagnostics(): Promise<AdminCurriculumDiagnostics> {
+  if (!supabase) return {
+    curriculumVersion: 'demo', contentSchemaVersion: EXPECTED_CONTENT_SCHEMA_VERSION,
+    lessonsExpected: 360, lessonsActual: 360, goldenBlocks: 12,
+    visualAssetsExpected: 401, visualAssetsActual: 401,
+    requiredAudio: { ready: 0, missing: 0, generating: 0, failed: 0 },
+    vocabularySegments: { ready: 0, missing: 0, generating: 0, failed: 0 },
+    problems: { emptyLessonBlocks: 0, missingTranslations: 0, missingVisuals: 0, dirtyTtsText: 0, missingRequiredAudio: 0, schemaMismatch: 0 },
+  }
+  const { data, error } = await supabase.rpc('get_admin_curriculum_diagnostics')
+  if (error) throw error
+  const row = data as Record<string, unknown>
+  const requiredAudio = (row.required_audio ?? {}) as Record<string, unknown>
+  const vocabularySegments = (row.vocabulary_segments ?? {}) as Record<string, unknown>
+  const problems = (row.problems ?? {}) as Record<string, unknown>
+  const contentSchemaVersion = String(row.content_schema_version ?? 'unknown')
+  const audioCounts = (counts: Record<string, unknown>) => ({
+    ready: Number(counts.ready ?? 0), missing: Number(counts.missing ?? 0),
+    generating: Number(counts.generating ?? 0), failed: Number(counts.failed ?? 0),
+  })
+  return {
+    curriculumVersion: String(row.curriculum_version ?? 'unknown'), contentSchemaVersion,
+    lessonsExpected: Number(row.lessons_expected ?? 360), lessonsActual: Number(row.lessons_actual ?? 0),
+    goldenBlocks: Number(row.golden_blocks ?? 0),
+    visualAssetsExpected: Number(row.visual_assets_expected ?? 401), visualAssetsActual: Number(row.visual_assets_actual ?? 0),
+    requiredAudio: audioCounts(requiredAudio), vocabularySegments: audioCounts(vocabularySegments),
+    problems: {
+      emptyLessonBlocks: Number(problems.empty_lesson_blocks ?? 0),
+      missingTranslations: Number(problems.missing_translations ?? 0),
+      missingVisuals: Number(problems.missing_visuals ?? 0), dirtyTtsText: Number(problems.dirty_tts_text ?? 0),
+      missingRequiredAudio: Number(problems.missing_required_audio ?? 0),
+      schemaMismatch: contentSchemaVersion === EXPECTED_CONTENT_SCHEMA_VERSION ? 0 : 1,
+    },
+  }
 }
 
 export async function generateLessonAudio(scope: AudioGenerationScope): Promise<AudioGenerationSummary> {

@@ -145,15 +145,21 @@ function exerciseBlock(lessonId: string, exercise: JsonRecord): Omit<BlockInput,
   }
 }
 
-function blocksForA1(lesson: CurriculumLesson, visualExternalId: string): BlockInput[] {
+function blocksForA1(lesson: CurriculumLesson, visualExternalId: string, translation: JsonRecord): BlockInput[] {
   const blocks: BlockInput[] = []
   const isGolden = lesson.id === 'A1-01'
-  const vocabulary = asArray<JsonRecord>(lesson.vocabulary).map((item, index) => isGolden
+  const translatedCanDo = isGolden ? [...A1_01_PT.canDo] : asArray<string>(translation.can_do)
+  const translatedGrammar = asArray<string>(translation.grammar)
+  const translatedExamples = asArray<string>(translation.vocabulary_examples)
+  const translatedPronunciation = isGolden ? [...A1_01_PT.pronunciation] : asArray<string>(translation.pronunciation)
+  const translatedListening = asRecord(translation.listening)
+  const translatedExercises = asRecord(translation.exercises)
+  const vocabulary: JsonRecord[] = asArray<JsonRecord>(lesson.vocabulary).map((item, index) => isGolden
     ? { ...item, example_translation: A1_01_PT.exampleTranslations[index] ?? '' }
-    : item)
+    : { ...item, example_translation: translatedExamples[index] ?? '' })
   addBlock(blocks, lesson.id, {
     block_type: 'overview', title: 'Objetivo da lição',
-    content: { body: lesson.goal, can_do: lesson.can_do, ...(isGolden ? { can_do_pt: A1_01_PT.canDo } : {}) },
+    content: { body: lesson.goal, can_do: lesson.can_do, can_do_pt: translatedCanDo },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
   }, 'overview', 1)
   addBlock(blocks, lesson.id, {
@@ -164,6 +170,7 @@ function blocksForA1(lesson: CurriculumLesson, visualExternalId: string): BlockI
   addBlock(blocks, lesson.id, {
     block_type: 'grammar', title: 'Gramática', content: {
       items: lesson.grammar,
+      items_pt: translatedGrammar,
       ...(isGolden ? { explanation: A1_01_PT.grammarExplanation, examples: A1_01_PT.grammarExamples } : {}),
     },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
@@ -182,8 +189,8 @@ function blocksForA1(lesson: CurriculumLesson, visualExternalId: string): BlockI
   }, 'vocabulary', isGolden ? 3 : 4)
   const pronunciation = asArray<string>(lesson.pronunciation)
   addBlock(blocks, lesson.id, {
-    block_type: 'pronunciation', title: 'Pronúncia', content: { items: pronunciation, ...(isGolden ? { items_pt: A1_01_PT.pronunciation } : {}) },
-    audio_required: true, audio_role: 'pronunciation', transcript: pronunciation.join(' '), metadata: {},
+    block_type: 'pronunciation', title: 'Pronúncia', content: { items: pronunciation, items_pt: translatedPronunciation },
+    audio_required: true, audio_role: 'pronunciation', transcript: requireTtsText(pronunciation.join(' ')), metadata: {},
     audio_segments: pronunciation.map((item, index) => ({
       external_id: `${lesson.id}-AUDIO-PRON-${index + 1}`, item_key: `pronunciation-${index + 1}`,
       segment_kind: 'pronunciation', position: index + 1, speech_text: item,
@@ -193,27 +200,60 @@ function blocksForA1(lesson: CurriculumLesson, visualExternalId: string): BlockI
   addBlock(blocks, lesson.id, {
     block_type: 'listening', title: 'Listening', content: {
       ...listening,
-      ...(isGolden ? { task_translation: A1_01_PT.listeningTask, script_translation: A1_01_PT.listeningTranslation } : {}),
+      task_translation: isGolden ? A1_01_PT.listeningTask : text(translatedListening.task),
+      script_translation: isGolden ? A1_01_PT.listeningTranslation : text(translatedListening.script),
     },
-    audio_required: true, audio_role: 'listening', transcript: text(listening.script), metadata: {},
+    audio_required: true, audio_role: 'listening', transcript: requireTtsText(text(listening.script)), metadata: {},
   }, 'listening', isGolden ? 9 : 6)
   const exercises = asArray<JsonRecord>(lesson.exercises)
   for (let exerciseIndex = 0; exerciseIndex < exercises.length; exerciseIndex += 1) {
     const sourceExercise = exercises[exerciseIndex]
-    const exercise = isGolden
-      ? { ...sourceExercise, ...(A1_01_PT.exercises[text(sourceExercise.id)] ?? {}) }
-      : sourceExercise
+    const exerciseTranslation = asRecord(translatedExercises[text(sourceExercise.id)])
+    const generatedTranslation = {
+      prompt_translation: text(exerciseTranslation.prompt),
+      hint_translation: text(exerciseTranslation.hint),
+      option_translations: asRecord(exerciseTranslation.option_translations),
+    }
+    const exercise: JsonRecord = {
+      ...sourceExercise,
+      ...generatedTranslation,
+      ...(isGolden ? (A1_01_PT.exercises[text(sourceExercise.id)] ?? {}) : {}),
+    }
     const goldenPositions = [4, 6, 8, 10]
     addBlock(blocks, lesson.id, exerciseBlock(lesson.id, exercise), `exercise-${text(exercise.id)}`, isGolden ? goldenPositions[exerciseIndex] : 7 + exerciseIndex)
   }
   addBlock(blocks, lesson.id, {
-    block_type: 'speaking', title: 'Speaking', content: { prompt: lesson.speaking, ...(isGolden ? { prompt_translation: A1_01_PT.speaking } : {}) },
-    audio_required: true, audio_role: 'speaking_prompt', transcript: text(lesson.speaking), metadata: {},
+    block_type: 'speaking', title: 'Speaking', content: { prompt: lesson.speaking, prompt_translation: isGolden ? A1_01_PT.speaking : text(translation.speaking) },
+    audio_required: true, audio_role: 'speaking_prompt', transcript: requireTtsText(text(lesson.speaking)), metadata: {},
   }, 'speaking', 7 + exercises.length)
   addBlock(blocks, lesson.id, {
-    block_type: 'assessment', title: 'Eu consigo', content: { can_do: lesson.can_do, ...(isGolden ? { can_do_pt: A1_01_PT.canDo } : {}) },
+    block_type: 'assessment', title: 'Eu consigo', content: { can_do: lesson.can_do, can_do_pt: translatedCanDo },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
   }, 'assessment', 8 + exercises.length)
+
+  // Keep stable block/exercise IDs while placing short practice immediately after
+  // the language input it checks. Checkpoint lessons legitimately omit vocabulary.
+  const exerciseOrder = new Map(exercises.map((exercise, index) => [text(exercise.id), index]))
+  const rank = (block: BlockInput): number => {
+    if (block.exercise) {
+      const index = exerciseOrder.get(block.exercise.external_id) ?? 99
+      return (vocabulary.length
+        ? [40, 60, 80, 100]
+        : [60, 80, 100, 110])[index] ?? 120 + index
+    }
+    return {
+      overview: 10,
+      visual: 20,
+      vocabulary: 30,
+      grammar: 50,
+      pronunciation: 70,
+      listening: 90,
+      speaking: 200,
+      assessment: 210,
+    }[block.block_type] ?? 190
+  }
+  blocks.sort((left, right) => rank(left) - rank(right))
+  blocks.forEach((block, index) => { block.position = index + 1 })
   return blocks
 }
 
@@ -242,12 +282,12 @@ function blocksForAdvanced(lesson: CurriculumLesson, visualExternalId: string): 
   }
   if (text(input.listening_script)) addBlock(blocks, lesson.id, {
     block_type: 'listening', title: 'Listening', content: { script: input.listening_script },
-    audio_required: true, audio_role: 'listening', transcript: text(input.listening_script), metadata: {},
+    audio_required: true, audio_role: 'listening', transcript: requireTtsText(text(input.listening_script)), metadata: {},
   }, 'listening')
   const examples = asArray<string>(lesson.examples)
   addBlock(blocks, lesson.id, {
     block_type: 'examples', title: 'Examples', content: { items: examples },
-    audio_required: true, audio_role: 'examples', transcript: examples.join(' '), metadata: {},
+    audio_required: true, audio_role: 'examples', transcript: requireTtsText(examples.join(' ')), metadata: {},
   }, 'examples')
   addBlock(blocks, lesson.id, {
     block_type: 'practice', title: 'Practice sequence', content: { items: lesson.practice },
@@ -359,6 +399,10 @@ async function main() {
   const clinics = await readJson<JsonRecord[]>(path.join(packageRoot, 'codex_handoff', 'grammar_clinics.json'))
   const rubrics = await readJson<JsonRecord>(path.join(packageRoot, 'codex_handoff', 'assessment_rubrics.json'))
   const answerKeys = await readJson<Record<string, JsonRecord>>(path.join(packageRoot, 'private_answers', 'answer_key.json'))
+  const a1TranslationPack = await readJson<{ version: string; lessons: Record<string, JsonRecord> }>(path.resolve('scripts', 'fixtures', 'a1-translations-pt.json'))
+  if (!a1TranslationPack.version || Object.keys(a1TranslationPack.lessons).length !== 48) {
+    throw new Error('A1 translation pack is missing or incomplete.')
+  }
   const visualDir = path.join(packageRoot, 'visuals')
   const visualFiles = (await readdir(visualDir)).filter((file) => file.toLowerCase().endsWith('.svg')).sort()
 
@@ -421,8 +465,12 @@ async function main() {
           is_checkpoint: Boolean(assessment.checkpoint),
           lesson_role: text(lesson.role) || null,
           can_do: asArray(lesson.can_do),
-          metadata: { goal: lesson.goal, recycles: lesson.recycles },
+          metadata: {
+            goal: lesson.goal, recycles: lesson.recycles,
+            ...(code === 'A1' ? { translation_version: a1TranslationPack.version } : {}),
+          },
           course_version: master.version,
+          content_schema_version: '2.0-specialized-sections',
           is_legacy: false,
           published: true,
         }, { onConflict: 'external_id' }).select('id').single()
@@ -438,7 +486,7 @@ async function main() {
           alt: text(brief.purpose) || `Apoio visual da lição ${lesson.title}`,
         })
         const blocks = code === 'A1'
-          ? blocksForA1(lesson, visualExternalId)
+          ? blocksForA1(lesson, visualExternalId, a1TranslationPack.lessons[lesson.id] ?? {})
           : blocksForAdvanced(lesson, visualExternalId)
         await upsertLessonContent(client, Number(savedLesson.id), lesson.id, blocks)
       }
