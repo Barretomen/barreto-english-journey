@@ -2,6 +2,7 @@ import { corsHeaders, errorResponse, HttpError, jsonResponse } from '../_shared/
 import { createAuthenticatedClients } from '../_shared/supabase.ts'
 
 interface AudioUrlRequest {
+  segmentId?: number
   blockId?: number
   variant?: 'normal' | 'slow'
 }
@@ -13,15 +14,19 @@ Deno.serve(async (req) => {
   try {
     const clients = await createAuthenticatedClients(req)
     const body = await req.json() as AudioUrlRequest
+    const segmentId = Number(body.segmentId)
     const blockId = Number(body.blockId)
-    if (!Number.isInteger(blockId) || !['normal', 'slow'].includes(body.variant ?? '')) {
+    if ([Number.isInteger(segmentId), Number.isInteger(blockId)].filter(Boolean).length !== 1
+      || !['normal', 'slow'].includes(body.variant ?? '')) {
       throw new HttpError(400, 'Invalid audio request.')
     }
 
+    const table = Number.isInteger(segmentId) ? 'lesson_audio_segments' : 'lesson_blocks'
+    const targetId = Number.isInteger(segmentId) ? segmentId : blockId
     const { data, error } = await clients.userClient
-      .from('lesson_blocks')
+      .from(table)
       .select('audio_path, slow_audio_path, audio_status')
-      .eq('id', blockId)
+      .eq('id', targetId)
       .single()
     if (error || !data) throw new HttpError(403, 'Audio is not available for this lesson.')
     if (data.audio_status !== 'ready') throw new HttpError(404, 'Audio unavailable.')

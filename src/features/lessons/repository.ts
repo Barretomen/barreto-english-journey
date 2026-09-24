@@ -9,6 +9,7 @@ import type {
   AudioVariant,
   DashboardData,
   ExerciseFeedback,
+  ExerciseAnswerReveal,
   JsonValue,
   LessonCatalogItem,
   LessonCompletion,
@@ -130,6 +131,8 @@ export async function getLesson(lessonId: number): Promise<LessonDetail> {
     isCheckpoint: Boolean(row.is_checkpoint),
     canDo: (row.can_do as JsonValue[]) ?? [],
     metadata: (row.metadata as Record<string, JsonValue>) ?? {},
+    contentVersion: row.content_version ? String(row.content_version) : null,
+    canDoChecks: (row.can_do_checks as Record<string, boolean>) ?? {},
     blocks: rawBlocks.map((block) => {
       const relatedExercise = block.exercise
       const exercise = relatedExercise && typeof relatedExercise === 'object'
@@ -150,6 +153,13 @@ export async function getLesson(lessonId: number): Promise<LessonDetail> {
           role: block.audio_role ? String(block.audio_role) : null,
           transcript: block.transcript ? String(block.transcript) : null
         },
+        audioSegments: ((block.audio_segments as Array<Record<string, unknown>>) ?? []).map((segment) => ({
+          id: Number(segment.id), externalId: String(segment.external_id), itemKey: String(segment.item_key),
+          kind: String(segment.segment_kind) as 'term' | 'example' | 'pronunciation' | 'listening' | 'speaking',
+          position: Number(segment.position), speechText: String(segment.speech_text),
+          status: ['missing', 'generating', 'ready', 'failed'].includes(String(segment.status))
+            ? String(segment.status) as AudioStatus : 'missing',
+        })),
         exercise: exercise
           ? {
               id: Number(exercise.id),
@@ -175,6 +185,29 @@ export async function submitExerciseAttempt(exerciseId: number, answer: JsonValu
   if (error) throw error
   const result = data as Record<string, unknown>
   return { correct: result.correct === null ? null : Boolean(result.correct), submitted: Boolean(result.submitted), message: String(result.message), explanation: String(result.explanation) }
+}
+
+export async function markExerciseHintUsed(exerciseId: number): Promise<void> {
+  const { error } = await requireClient().rpc('mark_exercise_hint_used', { p_exercise_id: exerciseId })
+  if (error) throw error
+}
+
+export async function revealExerciseAnswer(exerciseId: number): Promise<ExerciseAnswerReveal> {
+  const { data, error } = await requireClient().rpc('reveal_exercise_answer', { p_exercise_id: exerciseId })
+  if (error) throw error
+  const result = data as Record<string, unknown>
+  return {
+    answer: result.answer as JsonValue,
+    explanation: String(result.explanation ?? ''),
+    assisted: Boolean(result.assisted),
+  }
+}
+
+export async function setLessonCanDoCheck(lessonId: number, itemKey: string, checked: boolean): Promise<void> {
+  const { error } = await requireClient().rpc('set_lesson_can_do_check', {
+    p_lesson_id: lessonId, p_item_key: itemKey, p_checked: checked,
+  })
+  if (error) throw error
 }
 
 export async function saveLessonPosition(lessonId: number, position: number): Promise<void> {
@@ -217,9 +250,9 @@ export async function setLessonUnlock(studentId: string, lessonId: number, unloc
   if (error) throw error
 }
 
-export async function getLessonAudioUrl(blockId: number, variant: AudioVariant): Promise<string> {
+export async function getLessonAudioUrl(targetId: number, variant: AudioVariant, target: 'block' | 'segment' = 'block'): Promise<string> {
   const { data, error } = await requireClient().functions.invoke('get-lesson-audio-url', {
-    body: { blockId, variant }
+    body: target === 'segment' ? { segmentId: targetId, variant } : { blockId: targetId, variant }
   })
   if (error) throw new Error('Não foi possível carregar o áudio.')
   const url = (data as { url?: unknown } | null)?.url

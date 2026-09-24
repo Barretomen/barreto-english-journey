@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, Image, Mic2, Sparkles } from 'lucide-react'
+import { ArrowLeft, Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components/Button'
-import { LessonAudioPlayer } from '../components/LessonAudioPlayer'
 import { LoadingState } from '../components/LoadingState'
 import { ProgressBar } from '../components/ProgressBar'
 import { StatePanel } from '../components/StatePanel'
 import { useAuth } from '../features/auth/AuthContext'
 import { evaluateAnswer } from '../features/lessons/logic'
-import { completeLesson, getJourney, getLesson, getLessonVisualUrl, saveLessonPosition, submitExerciseAttempt } from '../features/lessons/repository'
+import { LessonContentBlock } from '../features/lessons/LessonSections'
+import { completeLesson, getJourney, getLesson, markExerciseHintUsed, revealExerciseAnswer, saveLessonPosition, submitExerciseAttempt } from '../features/lessons/repository'
 import { useAsyncResource } from '../hooks/useAsyncResource'
-import type { AudioStatus, JsonValue, LessonBlock } from '../types/domain'
+import type { JsonValue, LessonBlock } from '../types/domain'
 
 function readText(content: Record<string, JsonValue>, key: string): string {
   const value = content[key]
@@ -21,60 +21,19 @@ function jsonList(value: JsonValue | undefined): JsonValue[] {
   return Array.isArray(value) ? value : []
 }
 
-function audioStatus(block: LessonBlock): AudioStatus {
-  return block.audio?.status ?? 'missing'
-}
-
-function ContentValue({ value }: { value: JsonValue }) {
-  if (value === null || value === '') return null
-  if (typeof value === 'string' || typeof value === 'number') return <p>{String(value)}</p>
-  if (typeof value === 'boolean') return <p>{value ? 'Sim' : 'Não'}</p>
-  if (Array.isArray(value)) {
-    return <ul className="content-list">{value.map((item, index) => <li key={index}>{typeof item === 'object' && item !== null ? <ContentValue value={item} /> : String(item)}</li>)}</ul>
-  }
-  return <dl className="content-details">{Object.entries(value).map(([key, item]) => <div key={key}><dt>{key.replaceAll('_', ' ')}</dt><dd><ContentValue value={item} /></dd></div>)}</dl>
-}
-
-function LessonVisual({ externalId }: { externalId: string }) {
-  const { data, error, loading, reload } = useAsyncResource(() => getLessonVisualUrl(externalId), [externalId])
-  if (loading) return <div className="visual-placeholder"><Image aria-hidden="true" />Carregando apoio visual…</div>
-  if (error || !data) return <div className="visual-placeholder"><Image aria-hidden="true" /><span>O visual não carregou.</span><button type="button" onClick={() => void reload()}>Tentar novamente</button></div>
-  return <figure className="lesson-visual"><img src={data.url} alt={data.alt} /><figcaption>{data.alt}</figcaption></figure>
-}
-
-function ContentBlock({ block }: { block: LessonBlock }) {
-  const content = block.content
-  const player = block.audio?.required ? <LessonAudioPlayer blockId={block.id} status={audioStatus(block)} /> : null
-  const [showTranscript, setShowTranscript] = useState(false)
-  if (block.type === 'visual') {
-    const visualId = readText(content, 'visual_external_id')
-    return <article className="lesson-block visual-card"><span className="section-kicker">APOIO VISUAL</span>{block.title ? <h2>{block.title}</h2> : null}{visualId ? <LessonVisual externalId={visualId} /> : <p>Visual indisponível.</p>}</article>
-  }
-  if (block.type === 'vocabulary') {
-    const items = jsonList(content.items)
-    return <article className="lesson-block vocabulary-card"><span className="section-kicker">VOCABULÁRIO</span><h2>{block.title}</h2>{items.length ? <div className="vocabulary-list">{items.map((item, index) => <div key={index}><ContentValue value={item} /></div>)}</div> : <ContentValue value={content} />}{player}</article>
-  }
-  if (block.type === 'speaking' || block.type === 'pronunciation') {
-    return <article className="lesson-block speaking-card"><Mic2 aria-hidden="true" /><div><span className="section-kicker">{block.type === 'speaking' ? 'SPEAKING' : 'PRONÚNCIA'}</span><h2>{block.title}</h2><ContentValue value={content} />{player}</div></article>
-  }
-  if (block.type === 'listening') {
-    return <article className="lesson-block listening-card"><span className="section-kicker">LISTENING</span><h2>{block.title}</h2>{player}<button className="transcript-toggle" type="button" aria-expanded={showTranscript} onClick={() => setShowTranscript((current) => !current)}><ChevronDown aria-hidden="true" />{showTranscript ? 'Ocultar transcrição' : 'Ver transcrição'}</button>{showTranscript ? <div className="transcript"><p>{block.audio?.transcript || readText(content, 'script')}</p></div> : null}{readText(content, 'task') ? <p><strong>Tarefa:</strong> {readText(content, 'task')}</p> : null}</article>
-  }
-  const labels: Record<string, string> = {
-    overview: 'OBJETIVO', grammar: 'GRAMÁTICA', language_focus: 'LANGUAGE FOCUS', reading: 'LEITURA',
-    examples: 'EXEMPLOS', practice: 'PRÁTICA GUIADA', production: 'PRODUÇÃO', assessment: 'AVALIAÇÃO', checkpoint: 'CONCLUÍDO',
-  }
-  const remaining = Object.fromEntries(Object.entries(content).filter(([key]) => key !== 'body')) as Record<string, JsonValue>
-  return <article className={`lesson-block lesson-block--${block.type}`}><span className="section-kicker">{labels[block.type] ?? 'APRENDA'}</span>{block.title ? <h2>{block.title}</h2> : null}{readText(content, 'body') ? <p className="lesson-copy">{readText(content, 'body')}</p> : null}{Object.keys(remaining).length ? <ContentValue value={remaining} /> : null}{player}</article>
-}
-
 function ExerciseBlock({ block, demo, onAnswered }: { block: LessonBlock; demo: boolean; onAnswered: (result: boolean | null) => void }) {
   const exercise = block.exercise!
   const [answer, setAnswer] = useState<JsonValue>('')
   const [feedback, setFeedback] = useState<{ correct: boolean | null; message: string; explanation?: string } | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [showHint, setShowHint] = useState(false)
+  const [showTranslation, setShowTranslation] = useState(false)
+  const [revealedAnswer, setRevealedAnswer] = useState<{ answer: JsonValue; explanation: string } | null>(null)
   const subjective = exercise.gradingMode === 'subjective'
   const tokens = jsonList(exercise.content.tokens)
+  const promptTranslation = readText(exercise.content, 'prompt_translation')
+  const optionTranslations = exercise.content.option_translations && typeof exercise.content.option_translations === 'object' && !Array.isArray(exercise.content.option_translations)
+    ? exercise.content.option_translations : {}
 
   async function checkAnswer() {
     setSubmitting(true)
@@ -92,17 +51,35 @@ function ExerciseBlock({ block, demo, onAnswered }: { block: LessonBlock; demo: 
   }
 
   const setValue = (value: JsonValue) => { setAnswer(value); setFeedback(null) }
+  async function showExerciseHint() {
+    try { await markExerciseHintUsed(exercise.id); setShowHint(true) }
+    catch { setFeedback({ correct: false, message: 'Não foi possível abrir a dica agora.' }) }
+  }
+  async function revealAnswer() {
+    try {
+      const result = await revealExerciseAnswer(exercise.id)
+      setRevealedAnswer({ answer: result.answer, explanation: result.explanation })
+      onAnswered(false)
+    } catch { setFeedback({ correct: false, message: 'Envie uma tentativa antes de revelar a resposta.' }) }
+  }
   return <article className="lesson-block exercise-card">
     <span className="section-kicker">{subjective ? 'PRODUZA' : 'PRATIQUE'}</span>
     <h2>{exercise.prompt}</h2>
+    {promptTranslation ? <><button className="text-toggle" type="button" aria-expanded={showTranslation} onClick={() => setShowTranslation((current) => !current)}>{showTranslation ? 'Ocultar tradução' : 'Ver tradução'}</button>{showTranslation ? <p className="exercise-translation" lang="pt-BR">{promptTranslation}</p> : null}</> : null}
     {exercise.instruction ? <p>{exercise.instruction}</p> : null}
     {tokens.length ? <div className="token-bank" aria-label="Palavras disponíveis">{tokens.map((token, index) => <span key={index}>{typeof token === 'object' ? JSON.stringify(token) : String(token)}</span>)}</div> : null}
-    {exercise.options.length > 0 ? <div className="option-list">{exercise.options.map((option) => <label key={option.id} className={answer === option.value ? 'option is-selected' : 'option'}><input type="radio" name={`exercise-${exercise.id}`} value={option.value} checked={answer === option.value} onChange={() => setValue(option.value)} /><span>{option.label}</span></label>)}</div>
+    {exercise.options.length > 0 ? <div className="option-list">{exercise.options.map((option) => {
+      const translatedOption = optionTranslations[option.value]
+      return <label key={option.id} className={answer === option.value ? 'option is-selected' : 'option'}><input type="radio" name={`exercise-${exercise.id}`} value={option.value} checked={answer === option.value} onChange={() => setValue(option.value)} /><span>{option.label}{showTranslation && typeof translatedOption === 'string' ? <small>{translatedOption}</small> : null}</span></label>
+    })}</div>
       : exercise.type === 'true_false' ? <div className="option-list"><label className={answer === true ? 'option is-selected' : 'option'}><input type="radio" name={`exercise-${exercise.id}`} checked={answer === true} onChange={() => setValue(true)} /><span>Verdadeiro</span></label><label className={answer === false ? 'option is-selected' : 'option'}><input type="radio" name={`exercise-${exercise.id}`} checked={answer === false} onChange={() => setValue(false)} /><span>Falso</span></label></div>
       : subjective ? <textarea className="answer-input answer-textarea" name={`exercise-${exercise.id}`} aria-label="Sua resposta" value={typeof answer === 'string' ? answer : ''} placeholder="Escreva sua resposta" onChange={(event) => setValue(event.target.value)} />
       : <input className="answer-input" name={`exercise-${exercise.id}`} aria-label="Sua resposta" value={typeof answer === 'string' ? answer : ''} placeholder={readText(exercise.content, 'placeholder') || 'Digite sua resposta'} onChange={(event) => setValue(event.target.value)} />}
     {feedback ? <div className={feedback.correct === false ? 'feedback feedback--incorrect' : 'feedback feedback--correct'}>{feedback.correct === true ? <Check aria-hidden="true" /> : null}<span>{feedback.message}{feedback.explanation ? <small>{feedback.explanation}</small> : null}</span></div> : null}
+    {showHint ? <div className="exercise-help"><strong>Dica:</strong> {readText(exercise.content, 'hint_translation') || readText(exercise.content, 'hint') || 'Volte ao exemplo anterior e observe a expressão usada.'}</div> : null}
+    {revealedAnswer ? <div className="exercise-help exercise-help--answer"><strong>Resposta de referência:</strong> {typeof revealedAnswer.answer === 'string' || typeof revealedAnswer.answer === 'number' || typeof revealedAnswer.answer === 'boolean' ? String(revealedAnswer.answer) : JSON.stringify(revealedAnswer.answer)}<small>{revealedAnswer.explanation}</small></div> : null}
     <Button variant="signal" onClick={() => void checkAnswer()} disabled={submitting || answer === ''}>{submitting ? 'Enviando…' : subjective ? 'Enviar resposta' : 'Verificar resposta'}</Button>
+    {feedback ? <div className="exercise-actions"><button type="button" onClick={() => void showExerciseHint()} disabled={showHint}>Ver dica</button><button type="button" onClick={() => void revealAnswer()} disabled={Boolean(revealedAnswer)}>Revelar resposta</button></div> : null}
   </article>
 }
 
@@ -173,7 +150,7 @@ export default function LessonPage() {
     <header className="lesson-hero"><div><span className="field-label"><i />{lesson.levelCode} · MÓDULO {lesson.moduleNumber} · AULA {lesson.moduleLessonNumber}</span><h1>{lesson.title}</h1><p>{lesson.summary}</p></div><span className="xp-badge"><Sparkles aria-hidden="true" />+{lesson.xpReward} XP</span></header>
     {lesson.blocks.length > 0 ? <ProgressBar value={Math.round((step / lesson.blocks.length) * 100)} label={atFinish ? 'Pronta para concluir' : `Etapa ${step + 1} de ${lesson.blocks.length}`} /> : null}
     {lesson.blocks.length === 0 ? <StatePanel title="Conteúdo indisponível">Esta lição ainda não possui etapas publicadas.</StatePanel> : null}
-    {currentBlock ? <section className="lesson-stream lesson-stream--paged" aria-live="polite">{currentBlock.exercise ? <ExerciseBlock key={currentBlock.id} block={currentBlock} demo={isDemo} onAnswered={(result) => setAnswered((current) => ({ ...current, [currentBlock.exercise!.id]: result }))} /> : <ContentBlock key={currentBlock.id} block={currentBlock} />}</section> : null}
+    {currentBlock ? <section className="lesson-stream lesson-stream--paged" aria-live="polite">{currentBlock.exercise ? <ExerciseBlock key={currentBlock.id} block={currentBlock} demo={isDemo} onAnswered={(result) => setAnswered((current) => ({ ...current, [currentBlock.exercise!.id]: result }))} /> : <LessonContentBlock key={currentBlock.id} block={currentBlock} lessonId={lesson.id} canDoChecks={lesson.canDoChecks} />}</section> : null}
     {atFinish ? <section className="lesson-finish"><h2>Pronta para concluir?</h2><p>Seu progresso, XP e próximas revisões serão registrados.</p>{completion ? <><div className="feedback feedback--correct"><Check aria-hidden="true" />{completion.message}</div>{completion.nextLessonId ? <Link className="button button--signal" to={`/lesson/${completion.nextLessonId}`}>Ir para a próxima lição <ChevronRight aria-hidden="true" /></Link> : <Link className="button button--secondary" to="/journey">Ver jornada</Link>}</> : <Button variant="signal" onClick={() => void finishLesson()}>Concluir aula</Button>}{completionError ? <div className="feedback feedback--incorrect">{completionError}</div> : null}<small>{Object.keys(answered).length} de {exercises.length} atividades enviadas nesta sessão.</small></section> : null}
     {lesson.blocks.length > 0 ? <nav className="lesson-stepper" aria-label="Navegar pelo conteúdo da lição">
       <button type="button" onClick={() => void moveTo(step - 1)} disabled={step === 0}><ChevronLeft aria-hidden="true" />Anterior</button>

@@ -32,8 +32,15 @@ describe('LessonAudioPlayer', () => {
 
   it('shows an unavailable state without requesting a URL', () => {
     render(<LessonAudioPlayer blockId={9} status="missing" />)
-    expect(screen.getByText('Áudio indisponível.')).toBeInTheDocument()
+    expect(screen.getByText('Áudio ainda não preparado.')).toBeInTheDocument()
     expect(mockedGetUrl).not.toHaveBeenCalled()
+  })
+
+  it('distinguishes generating and failed states', () => {
+    const { rerender } = render(<LessonAudioPlayer blockId={9} status="generating" />)
+    expect(screen.getByText('Áudio sendo preparado.')).toBeInTheDocument()
+    rerender(<LessonAudioPlayer blockId={9} status="failed" />)
+    expect(screen.getByText(/precisa ser revisado/)).toBeInTheDocument()
   })
 
   it('loads separate signed URLs for normal and slow audio', async () => {

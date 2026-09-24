@@ -1,6 +1,7 @@
 import type { SupabaseClient } from 'npm:@supabase/supabase-js@2.57.4'
 import { getSpeechSettings, synthesizeSpeech } from './azureSpeechService.ts'
 import { uploadAudio } from './storageService.ts'
+import { requireTtsText } from '../_shared/ttsText.ts'
 
 interface ExerciseRow {
   content: Record<string, unknown> | null
@@ -34,6 +35,8 @@ function stringValue(value: unknown): string | null {
 }
 
 export function extractSpeechText(block: AudioBlockRow): string | null {
+  const explicitTtsText = stringValue(block.content.tts_text)
+  if (explicitTtsText) return explicitTtsText
   const transcript = stringValue(block.transcript)
   if (transcript) return transcript
   const exercise = Array.isArray(block.exercises) ? block.exercises[0] : block.exercises
@@ -58,10 +61,11 @@ function safeMessage(reason: unknown): string {
 }
 
 export async function generateBlockAudio(client: SupabaseClient, block: AudioBlockRow): Promise<GenerationResult> {
-  const text = extractSpeechText(block)
-  if (!text) return { blockId: block.id, status: 'skipped', message: 'No English audio text found.' }
+  const rawText = extractSpeechText(block)
+  if (!rawText) return { blockId: block.id, status: 'skipped', message: 'No English audio text found.' }
 
   try {
+    const text = requireTtsText(rawText)
     const settings = getSpeechSettings(block.tts_config ?? {})
     const textHash = await sha256(JSON.stringify({ text, ...settings }))
 

@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { readFile, readdir } from 'node:fs/promises'
 import path from 'node:path'
+import { requireTtsText } from '../supabase/functions/_shared/ttsText'
 
 type JsonRecord = Record<string, unknown>
 type CurriculumLesson = JsonRecord & { id: string; title: string }
@@ -17,7 +18,16 @@ interface BlockInput {
   audio_role: string | null
   transcript: string | null
   metadata: JsonRecord
+  audio_segments?: AudioSegmentInput[]
   exercise?: ExerciseInput
+}
+
+interface AudioSegmentInput {
+  external_id: string
+  item_key: string
+  segment_kind: 'term' | 'example' | 'pronunciation' | 'listening' | 'speaking'
+  position: number
+  speech_text: string
 }
 
 interface ExerciseInput {
@@ -33,6 +43,34 @@ interface ExerciseInput {
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
 const EXPECTED_LESSONS: Record<string, number> = { A1: 48, A2: 48, B1: 60, B2: 60, C1: 72, C2: 72 }
 const AUTOMATIC_TYPES = new Set(['multiple_choice', 'fill_blank', 'reorder_words', 'true_false'])
+
+const A1_01_PT = {
+  canDo: [
+    'Consigo cumprimentar alguém.',
+    'Consigo escolher uma saudação de acordo com o horário.',
+    'Consigo me despedir com educação.',
+  ],
+  grammarExplanation: 'Em inglês, estas saudações são expressões fixas. Use “Good morning” pela manhã, “Good afternoon” à tarde e “Good evening” ao encontrar alguém à noite. “Good night” normalmente é uma despedida.',
+  grammarExamples: ['Good morning, Ana.', 'Good evening. Welcome!', 'Good night. See you tomorrow.'],
+  pronunciation: [
+    'Perceba a sílaba forte em GOOD MORning e good EVEning.',
+    'Repita as saudações curtas sem acrescentar uma vogal no final.',
+  ],
+  listeningTask: 'Quem diz “Good morning” primeiro?',
+  listeningTranslation: '— Bom dia! Eu sou Sarah. Prazer em conhecer você. — Oi, Sarah! Eu sou Daniel. Prazer em conhecer você também. — Tchau, Daniel. — Tchau!',
+  speaking: 'Diga três saudações em voz alta: uma para a manhã, uma para a tarde e uma para a noite.',
+  exampleTranslations: [
+    'Olá! Prazer em conhecer você.', 'Oi, Ana!', 'Bom dia, Sr. Brown.',
+    'Boa tarde, pessoal.', 'Boa noite. Bem-vindo(a)!', 'Tchau! Vejo você amanhã.',
+    'Boa noite. Durma bem.', 'Obrigado(a) pela ajuda.',
+  ],
+  exercises: {
+    'A1-01-E01': { prompt_translation: 'São 9h. O que você diz?', option_translations: { morning: 'Bom dia', evening: 'Boa noite ao encontrar alguém', night: 'Boa noite ao se despedir' } },
+    'A1-01-E02': { prompt_translation: 'Você está indo embora no fim da noite. O que soa natural?', option_translations: { good_night: 'Boa noite ao se despedir', afternoon: 'Boa tarde', hello: 'Olá' } },
+    'A1-01-E03': { prompt_translation: '_____! Prazer em conhecer você.', hint_translation: 'Uma saudação básica.' },
+    'A1-01-E04': { prompt_translation: '“Good evening” é usado quando você encontra alguém à noite.' },
+  } as Record<string, JsonRecord>,
+} as const
 
 function requiredEnv(name: string): string {
   const value = process.env[name]?.trim()
@@ -109,9 +147,13 @@ function exerciseBlock(lessonId: string, exercise: JsonRecord): Omit<BlockInput,
 
 function blocksForA1(lesson: CurriculumLesson, visualExternalId: string): BlockInput[] {
   const blocks: BlockInput[] = []
+  const isGolden = lesson.id === 'A1-01'
+  const vocabulary = asArray<JsonRecord>(lesson.vocabulary).map((item, index) => isGolden
+    ? { ...item, example_translation: A1_01_PT.exampleTranslations[index] ?? '' }
+    : item)
   addBlock(blocks, lesson.id, {
     block_type: 'overview', title: 'Objetivo da lição',
-    content: { body: lesson.goal, can_do: lesson.can_do },
+    content: { body: lesson.goal, can_do: lesson.can_do, ...(isGolden ? { can_do_pt: A1_01_PT.canDo } : {}) },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
   }, 'overview', 1)
   addBlock(blocks, lesson.id, {
@@ -120,34 +162,56 @@ function blocksForA1(lesson: CurriculumLesson, visualExternalId: string): BlockI
     audio_required: false, audio_role: null, transcript: null, metadata: {},
   }, 'visual', 2)
   addBlock(blocks, lesson.id, {
-    block_type: 'grammar', title: 'Gramática', content: { items: lesson.grammar },
+    block_type: 'grammar', title: 'Gramática', content: {
+      items: lesson.grammar,
+      ...(isGolden ? { explanation: A1_01_PT.grammarExplanation, examples: A1_01_PT.grammarExamples } : {}),
+    },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
-  }, 'grammar', 3)
-  if (asArray(lesson.vocabulary).length) addBlock(blocks, lesson.id, {
-    block_type: 'vocabulary', title: 'Vocabulário', content: { items: lesson.vocabulary },
+  }, 'grammar', isGolden ? 5 : 3)
+  if (vocabulary.length) addBlock(blocks, lesson.id, {
+    block_type: 'vocabulary', title: 'Vocabulário', content: { items: vocabulary },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
-  }, 'vocabulary', 4)
+    audio_segments: vocabulary.flatMap((item, index) => {
+      const term = text(item.term)
+      const example = text(item.example)
+      return [
+        ...(term ? [{ external_id: `${lesson.id}-AUDIO-VOCAB-${index + 1}-TERM`, item_key: `vocabulary-${index + 1}`, segment_kind: 'term' as const, position: index * 2 + 1, speech_text: term }] : []),
+        ...(example ? [{ external_id: `${lesson.id}-AUDIO-VOCAB-${index + 1}-EXAMPLE`, item_key: `vocabulary-${index + 1}`, segment_kind: 'example' as const, position: index * 2 + 2, speech_text: example }] : []),
+      ]
+    }),
+  }, 'vocabulary', isGolden ? 3 : 4)
   const pronunciation = asArray<string>(lesson.pronunciation)
   addBlock(blocks, lesson.id, {
-    block_type: 'pronunciation', title: 'Pronúncia', content: { items: pronunciation },
+    block_type: 'pronunciation', title: 'Pronúncia', content: { items: pronunciation, ...(isGolden ? { items_pt: A1_01_PT.pronunciation } : {}) },
     audio_required: true, audio_role: 'pronunciation', transcript: pronunciation.join(' '), metadata: {},
-  }, 'pronunciation', 5)
+    audio_segments: pronunciation.map((item, index) => ({
+      external_id: `${lesson.id}-AUDIO-PRON-${index + 1}`, item_key: `pronunciation-${index + 1}`,
+      segment_kind: 'pronunciation', position: index + 1, speech_text: item,
+    })),
+  }, 'pronunciation', isGolden ? 7 : 5)
   const listening = asRecord(lesson.listening)
   addBlock(blocks, lesson.id, {
-    block_type: 'listening', title: 'Listening', content: listening,
+    block_type: 'listening', title: 'Listening', content: {
+      ...listening,
+      ...(isGolden ? { task_translation: A1_01_PT.listeningTask, script_translation: A1_01_PT.listeningTranslation } : {}),
+    },
     audio_required: true, audio_role: 'listening', transcript: text(listening.script), metadata: {},
-  }, 'listening', 6)
+  }, 'listening', isGolden ? 9 : 6)
   const exercises = asArray<JsonRecord>(lesson.exercises)
   for (let exerciseIndex = 0; exerciseIndex < exercises.length; exerciseIndex += 1) {
-    const exercise = exercises[exerciseIndex]
-    addBlock(blocks, lesson.id, exerciseBlock(lesson.id, exercise), `exercise-${text(exercise.id)}`, 7 + exerciseIndex)
+    const sourceExercise = exercises[exerciseIndex]
+    const exercise = isGolden
+      ? { ...sourceExercise, ...(A1_01_PT.exercises[text(sourceExercise.id)] ?? {}) }
+      : sourceExercise
+    const goldenPositions = [4, 6, 8, 10]
+    addBlock(blocks, lesson.id, exerciseBlock(lesson.id, exercise), `exercise-${text(exercise.id)}`, isGolden ? goldenPositions[exerciseIndex] : 7 + exerciseIndex)
   }
   addBlock(blocks, lesson.id, {
-    block_type: 'speaking', title: 'Speaking', content: { prompt: lesson.speaking },
+    block_type: 'speaking', title: 'Speaking', content: { prompt: lesson.speaking, ...(isGolden ? { prompt_translation: A1_01_PT.speaking } : {}) },
     audio_required: true, audio_role: 'speaking_prompt', transcript: text(lesson.speaking), metadata: {},
   }, 'speaking', 7 + exercises.length)
   addBlock(blocks, lesson.id, {
-    block_type: 'assessment', title: 'Eu consigo', content: { can_do: lesson.can_do },
+    block_type: 'assessment', title: 'Eu consigo', content: { can_do: lesson.can_do, ...(isGolden ? { can_do_pt: A1_01_PT.canDo } : {}) },
     audio_required: false, audio_role: null, transcript: null, metadata: {},
   }, 'assessment', 8 + exercises.length)
   return blocks
@@ -232,6 +296,24 @@ async function upsertLessonContent(client: SupabaseClient, lessonDbId: number, l
   if (staleBlocks.length) {
     const { error: staleDeleteError } = await client.from('lesson_blocks').delete().in('id', staleBlocks.map((block) => block.id))
     if (staleDeleteError) throw staleDeleteError
+  }
+
+  for (const block of blocks) {
+    const blockId = blockIds.get(block.external_id)
+    if (!blockId) throw new Error(`Missing block id after upsert: ${block.external_id}`)
+    const segments = block.audio_segments ?? []
+    if (segments.length) {
+      const { error: segmentError } = await client.from('lesson_audio_segments').upsert(
+        segments.map((segment) => ({
+          ...segment,
+          lesson_block_id: blockId,
+          normalized_text: requireTtsText(segment.speech_text),
+          metadata: {},
+        })),
+        { onConflict: 'external_id' },
+      )
+      if (segmentError) throw segmentError
+    }
   }
 
   for (const block of blocks) {

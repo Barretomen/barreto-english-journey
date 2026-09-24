@@ -113,7 +113,18 @@ export interface LessonBlock {
     role?: string | null
     transcript?: string | null
   }
+  audioSegments?: LessonAudioSegment[]
   exercise: Exercise | null
+}
+
+export interface LessonAudioSegment {
+  id: number
+  externalId: string
+  itemKey: string
+  kind: 'term' | 'example' | 'pronunciation' | 'listening' | 'speaking'
+  position: number
+  speechText: string
+  status: AudioStatus
 }
 
 export interface LessonDetail {
@@ -134,6 +145,8 @@ export interface LessonDetail {
   savedPosition?: number
   canDo?: JsonValue[]
   metadata?: Record<string, JsonValue>
+  contentVersion?: string | null
+  canDoChecks?: Record<string, boolean>
   blocks: LessonBlock[]
 }
 
@@ -142,6 +155,12 @@ export interface ExerciseFeedback {
   submitted: boolean
   message: string
   explanation: string
+}
+
+export interface ExerciseAnswerReveal {
+  answer: JsonValue
+  explanation: string
+  assisted: boolean
 }
 
 export interface LessonCompletion {
